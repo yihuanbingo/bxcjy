@@ -1,0 +1,95 @@
+{include file='admin/library/page_header.htm'}
+
+<div class="col_main">
+    <div class="main_hd">
+        <div class="title_tab">
+            <ul class="tab_navs">
+                <li {if $act==default||new_account}class="selected"{/if}><a href="/admin/activity.php">验证码列表</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main_content">
+
+        {if $act==default}
+        <form action="/admin/account.php" method="get" enctype="multipart/form-data" name="search">
+            <input type="hidden" name="page" value="1">
+        </form>
+        <table class="info_list" cellspacing="1" width="100%">
+            <tr>
+                <th width="240px">活动ID</th>
+                <th width="100px">验证码</th>
+                <th width="240px">金额</th>
+                <th width="240px">是否使用</th>
+                <th width="240px">使用账号</th>
+                <th width="120px">操作</th>
+            </tr>
+            {foreach from=$list.res item=l}
+            <td>{$l.activity_id}</td>
+            <td>{$l.valifycode}</td>
+            <td>{$l.money_num}</td>
+            <td>{if $l.is_used==0}已使用{else}未使用{/if}</td>
+            <td>{$l.use_account}</td>
+            <!--<td>-->
+            <!--<a href="javascript:void(0)" onclick="javascript:deleteAccount({$l.account_id});">-->
+            <!--<img src="/templates/images/icon/icon_trash.gif" title="删除">-->
+            <!--</a>-->
+            <!--</td>-->
+            <td align="center">
+                <div id="edit_view_{$r.info_id}">
+                    <a href="/admin/info.php?key=operate&info_id={$r.info_id}">
+                        <img src="/templates/images/icon/icon_edit.gif" title="编辑">
+                    </a>&ensp;
+                    <a href="javascript:void(0)" onclick="javascript:deleteInfo({$r.info_id});">
+                        <img src="/templates/images/icon/icon_trash.gif" title="删除">
+                    </a>
+                </div>
+            </td>
+            </tr>
+            {/foreach}
+        </table>
+        <div class="clear height10"></div>
+        <div class="float_r">
+            {include file="admin/library/page.htm"}
+        </div>
+        <a href="/admin/activity.php?act=add_activity"><input type="button" class="btn_primary" value="新建活动"></a>
+        {/if}
+        {if $act==add_activity}
+        <form action="/admin/activity.php" method="post" enctype="multipart/form-data" id="add_activity" class="form">
+            <p class="f_title">活动名称：<span class="color999 fontSize12">（活动名不多于30个字符）</span>
+
+            <p class="f_content"><input type="text" name="name" class="input">
+
+            <p class="f_title">活动描述：
+
+            <p class="f_content">
+                <textarea type="text" name="descrpition" class="input"></textarea>
+
+            <p class="f_title">送礼方式：
+
+            <p class="f_content">
+                <select name="type" id="gift_type">
+                    <option value="1">话费</option>
+                </select>
+            <p class="f_title">送出金额类型：
+
+            <p class="f_content">
+                <select name="type" id="money_type">
+                    <option value="1">固定金额</option>
+                    <option value="2">随机金额</option>
+                </select>
+            <p class="f_title">送出金额数：
+
+            <p class="f_content"><input type="text" name="money_num" class="input">
+
+            <p class="f_title">图片地址：
+
+            <p class="f_content"><input type="text" name="image_address" class="input">
+
+                <input name="act" value="add_activity" style="display:none">
+                <input name="key" value="do_add" style="display:none">
+
+            <p class="f_title">
+                <input type="button" class="btn_primary" value="确认" onclick="javascript:AjaxSubmit('add_activity');">
+        </form>
+        {/if}
