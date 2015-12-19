@@ -1,0 +1,31 @@
+{include file='admin/library/page_header.htm'}
+
+
+	<div class="col_main">
+	  <div class="main_hd">
+	    <div class="title_tab">
+		  <ul class="tab_navs">
+		    {if $act==recharge}
+		    <li {if $key==recharge || $key==act_recharge || $key==rechargeRespond}class="selected"{/if}><a href="/user/points">在线充值</a></li>
+			<li {if $key==rechargelog}class="selected"{/if}><a href="/user/points?key=rechargelog">充值记录</a></li>
+		    {/if}
+		    {if $act==withdraw}
+		    <li {if $key==set}class="selected"{/if}><a href="/user/points?act=withdraw">账号设置</a></li>
+			<li {if $key==apply}class="selected"{/if}><a href="/user/points?act=withdraw&key=apply">申请提现</a></li>
+			<li {if $key==withdrawlog}class="selected"{/if}><a href="/user/points?act=withdraw&key=withdrawlog">提现记录</a></li>
+		    {/if}
+			{if $act==price}
+			  <li class="selected"><a href="/user/points?act=price">单题微豆数设置</a></li>
+			{/if}
+			{if $act==log}
+			  <li {if $key==use}class="selected"{/if}><a href="/user/points?act=log">使用记录</a></li>
+			  <li {if $key==get}class="selected"{/if}><a href="/user/points?act=log&key=get">获取记录</a></li>
+			{/if}
+		  </ul>
+		</div>
+	  </div>
+	
+<div class="main_content">	  
+</div>
+
+</div>

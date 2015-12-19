@@ -1,0 +1,28 @@
+#RewriteEngine on
+#RewriteBase /
+#
+#RewriteRule ^index\.html$                             index\.php         [QSA,L]
+#RewriteRule ^property/property$                       property/property\.php         [QSA,L]
+#RewriteRule ^property/notice$                         property/notice\.php         [QSA,L]
+#RewriteRule ^property/askrepair$                      property/askrepair\.php         [QSA,L]
+#RewriteRule ^property/express$                        property/express\.php         [QSA,L]
+#RewriteRule ^property/bind$                           property/bind\.php         [QSA,L]
+#RewriteRule ^property/intro$                          property/intro\.php         [QSA,L]
+#RewriteRule ^property/account$                        property/account\.php         [QSA,L]
+#RewriteRule ^property/park$                           property/park\.php         [QSA,L]
+#RewriteRule ^property/advice$                         property/advice\.php         [QSA,L]
+#RewriteRule ^property/login$                          property/login\.php         [QSA,L]
+#
+#RewriteRule ^index\.html$                             index\.php         [QSA,L]
+#RewriteRule ^represent/represent$                       represent/represent\.php         [QSA,L]
+#RewriteRule ^represent/notice$                         represent/notice\.php         [QSA,L]
+#RewriteRule ^represent/askrepair$                      represent/askrepair\.php         [QSA,L]
+#RewriteRule ^represent/express$                        represent/express\.php         [QSA,L]
+#RewriteRule ^represent/bind$                           represent/bind\.php         [QSA,L]
+#RewriteRule ^represent/intro$                          represent/intro\.php         [QSA,L]
+#RewriteRule ^represent/account$                        represent/account\.php         [QSA,L]
+#RewriteRule ^represent/park$                           represent/park\.php         [QSA,L]
+#RewriteRule ^represent/advice$                         represent/advice\.php         [QSA,L]
+#RewriteRule ^represent/login$                          represent/login\.php         [QSA,L]
+#RewriteRule ^represent/subscribe$                      represent/subscribe\.php         [QSA,L]
+#RewriteRule ^represent/lifenav$                        represent/lifenav\.php         [QSA,L]

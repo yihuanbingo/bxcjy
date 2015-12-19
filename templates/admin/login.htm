@@ -1,0 +1,20 @@
+{include file='admin/library/page_passport_header.htm'}
+<style type="text/css">
+ .login_box{
+ width:500px;margin:150px auto;background:#fff;border-radius:5px;border:1px solid #ccc
+ }
+ .login_box h2{
+ width:480px;padding-left:20px;height:45px;line-height:45px;background:#f3f3f3;border-bottom:1px solid #ccc
+ }
+</style>
+<div class="login_box">
+ <h2>
+   管理员登录
+ </h2>
+ <form action="/admin/login.php" method="post" enctype="multipart/form-data" class="form" id="login" style="padding:20px;">
+   <p class="f_content">用户名：<input type="text" name="account" class="input">
+   <p class="f_content">密&ensp;&ensp;码：<input type="password" name="passwd" class="input">
+   <input type="hidden" name="act" value="act_default">
+   <p><input type="button" value="登 录" class="btn_primary" onclick="javascript:AjaxSubmit('login');">
+ </form>
+</div>

@@ -1,0 +1,268 @@
+{include file='admin/library/page_header.htm'}
+
+
+	<div class="col_main">
+	  <div class="main_hd">
+	    <div class="title_tab">
+		  <ul class="tab_navs">
+		    <li {if $act==send || $act==act_send}class="selected"{/if}><a href="/admin/masssend.php">群发管理</a></li>
+			<li {if $act==material}class="selected"{/if}><a href="/admin/masssend.php?act=material">图文信息</a></li>
+			<li {if $act==picture}class="selected"{/if}><a href="/admin/masssend.php?act=picture">图片素材</a></li>
+		  </ul>
+		</div>
+	  </div>
+
+<div class="main_content">
+ <!-- 群发操作 -->	 
+ {if $act==send}
+  <script type="text/javascript" src="/templates/js/DateDetailPicker.js"></script>
+  <form action="/admin/masssend.php?act=act_send" class="form" id="text" method="post" enctype="multipart/form-data">
+   <p class="f_title">图文ID：<span class="color999">（多图文消息请用-分隔，如1-2-3，则第1张为首图）</span></p>
+   <p class="f_content"><input type="text" class="input" name="articles"></p>
+   <p class="f_title">选择小区：<span class="color999">（可以向指定小区推送）</span></p>
+   <p class="f_content"><select name="community_id">
+    <option value="0">向所有小区</option>
+    {foreach from=$res item=r}<option value="{$r.community_id}">{$r.community_name}</option>{/foreach}
+	</select></p>
+   <p class="f_title">筛选时间：<span class="color999">（可以对某时间之后关注的用户发送）</span></p>
+   <p class="f_content"><input type="text" name="sendtime" class="input" onclick="fPopCalendar(event,this,this)" onfocus="this.select()" readonly="readonly" value="1970-01-01"></p> 
+   <input type="submit" class="btn_primary" value="确认提交">
+  </form>
+ {/if}
+ <!-- 群发已执行 -->
+ {if $act==act_send}
+   {if $msg.error==1}
+    错误提示：<font color="red">{$msg.data}</font>
+   {else}
+    {$msg.data}
+   {/if}
+ {/if}
+ <!-- 素材管理 -->
+ {if $act==material}
+  <!-- 显示图文列表 -->
+  {if $gid===list}
+   <style type="text/css">
+    .wxinner{
+	width:259px;
+	height:150px;
+	float:left;
+	padding-left:80px;
+	border:3px dashed #b8b8b8;
+	border-radius:5px;
+	}
+	.wxinner a:hover{
+	text-decoration:underline;
+	}
+	.wxinner .innerbox{
+	width:70px;
+	text-align:center;
+	float:left;
+	margin:40px 10px;
+	}
+	.wxinner .innerbox .singlebg{
+	width:50px;
+	height:56px;
+	margin:0 auto;
+	background:url(https://res.wx.qq.com/mpres/zh_CN/htmledition/comm_htmledition/style/page/media/media_list_z1e6be4.png) 0 0 no-repeat;
+	}
+	.wxinner .innerbox .manybg{
+	width:50px;
+	height:56px;
+	margin:0 auto;
+	background:url(https://res.wx.qq.com/mpres/zh_CN/htmledition/comm_htmledition/style/page/media/media_list_z1e6be4.png) 0 -133px no-repeat;
+	}
+   </style>
+   <div class="wxinner">
+    <div class="innerbox">
+	 <a href="/admin/masssend.php?act=material&type=many&gid=0">
+	 <div class="manybg"></div>
+	 多图文信息
+	 </a>
+	</div>
+    <div class="innerbox">
+	 <a href="/admin/masssend.php?act=material&type=single&gid=0">
+	 <div class="singlebg"></div>
+	 单图文信息
+	 </a>
+	</div>
+   </div>
+   {foreach $list.res as $k=>$r}
+    <div class="wxinner" style="width:323px;height:auto;border:1px solid #d3d3d3;padding:10px;{if $k%2==0}float:right;margin-bottom:20px;{else}margin-top:20px;{/if}">
+	 <h3>{$r.title}</h3>
+	 <div>{date('m-d',$r.created_at)}</div>
+     <img src="{$r.thumb}" width="314" height="175" style="margin:10px 0">
+     {$r.digest}
+	 <div style="margin:10px -10px -10px;padding:0 10px;height:40px;background:#f4f4f4;border-top:1px solid #d3d3d3;line-height:40px;font-size:18px">
+	  <div class="float_l">单图文ID：{$r.gid}</div>
+	  <div class="float_r"><a href="/admin/masssend.php?act=material&type=single&gid={$r.gid}">编辑</a> &ensp; 
+	   <a href="">删除</a></div>
+	 </div>
+	</div>
+   {/foreach}
+  <!-- 添加、编辑图文 -->
+  {else}
+   <style type="text/css">
+    .leftview{
+	width:300px;
+	padding:10px;
+	float:left;
+	margin-right:10px;
+	border:1px solid #d3d3d3;
+	border-radius:5px;
+	font-size:14px;
+	}
+	.leftview .wxcover{
+	height:160px;margin:10px 0;background:#ececec;text-align:center;font-size:22px;line-height:160px;color:#c0c0c0
+	}
+	.rightaction{
+	width:425px;
+	padding-left:11px;
+	float:right;
+	position: relative;
+	}
+	.rightaction .wxarrow_out{
+	display: inline-block;
+width: 0;
+height: 0;
+border-width: 12px;
+border-style: dashed;
+border-color: transparent;
+border-left-width: 0;
+border-right-color: #d3d3d3;
+border-right-style: solid;
+top: 44px;
+left: 0;
+position: absolute;
+margin-top:0;
+	}
+	.rightaction .wxarrow_in{
+	display: inline-block;
+	position:absolute;
+	margin-top:0;
+    width: 0; 
+    height: 0;
+    border-width: 12px;
+    border-style: dashed;
+    border-color: transparent;
+    border-left-width: 0;
+    border-right-color: #f8f8f8;
+    border-right-style: solid;
+    top: 44px;
+    left: 1px;
+	}
+	.rightaction .wxaction{
+	padding:20px;
+border: 1px solid #d3d3d3;
+background-color: #f8f8f8;
+border-radius: 3px;
+box-shadow: inset 0 1px 1px 0 #fff;
+min-height:300px;
+	}
+   </style>
+     <script type="text/javascript" src="/includes/kindeditor/kindeditor-min.js"></script>
+      <script type="text/javascript" src="/includes/kindeditor/lang/zh_CN.js"></script> 
+      <script type="text/javascript">
+	  var editor;
+	  KindEditor.ready(function(K) {
+		editor = K.create('textarea[name="content"]', {
+			resizeType : 1,	
+			afterChange : function() 
+			              {
+                            this.sync();
+                          },
+			afterBlur : function()
+			            {
+                          this.sync();
+                        } ,
+			cssPath : '/includes/kindeditor/fontSize.css',
+			allowImageUpload : true ,
+			uploadJson : '/uploadimg.php?act=info',
+		 	items : ['image','fontsize','bold','forecolor', 'hilitecolor','italic', 'underline', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist','insertunorderedlist']
+		});
+	  });
+      </script>
+   <div class="leftview">
+    <h3>{if empty($desc)}这是标题{else}{$desc.title}{/if}</h3>
+	<div class="wxcover">
+	 {if empty($desc)}封面图片{else}<img src="{$desc.thumb}" width="300" height="160px">{/if}
+	</div>
+	 {if empty($desc)}这里显示摘要{else}{$desc.digest}{/if}
+   </div>
+   <div class="rightaction">
+    <i class="wxarrow_out"></i>
+    <i class="wxarrow_in"></i>
+	<div class="wxaction">
+	 <form action="/admin/masssend.php?act=act_material" method="post" class="form" id="masssend" enctype="multipart/form-data">
+	  <p class="f_title">标题</p>
+	  <p class="f_content"><input type="text" class="input" name="title" value="{$desc.title}"></p>
+	  <p class="f_title">作者<span class="color999">（选填）</span></p>
+	  <p class="f_content"><input type="text" class="input" name="author" value="{$desc.author}"></p>
+	  <p class="f_title">封面<span class="color999">（填入图片素材中的图片ID）</span></p>
+	  <p class="f_content"><input type="text" class="input" name="thumb_media_id" value="{$desc.thumb_media_id}"></p>
+	  <p class="f_title">摘要</p>
+	  <p class="f_content"><textarea class="input" name="digest" style="height:80px">{$desc.digest}</textarea></p>
+	  <p class="f_title">正文</p>
+	  <p class="f_content"><textarea class="input" name="content" style="height:300px">{$desc.content}</textarea></p>
+	  <p class="f_title">原文链接<span class="color999">（选填）</span></p>
+	  <p class="f_content"><input type="text" class="input" name="content_source_url" value="{$desc.content_source_url}"></p>
+	  <input type="hidden" name="gid" value="{$desc.gid}">
+	  <input type="button" class="btn_primary" value="确认提交" onclick="javascript:AjaxSubmit('masssend');">
+	 </form>
+	</div>
+   </div>
+   <div class="clear"></div>
+  {/if}
+ {/if}
+ {if $act==picture}
+ <link rel="stylesheet" href="/includes/kindeditor/themes/default/default.css">
+ <script type="text/javascript" src="/includes/kindeditor/kindeditor-min.js"></script>
+ <script type="text/javascript" src="/includes/kindeditor/lang/zh_CN.js"></script> 
+ <script type="text/javascript">
+			KindEditor.ready(function(K) {
+				var editor = K.editor({
+					allowFileManager : false,
+					uploadJson : '/admin/masssend.php?act=act_picture'
+				});
+				K('#masssend').click(function() {
+					editor.loadPlugin('image', function() {
+						editor.plugin.imageDialog({
+							showRemote : false,
+							clickFn : function(url, title, width, height, border, align) 
+							{
+							    window.location.reload();
+							}
+						});
+					});
+				});
+			});
+ </script>
+ <input type="button" id="masssend" class="btn_primary" value="添加图片">
+ <span class="color999">（图片须小于64KB，多图文第一张图为360*200，其他为200*200）</span>
+ <div class="clear height10"></div>
+ {foreach from=$pics item=p}
+   <div class="fontSize12" style="padding:10px 0;border-top:1px solid #ccc">
+    <img src="{$p.src}" height="100" class="float_l">	
+    <div style="float:right;margin-top:10px">
+	 <form action="/admin/masssend.php" method="post" enctype="multipart/form-data" id="massrefresh_{$p.pid}">
+	  <input type="hidden" name="act" value="refresh">
+	  <input type="hidden" name="pid" value="{$p.pid}">
+	  <input type="button" class="btn_primary" onclick="javascript:AjaxSubmit('massrefresh_{$p.pid}');" value="刷 新">
+	 </form>	 
+	 <div class="clear height5"></div>
+	 <form action="/admin/masssend.php" method="post" enctype="multipart/form-data" id="massdelete_{$p.pid}">
+	  <input type="hidden" name="act" value="delete">
+	  <input type="hidden" name="pid" value="{$p.pid}">
+	  <input type="button" class="btn_primary" onclick="javascript:AjaxSubmit('massdelete_{$p.pid}');" value="删 除">
+	 </form>
+    </div>
+	<div style="float:right;width:380px;margin-right:10px;margin-top:10px">
+	   过期时间：{$p.created_at}<br>
+	  {if $p.overdue}<span class="red">已过期，使用前请刷新</span>{else}图片ID：<input type="text" class="input" value="{$p.thumb_media_id}">{/if}
+	</div>
+	<div class="clear"></div>
+   </div>	
+ {/foreach}
+ {/if}
+</div>
+
+</div>

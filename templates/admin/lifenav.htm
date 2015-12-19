@@ -1,0 +1,540 @@
+{include file='admin/library/page_header.htm'}
+<script type="text/javascript">
+function deleteCat(id)
+{
+	$.post("/admin/lifenav.php",{
+		act:'deletecat',cat_id:id},
+	function(data)
+	{
+		var data = json_decode(data);
+	    if(data.error==0)
+		{
+			alertMsg(data.data);
+			setTimeout("window.location.reload();",1000);
+		}
+	   	if(data.error==1)
+	   	{
+	    	/* 弹出错误提示 */
+		 	alertMsg(data.data);
+	   	}
+	});
+		
+}
+</script>
+<script type="text/javascript">
+function deleteAttr(id)
+{
+	$.post("/admin/lifenav.php?act=attr&cat_id={$cat_id}",{
+		act:'delete_attr',attr_id:id},
+	function(data)
+	{
+		var data = json_decode(data);
+	    if(data.error==0)
+		{
+			alertMsg(data.data);
+			setTimeout("window.location.reload();",1000);
+		}
+	   	if(data.error==1)
+	   	{
+	    	/* 弹出错误提示 */
+		 	alertMsg(data.data);
+	   	}
+	});
+		
+}
+</script>
+<script type="text/javascript">
+function submitCat()
+{
+	document.forms["lifenav"].action = "/admin/lifenav.php?act=add_lifenav&key=submit_cat";
+	$("#lifenav").submit();
+}
+</script>
+<script>
+function submitLifenav()
+{
+	$("#lifenav").ajaxSubmit({  
+                    type: 'post',  
+                    url: "/admin/lifenav.php?act=add_lifenav&key=do_add" ,  
+                    success: function(data){  
+                        var data = json_decode(data);
+								if(data.error==0)
+								{
+									alertMsg(data.data);
+									setTimeout("submitCat();",3000);
+								}
+								if(data.error==1)
+								{
+									/* 弹出错误提示 */
+									alertMsg(data.data);
+								}
+                    },  
+                });  	
+}
+</script>
+<script type="text/javascript">
+function getProvince()
+{   
+   var province =  parseInt({$province});
+   $.post("/ajax.php", {
+   act:'setRegion',region_type:1},
+   function(data)
+   {
+	   var data = json_decode(data);
+	   var html = "<option value='0'>省/直辖市</option>";
+	   for(var i=0; i<data.length;i++)
+	   {
+	      html += "<option value='"+data[i].region_id+"' ";
+		  if(province==data[i].region_id)   //当前已选
+		  {
+		     html += "selected ";
+		  }
+		  html += ">"+data[i].region_name+"</option>";
+	   }
+	   $("#province").html(html);
+   });
+}
+   
+function setCity(province)
+{
+   var city =  parseInt({$city});
+   $.post("/ajax.php", {
+   act:'setRegion',region_type:2, parent_id:province},
+   function(data)
+   {
+	   var data = json_decode(data);
+	   var html = "<option value='0'>城市</option>";
+	   if(province>0)
+	   {
+	    for(var i=0; i<data.length;i++)
+	    {
+	      html += "<option value='"+data[i].region_id+"' ";
+		  if(city==data[i].region_id)   //当前已选
+		  {
+		     html += "selected ";
+		  }
+		  html += ">"+data[i].region_name+"</option>";
+	    }
+		 $("#city").html(html);
+	   }
+   });  
+}
+
+function setDistrict(city)
+{
+   var district =  parseInt({$district});
+   $.post("/ajax.php", {
+   act:'setRegion',region_type:3, parent_id:city},
+   function(data)
+   {
+	   var data = json_decode(data);
+	   var html = "<option value='0'>区县</option>";
+	   if(city>0)
+	   {
+	    for(var i=0; i<data.length;i++)
+	    {
+	      html += "<option value='"+data[i].region_id+"' ";
+		  if(district==data[i].region_id)   //当前已选
+		  {
+		     html += "selected ";
+		  }
+		  html += ">"+data[i].region_name+"</option>";
+	    }
+		 $("#district").html(html);
+	   }
+   }); 
+}
+
+function setSubdistrict(district)
+{
+   var subdistrict =  parseInt({$subdistrict});
+   $.post("/ajax.php", {
+   act:'setRegion',region_type:4, parent_id:district},
+   function(data)
+   {
+	   var data = json_decode(data);
+	   var html = "<option value='0'>街道办</option>";
+	   if(district>0)
+	   {
+	    for(var i=0; i<data.length;i++)
+	    {
+	      html += "<option value='"+data[i].region_id+"' ";
+		  if(subdistrict==data[i].region_id)   //当前已选
+		  {
+		     html += "selected ";
+		  }
+		  html += ">"+data[i].region_name+"</option>";
+	    }
+		 $("#subdistrict").html(html);
+	   }
+   }); 
+}
+
+function setNeighborhood(subdistrict)
+{
+   var neighborhood =  parseInt({$neighborhood});
+   $.post("/ajax.php", {
+   act:'setRegion',region_type:5, parent_id:subdistrict},
+   function(data)
+   {
+	   var data = json_decode(data);
+	   var html = "<option value='0'>社区</option>";
+	   if(subdistrict>0)
+	   {
+	    for(var i=0; i<data.length;i++)
+	    {
+	      html += "<option value='"+data[i].region_id+"' ";
+		  if(neighborhood==data[i].region_id)   //当前已选
+		  {
+		     html += "selected ";
+		  }
+		  html += ">"+data[i].region_name+"</option>";
+	    }
+		 $("#neighborhood").html(html);
+	   }
+   }); 
+}
+
+getProvince();
+setCity({$province});
+setDistrict({$city});
+setSubdistrict({$district});
+setNeighborhood({$substrict});
+</script>
+	<div class="col_main">
+	  <div class="main_hd">
+	    <div class="title_tab">
+		  <ul class="tab_navs">
+		    <li {if $act==lifenav_cat || $act==attr}class="selected"{/if}><a href="/admin/lifenav.php">生活导航分类</a></li>
+			  <li {if $act==lifenav}class="selected"{/if}><a href="/admin/lifenav.php?act=lifenav">生活导航</a></li>
+        <li {if $act==lifenav_apply}class="selected"{/if}><a href="/admin/lifenav.php?act=lifenav_apply">生活导航申请审核</a></li>
+        <li {if $act==add_lifenav}class="selected"{/if}><a href="/admin/lifenav.php?act=add_lifenav">新增生活导航</a></li>
+		  </ul>
+		</div>
+	  </div>
+
+<div class="main_content">	 
+{if $act==lifenav_cat}  
+{if $cat_id===list}
+ <table class="info_list" cellspacing="1">
+  <tr>
+   <th>生活导航名称</th>
+   <th width="80px">排 序</th>
+   <th width="200px">操作</th>
+  </tr>
+  {foreach from=$cat item=c}
+   <tr>
+    <td>{$c.cat_name}</td>  
+	<td>{$c.sort_order}</td>
+	<td align="center">
+    	<div id="edit_view_{$c.cat_id}">
+        	<a href="/admin/lifenav.php?cat_id={$c.cat_id}">
+	    		<img src="/templates/images/icon/icon_edit.gif" title="编辑">
+	   		</a>&ensp;
+	  		<a href="javascript:void(0)" onclick="javascript:deleteCat({$c.cat_id});">
+	    		<img src="/templates/images/icon/icon_trash.gif" title="删除">
+	   		</a>
+	   	</div>
+    </td>
+   </tr>
+   {foreach from=$c.sub_cat item=sc}
+   <tr>
+    <td>&ensp;- {$sc.cat_name}</td>  
+	<td>{$sc.sort_order}</td>
+	<td align="center">
+    	<div id="edit_view_{$r.cat_id}">
+        	<a href="/admin/lifenav.php?cat_id={$sc.cat_id}">
+	    		<img src="/templates/images/icon/icon_edit.gif" title="编辑">
+	   		</a>&ensp;
+			<a href="/admin/lifenav.php?act=attr&cat_id={$sc.cat_id}">
+			    <img src="/templates/images/icon/icon_link.png" title="属性">
+			</a>&ensp;
+			<a href="/admin/lifenav.php?act=add_lifenav&cat_id={$sc.cat_id}">
+			    <img src="/templates/images/icon/icon_add.gif" title="添加">
+			</a>&ensp;
+	  		<a href="javascript:void(0);" onClick="javascript:deleteCat({$sc.cat_id});">
+	    		<img src="/templates/images/icon/icon_trash.gif" title="删除">
+	   		</a>
+	   	</div>
+    </td>
+   </tr>
+   {/foreach}
+  {/foreach}
+  </table>
+  <div class="clear height10"></div>
+  <a href="/admin/lifenav.php?cat_id=0"><input type="button" class="btn_primary" value="添加生活导航"></a>
+ {else}
+  <form action="/admin/lifenav.php" method="post" enctype="multipart/form-data" id="lifenav" class="form">
+   <p class="f_title">生活导航名称：
+   <p class="f_content"><input type="text" name="cat_name" class="input" value="{$r.cat_name}">
+   <p class="f_title">所属分类：
+   <p class="f_content"><select name="parent_id">
+    <option value="0">顶级分类</option>
+	{foreach from=$cat item=c}
+	  <option value="{$c.cat_id}" {if $r.parent_id==$c.cat_id}selected{/if}>{$c.cat_name}</option>
+	{/foreach}
+   </select>
+   <p class="f_content">
+   <p class="f_title">排序：
+   <p class="f_content"><input type="text" name="sort_order" value="{if $r.cat_id>0}{$r.sort_order}{else}50{/if}" class="input" style="width:50px">
+   <p>
+    <input type="hidden" name="cat_id" value="{$r.cat_id}">
+	<input type="hidden" name="act" value="operateCat">
+	<input type="button" value="提 交" class="btn_primary" onclick="javascript:submitLifenav();">
+  </form>
+ {/if}
+{/if}
+
+{if $act==attr}
+ <table class="info_list" cellspacing="1">
+  <tr>
+   <th width="160px">{$cat_name} 的属性</th>
+   <th width="80px">类 型</th>
+   <th>可选值</th>
+   <th width="50px">排 序</th>
+   <th width="80px">操作</th>
+  </tr>
+  {foreach from=$attrs item=a}
+   <tr>
+	<td>{$a.attr_name}</td>
+	<td>{$a.type}</td>
+	<td>{$a.value}</td>
+	<td>{$a.sort_order}</td>
+	<td>
+	  <a href="javascript:void(0);" onClick="javascript:deleteAttr({$a.attr_id});"}>
+	    		<img src="/templates/images/icon/icon_trash.gif" title="删除">
+	  </a>
+	</td>
+   </tr>
+  {/foreach}
+  
+  </table>
+  <div class="clear height10"></div>
+  <form action="/admin/lifenav.php" method="post" enctype="multipart/form-data" id="lifenav" class="form">
+   <p class="f_title">属性名称：
+   <p class="f_content"><input type="text" name="attr_name" class="input">
+   <p class="f_title">类 型：
+   <p class="f_content"><select name="type">
+    <option value="input">输入框</option>
+	<option value="select">单选</option>
+	<option value="checkbox">多选</option>
+   <option value="textarea">商家简介</optgroup>
+   </select>
+   <p class="f_title">可选值：<span class="color999 fontSize12">（多个值用英文 , 隔开）</span>
+   <p class="f_content"><input type="text" name="value" class="input">
+   <p class="f_title">排序：
+   <p class="f_content"><input type="text" name="sort_order"  class="input" value="50" style="width:50px">
+   <p>
+    <input type="hidden" name="cat_id" value="{$cat_id}">
+	<input type="hidden" name="act" value="add_attr">
+	<input type="button" value="提 交" class="btn_primary" onclick="javascript:AjaxSubmit('lifenav');">
+  </form>
+{/if}
+{if $act==add_lifenav}
+ <form action="/admin/lifenav.php?act=add_lifenav" method="post" enctype="multipart/form-data" id="lifenav" class="form">
+   <p class="f_title">所属分类：
+   <p class="f_content">
+   <select name="cat_id" id="cat_id">
+   <option value="0">请选择生活导航类别</option>
+   {foreach from=$cat item=c}
+   <option value="{$c.cat_id}">**{$c.cat_name}**</option>
+   	{foreach from=$c.sub_cat item=sc}
+      {if $sc.cat_id==$cat_id}
+      <option value="{$sc.cat_id}" selected>{$sc.cat_name}</option>
+      {else}
+      <option value="{$sc.cat_id}">{$sc.cat_name}</option>
+      {/if}
+      {/foreach}
+   {/foreach}
+   </select>
+   <p class="f_title">所属区域：
+   <p class="f_content">
+   <select id="province" name="province" onchange="javascript:setCity(this.value);">
+   <option value="0">省/直辖市</option>
+   {foreach from=$selectlist.province_list item=p}
+   {if $p.region_id==$province}
+   <option value="{$p.region_id}" selected>{$p.region_name}</option>
+   {else}
+   <option value="{$p.region_id}">{$p.region_name}</option>
+   {/if}
+   {/foreach}
+   </select>
+   <select id="city" name="city" onchange="javascript:setDistrict(this.value);">
+   <option value="0">城市</option>
+   {foreach from=$slelectlist.city_list item=c}
+   {if $c.region_id==$city}
+   <option value="{$c.region_id}" selected>{$c.region_name}</option>
+   {else}
+   <option value="{$c.region_id}">{$c.region_name}</option>
+   {/if}
+   {/foreach}
+   </select>
+   <select id="district" name="district" onchange="javascript:setSubdistrict(this.value)">
+   <option value="0">区县</option>
+   {foreach from=$selectlist.district_list item=d}
+   {if $d.region_id==$district}
+   <option value="{$d.region_id}">{$d.region_name}</option>
+   {else}
+   <option value="{$d.region_id}" selected>{$d.region_name}</option>
+   {/if}
+   {/foreach}
+   </select>
+   <select id="subdistrict" name="subdistrict" onchange="javascript:setNeighborhood(this.value)">
+   <option value="0">街道办</option>
+   {foreach from=$selectlist.subdistrict_list item=s}
+   {if $s.region_id==$subdistrict}
+   <option value="{$s.region_id}" selected>{$s.region_name}</option>
+   {else}
+   <option value="{$s.region_id}">{$s.region_name}</option>
+   {/if}
+   {/foreach}
+   </select>
+   <select id="neighborhood" name="neighborhood">
+   <option value="0">社区</option>
+   {foreach from=$selectlist.neighborhood_list item=n}
+   {if $n.region_id==$neighborhood}
+   <option value="{$n.region_id}" selected>{$n.region_name}</option>
+   {else}
+   <option value="{$n.region_id}">{$n.region_name}</option>
+   {/if}
+   {/foreach}
+   </select>
+   <p class="f_title">所属小区：
+   <p class="f_content"><select name="community_id" id="community_id">
+      <option value="0">请选择小区</option>
+      {foreach from=$community item=c}
+       {if $c.community_id==$community_id}
+       <option value="{$c.community_id}" selected>{$c.community_name}</option>
+       {else}
+	    <option value="{$c.community_id}">{$c.community_name}</option>
+       {/if}
+	  {/foreach}
+   </select>
+   <input type="button" value="确 认" class="btn_primary" style="float:right" onclick="javascript:submitCat();">
+   <div id="attrs" name="attrs">
+   {foreach from=$attrs item=a}
+   <p class="f_title">{$a.attr_name}：
+   <p class="f_content">
+    {if $a.type==input}
+	 <input type="input" class="input" name="{$a.attr_id}">
+	 {elseif $a.type==select}
+	 <select name="{$a.attr_id}">
+	  {foreach from=$a.value item=av}
+	   <option value="{$av}">{$av}</option>
+	  {/foreach}
+	 </select>
+	 {elseif $a.type==checkbox}
+	 {foreach from=$a.value item=av}
+	  <label><input type="checkbox" name="{$a.attr_id}[]" value="{$av}"> {$av}</label> &ensp;
+	 {/foreach}
+    {elseif $a.type==textarea}
+    <textarea name="{$a.attr_id}" style="width:100%;height:250px"></textarea>
+    {/if}
+   {/foreach}
+   </div>
+   <p class="f_title">排 序：<span class="color999 fontSize12">（同类信息中，排序越小越靠前）</span>
+   <p class="f_content"><input type="text" name="sort_order"  class="input" value="50" style="width:50px">
+   <p>
+	{if $attrs}<input type="button" value="提 交" class="btn_primary" onclick="javascript:submitLifenav();">{/if}
+  </form>
+<script type="text/javascript" src="/includes/kindeditor/kindeditor-min.js"></script>
+<script type="text/javascript" src="/includes/kindeditor/lang/zh_CN.js"></script> 
+<script>
+var editor;
+KindEditor.ready(function(K) {
+editor = K.create('textarea', {
+	resizeType : 1,	
+	afterChange : function() 
+					  {
+							 this.sync();
+						  },
+	afterBlur : function()
+					{
+						  this.sync();
+						} ,
+	cssPath : '/includes/kindeditor/fontSize.css',
+	allowImageUpload : true ,
+	uploadJson : '/uploadimg.php?act=lifenav',
+	items : ['image','fontsize','bold','forecolor', 'hilitecolor','italic', 'underline', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist','insertunorderedlist']
+});
+});
+</script>
+{/if}
+{if $act==lifenav}
+	<div class="content">
+    <form action="/admin/lifenav.php?act=lifenav" method="get" enctype="multipart/form-data" name="search">
+    <input type="hidden" name="act" value="lifenav">
+ 	  <input type="hidden" name="page" value="1">
+	</form>
+	<table class="info_list" cellspacing="1">
+	<tr>
+	<th width="80px">导航分类</th>
+	<th width="120px">所属区域</th>
+	<th>导航细节</th>
+    <th width="40px">操作</th>
+    </tr>
+    {foreach from=$lifenav item=l}
+    <tr>
+    	<td width="80px">{$l.cat_name}</td>
+        <td width="120tpx" style="padding-right:5px">{if $l.province} {$l.province}{/if}{if $l.city} {$l.city}{/if}{if $l.district} {$l.district}
+        {/if}{if $l.subdistrict} {$l.subdistrict}{/if}{if $l.neighborhood} {$l.neighborhood}{/if}{if $l.community_name}{$l.community_name}{/if}</td>
+        <td>{foreach $l.content as $k=>$v}{$k}:{$v}</br>{/foreach}</td>
+        <td width="40px"><a href="/admin/lifenav.php?act=delete_lifenav&lifenav_id={$l.lifenav_id}">
+	    		<img src="/templates/images/icon/icon_trash.gif" title="删除">
+	   		</a>
+        </td>
+	</tr>
+    {/foreach}
+    </table>
+      <div class="clear height10"></div>
+      <div class="float_r">
+        {include file="property/library/page.htm"}	
+   	  </div>
+	</div>
+ 	
+
+{/if}
+{if $act==lifenav_apply}
+<form action="/admin/lifenav.php" method="get" enctype="multipart/form-data" name="search">
+ <input type="hidden" name="act" value="lifenav_apply">
+ <input type="hidden" name="page" value="1">
+</form>
+ <table class="info_list" cellspacing="1" width="100%">
+ <tr>
+  <th width="40%">申请内容</th>
+  <th width="12%">申请人姓名</th>
+  <th width="15%">联系电话</th>
+  <th width="13%">申请时间</th>
+  <th width="10%">状态</th>
+  <th width="10%">操作</th>
+ </tr>
+ {foreach from=$applylist.res item=l}
+  <tr align="center">
+   <td>{foreach $l.content as $k=>$v}{$k}:{$v}</br>{/foreach}</td>
+   <td>{$l.contact_user}</td>
+   <td>{$l.mobile}</td>
+   <td>{$l.apply_time}</td>
+   <td>{if $l.status==0}<a href="/admin/lifenav.php?act=add_lifenav&apply_id={$l.apply_id}">待审核</a>{else if $l.status==1}已通过{/if}</td>
+   <td>
+    <div id="edit_view_{$h.cat_id}">
+      {if $l.status==0}
+    <a href="/admin/lifenav.php?act=add_lifenav&apply_id={$l.apply_id}">
+    <img src="/templates/images/icon/icon_edit.gif" title="通过">
+    </a>&ensp;
+    {/if}
+    <a href="/admin/lifenav.php?act=delete_apply&apply_id={$l.apply_id}">
+    <img src="/templates/images/icon/icon_trash.gif" title="删除">
+    </a>
+  </div>
+   </td>
+  </tr>
+ {/foreach}
+ </table>
+<div class="clear height10"></div>
+<div class="float_r">
+{include file="admin/library/page.htm"}
+</div>
+{/if}
+</div>
+
+</div>

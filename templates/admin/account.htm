@@ -1,0 +1,91 @@
+{include file='admin/library/page_header.htm'}
+
+	<div class="col_main">
+	  <div class="main_hd">
+	    <div class="title_tab">
+		  <ul class="tab_navs">
+		    <li {if $act==default||new_account}class="selected"{/if}><a href="/admin/account.php">账户列表</a></li>
+		  </ul>
+		</div>
+	  </div>
+
+<div class="main_content">	 
+
+{if $act==default}
+<script type="text/javascript">
+	function deleteAccount(id)
+	{
+		if(confirm("确定要删除这个账号吗？"))
+		{
+			$.post("/admin/account.php",{
+				act:'delete_account',account_id:id},
+			function(data)
+			{
+
+				var data = json_decode(data);
+	    		if(data.error==0)
+				{
+					alertMsg(data.data);
+					setTimeout("window.location.reload();",1000);
+				}
+	   			if(data.error==1)
+	   			{
+	    		 	/* 弹出错误提示 */
+		 			alertMsg(data.data);
+	   			}
+			});	
+		}
+	}
+</script>
+<form action="/admin/account.php" method="get" enctype="multipart/form-data" name="search">
+ <input type="hidden" name="page" value="1">
+</form>
+ <table class="info_list" cellspacing="1" width="100%">
+ <tr>
+  <th width="240px">账户名</th>
+  <th width="100px">账户类型</th>
+  <th width="240px">小区</th>
+  <th>操作</th>
+ </tr>
+ {foreach from=$list.res item=l}
+  <tr>
+   <td>{$l.account}</td>
+   <td>{$l.type}</td>
+   <td>{$l.community_name}</td>
+   <td>
+   	<a href="javascript:void(0)" onclick="javascript:deleteAccount({$l.account_id});">
+		<img src="/templates/images/icon/icon_trash.gif" title="删除">
+	</a>
+   </td>
+  </tr>
+ {/foreach}
+ </table>
+<div class="clear height10"></div>
+<div class="float_r">
+{include file="admin/library/page.htm"}
+</div>
+ <a href="/admin/account.php?act=new_account"><input type="button" class="btn_primary" value="新建账户"></a>
+{/if}
+{if $act==new_account}
+<form action="/admin/account.php" method="post" enctype="multipart/form-data" id="new_account" class="form">
+	<p class="f_title">账户名：<span class="color999 fontSize12">（账户名不多于30个字符）</span> 
+	<p class="f_content"><input type="text" name="account" class="input">
+	<p class="f_title">账户类型：
+	<p class="f_content">
+	<select name="type" id="type">
+		<option value="1">物业</option>
+		<option value="2">小区管理员</option>
+	</select>
+	<p class="f_title">所属小区：
+	<p class="f_content">
+	<select name="community_id" id="community_id">
+		{foreach from=$community item=c}
+		<option value="{$c.community_id}">{$c.community_name}</option>
+		{/foreach}
+	</select>
+	<input name="act" value="new_account" style="display:none">
+	<input name="key" value="do_add" style="display:none">
+    <p class="f_title">
+    <input type="button" class="btn_primary" value="确认" onclick="javascript:AjaxSubmit('new_account');">
+</form>
+{/if}

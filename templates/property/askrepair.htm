@@ -1,0 +1,140 @@
+{include file='property/library/page_header.htm'}
+
+
+	<div class="col_main">
+	  <div class="main_hd">
+	    <div class="title_tab">
+		  <ul class="tab_navs">
+		    <li {if $status==0 && $act=="default"}class="selected"{/if}><a href="/property/askrepair">待受理</a></li>
+			<li {if $status==1}class="selected"{/if}><a href="/property/askrepair?status=1">已完成</a></li>
+            <li {if $act=="phone"}class="selected"{/if}><a href="/property/askrepair?act=phone">报修电话</a></li>
+		  </ul>
+		</div>
+	  </div>
+	
+<div class="main_content">	 
+{if $act=="default"}
+{if $status==0}
+{if empty($log.res)}
+ <div class="noexisthouseholder">
+  <i class="float_l">&nbsp;</i>
+  <span class="float_l">暂时还没有业主提出新的报修申请！</span>
+ </div>
+{else}
+ <!-- 绑定数据用于post -->
+ <form action="/property/askrepair" method="post" name="search" enctype="application/x-www-form-urlencoded">
+     <input type="hidden" name="page" value="1">
+	 <input type="hidden" name="status" value="0">
+ </form>
+ {foreach from=$log.res item=l}
+  <div class="notice_box">
+   <div class="l_box">
+   <p><span class="color999">报&ensp;修&ensp;人</span>：{$l.name}
+   <p><span class="color999">报修时间：</span>{$l.add_time}
+   <p><span class="color999">联系电话：</span>{$l.phone}
+   <p>
+     <span class="float_l color999">报修内容：</span>
+     <span style="width:300px;text-decoration:underline" class="float_l">{$l.content}</span>
+   </div>
+   <div class="r_box">
+    <div id="reply_text_{$l.ask_id}">
+	 <a href="javascript:void(0);" onclick="javascript:replyTo({$l.ask_id})">点击回复</a>
+	</div>
+    <div id="reply_act_{$l.ask_id}" style="display:none">
+     <p><a href="javascript:void(0);" onclick="javascript:replyTo({$l.ask_id})">取消回复：</a><span class="color999">（回复内容请简明扼要，不得多于150个字符）</span>
+	 <form action="/property/askrepair" method="post" enctype="multipart/form-data" id="property_{$l.ask_id}">
+	 <p><textarea style="width:330px;height:60px;" class="input" name="reply"></textarea>
+	 <div class="clear height5"></div>
+     <p>
+	 <input type="hidden" name="ask_id" value="{$l.ask_id}">
+	 <input type="hidden" name="act" value="reply">
+	 <input type="button" class="btn_primary btn_primary_mid" value="确认回复" onclick="javascript:AjaxSubmit('property_{$l.ask_id}');">
+     </form>
+	</div> 
+   </div>
+   <div class="clear"></div>
+   </div>
+ {/foreach} 
+ <div class="clear height10"></div>
+ <div class="float_r">
+   {include file="property/library/page.htm"}
+ </div>
+ <div class="clear"></div>
+ <script type="text/javascript">
+ function replyTo(id)
+ { 
+    var reply_text_id = "reply_text_"+id;
+	var reply_act_id = "reply_act_"+id;
+	var reply_text_view = document.getElementById(reply_text_id); 
+	var reply_act_view = document.getElementById(reply_act_id);
+	if(reply_act_view.style.display=="none")
+	{
+	   reply_text_view.style.display = "none";
+	   reply_act_view.style.display = "block";
+	}
+	else
+	{
+	   reply_act_view.style.display = "none";
+	   reply_text_view.style.display = "block";
+	}
+ }
+ </script>
+ {/if}   
+{/if}
+{if $status>0}
+{if empty($log.res)}
+ <div class="noexisthouseholder">
+  <i class="float_l">&nbsp;</i>
+  <span class="float_l">暂时还没有已完成的报修申请！</span>
+ </div>
+{else}
+ <!-- 绑定数据用于post -->
+ <form action="/property/askrepair" method="post" name="search" enctype="application/x-www-form-urlencoded">
+     <input type="hidden" name="page" value="1">
+	 <input type="hidden" name="status" value="1">
+ </form>
+ {foreach from=$log.res item=l}
+  <div class="notice_box">
+   <div class="l_box">
+   <p><span class="color999">报&ensp;修&ensp;人</span>：{$l.name}
+   <p><span class="color999">报修时间：</span>{$l.add_time}
+   <p><span class="color999">联系电话：</span>{$l.phone}
+   <p>
+     <span class="float_l color999">报修内容：</span>
+     <span style="width:300px;text-decoration:underline" class="float_l">{$l.content}</span>
+   </div>
+   <div class="r_box" style="text-align:left">
+   {if $l.status==1}	 
+   <p><span class="blue">回复时间：</span>{$l.reply_time}	 
+   <p>
+     <span class="float_l blue">回复内容：</span>
+     <span style="width:285px;text-decoration:underline" class="float_l">{$l.reply}</span>
+   {elseif $l.status==2}
+     <p><span class="blue">（业主已撤销该报修）</span>
+   {/if}
+    
+   </div>
+   <div class="clear"></div>
+   </div>
+ {/foreach} 
+ <div class="clear height10"></div>
+ <div class="float_r">
+   {include file="property/library/page.htm"}
+ </div>
+ <div class="clear"></div>
+ {/if}
+{/if}
+{/if}
+{if $act=="phone"}
+<form action="/property/askrepair?act=phone" class="form" method="post" id="repair" enctype="multipart/form-data">
+<p class="f_title">报修电话：<span class="color999 fontSize12">（业主可见，可为座机号或手机号，支持一键拔打）</span>
+<p class="f_content"><input type="text" name="repair_phone" class="input" value="{$repair.repair_phone}" />
+<p class="f_title">手机通知：<span class="color999 fontSize12">（若有新的报修申请，将发短信至该手机，<font color="red">本服务免费</font>）</span>
+<p class="f_content"><input type="text" name="repair_mobile" class="input" value="{$repair.repair_mobile}" />
+<input type="hidden" name="key" value="change">
+<p class="f_title"><input type="button" class="btn_primary" value="确认编辑" onclick="javascript:AjaxSubmit('repair');">
+</form>
+{/if}
+</div>
+
+</div>
