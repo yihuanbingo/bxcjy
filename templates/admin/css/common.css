@@ -255,6 +255,18 @@ i, cite, em, var, address, dfn {
     padding: 3px 5px;
 }
 
+.searchinput {
+    border: 1px solid #ebebeb;
+    border-left: 1px solid #c4c4c4;
+    border-top: 1px solid #c4c4c4;
+    height: 20px;
+    color: #555;
+    font-size: 14px;
+    font-family: microsoft yahei, Arial;
+    line-height: 20px;
+    padding: 3px 5px;
+}
+
 .editinput {
     width: 50px;
     background: #fff;

@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.7, created on 2015-12-18 18:40:13
+<?php /* Smarty version Smarty-3.1.7, created on 2015-12-19 17:45:00
          compiled from ".\templates\admin\valifycode.htm" */ ?>
 <?php /*%%SmartyHeaderCode:225045673e28d771603-33744754%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '527195d5a1f1c7bbb964e5693100a2fa7a672458' => 
     array (
       0 => '.\\templates\\admin\\valifycode.htm',
-      1 => 1450435114,
+      1 => 1450518297,
       2 => 'file',
     ),
   ),
@@ -15,16 +15,19 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
+  'version' => 'Smarty-3.1.7',
+  'unifunc' => 'content_5673e28d98c70',
   'variables' => 
   array (
     'act' => 0,
-    'list' => 0,
+    'activitylist' => 0,
     'l' => 0,
+    'activity' => 0,
+    'valifycode' => 0,
+    'list' => 0,
     'r' => 0,
   ),
   'has_nocache_code' => false,
-  'version' => 'Smarty-3.1.7',
-  'unifunc' => 'content_5673e28d98c70',
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_5673e28d98c70')) {function content_5673e28d98c70($_smarty_tpl) {?><?php echo $_smarty_tpl->getSubTemplate ('admin/library/page_header.htm', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null, array(), 0);?>
 
@@ -41,9 +44,40 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     <div class="main_content">
 
         <?php if ($_smarty_tpl->tpl_vars['act']->value=='default'){?>
-        <form action="/admin/account.php" method="get" enctype="multipart/form-data" name="search">
+        <form action="/admin/valifycode.php" method="get" enctype="multipart/form-data" name="search">
+
             <input type="hidden" name="page" value="1">
+            <p class="f_content">
+            <table>
+            <td align="right">活动：</td>
+            <td style="padding-right: 20px">
+                <select name="activity">
+                    <option value="0">全部</option>
+                    <?php  $_smarty_tpl->tpl_vars['l'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['l']->_loop = false;
+ $_from = $_smarty_tpl->tpl_vars['activitylist']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+foreach ($_from as $_smarty_tpl->tpl_vars['l']->key => $_smarty_tpl->tpl_vars['l']->value){
+$_smarty_tpl->tpl_vars['l']->_loop = true;
+?>
+                    <?php if ($_smarty_tpl->tpl_vars['l']->value['key_id']==$_smarty_tpl->tpl_vars['activity']->value){?>
+                    <option value="<?php echo $_smarty_tpl->tpl_vars['l']->value['key_id'];?>
+" selected><?php echo $_smarty_tpl->tpl_vars['l']->value['name'];?>
+</option>
+                    <?php }else{ ?>
+                    <option value="<?php echo $_smarty_tpl->tpl_vars['l']->value['key_id'];?>
+"><?php echo $_smarty_tpl->tpl_vars['l']->value['name'];?>
+</option>
+                    <?php }?>
+                    <?php } ?>
+                </select>
+            </td>
+            <td align="right">验证码：</td>
+            <td style="padding-right: 20px"><input type="text" class="searchinput" name="valifycode" value="<?php echo $_smarty_tpl->tpl_vars['valifycode']->value;?>
+"></td>
+            <td><input type="submit" class="btn_primary" value="查询"></td>
+            </table>
+            </p>
         </form>
+        <div class="clear height20"></div>
         <table class="info_list" cellspacing="1" width="100%">
             <tr>
                 <th width="240px">活动ID</th>

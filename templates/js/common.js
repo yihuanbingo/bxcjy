@@ -108,8 +108,9 @@ function chgbgBack(id)
   {
      document.forms["search"].elements['page'].value = page;
      document.forms["search"].submit();
-     return true;;
+     return true;
   }
+
   /* 跳转指定页 */
   function gotoMpage(id)
   {

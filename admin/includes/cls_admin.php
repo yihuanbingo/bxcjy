@@ -232,10 +232,30 @@ class Admin extends Common
 		return $arr;
 	}
 
-	static function getValify($pageNow,$pageNum)
+	/* 获取所有活动 */
+	static function getAllActivity()
+	{
+		$sql = "select * from ".$GLOBALS['Base']->table('activity');
+		$res = $GLOBALS['Mysql']->getAll($sql);
+		return $res;
+	}
+
+	static function getValify($pageNow,$pageNum,$activity=0,$valifycode='')
 	{
 		$start = ($pageNow -1)*$pageNum;
 		$sql = "select * from ".$GLOBALS['Base']->table('valifycode');
+		$where = "where isdelete=0 ";
+		if($activity!=0)
+		{
+			$where .= "and activity_id=$activity ";
+		}
+
+		if(!empty($valifycode))
+		{
+			$where .= "and valifycode='$valifycode' ";
+		}
+
+        $sql .= $where;
 		$resNum = $GLOBALS['Mysql']->getCount($sql);
 		$sql .= "limit $start, $pageNum ";
 		$res = $GLOBALS['Mysql']->getAll($sql);

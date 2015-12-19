@@ -14,18 +14,24 @@ require('includes/cls_admin.php');
 $act = isset($_REQUEST['act']) ? $Common->charFormat($_REQUEST['act']): 'default' ;
 $aid = $_SESSION['admin']['aid'];
 
-/* »î¶¯ÁÐ±í */
+/* éªŒè¯ç åˆ—è¡¨ */
 if($act=='default')
 {
     //todo
     $pageNow = isset($_REQUEST['page']) ? intval($_REQUEST['page']): 1 ;
     $pageNum = 10;
-    $list = Admin::getValify($pageNow,$pageNum);
+    $activity = isset($_REQUEST['activity']) ? intval($_REQUEST['activity']) : 0;
+    $valifycode = isset($_REQUEST['valifycode']) ? $Common->charFormat($_REQUEST['valifycode']) : '';
+    $list = Admin::getValify($pageNow,$pageNum,$activity,$valifycode);
     $pages = Admin::setPage($pageNum,$pageNow,$list['resNum']);
+    $activitylist = Admin::getAllActivity();
     $smarty->assign('list',$list);
     $smarty->assign('pages',$pages);
+    $smarty->assign('activitylist',$activitylist);
+    $smarty->assign('activity',$activity);
+    $smarty->assign('valifycode',$valifycode);
 }
-/* ÐÂ½¨»î¶¯ */
+/* ï¿½Â½ï¿½ï¿½î¶¯ */
 if($act=='add_activity')
 {
     $key = isset($_REQUEST['key']) ? $Common->charFormat($_REQUEST['key']) : '';
@@ -36,7 +42,7 @@ if($act=='add_activity')
     }
     elseif($key=='do_add')
     {
-        $msg = array("error"=>1,"data"=>"ÏµÍ³´íÎó");
+        $msg = array("error"=>1,"data"=>"ÏµÍ³ï¿½ï¿½ï¿½ï¿½");
         $name = isset($_POST['name']) ? $Common->charFormat($_POST['name']) : '';
         $descrpition = isset($_POST['descrpition']) ? $Common->charFormat($_POST['descrpition']) : '';
         $gift_type = isset($_POST['gift_type']) ? intval($_POST['gift_type']) : 0;
@@ -46,11 +52,11 @@ if($act=='add_activity')
 
         if(empty($name))
         {
-            $msg = array('error'=>1,'data'=>'ÇëÊäÈë»î¶¯Ãû³Æ');
+            $msg = array('error'=>1,'data'=>'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½î¶¯ï¿½ï¿½ï¿½ï¿½');
         }
         elseif($Mysql->getOne("select key_id from ".$Base->table('activity')." where name = '".$name."'"))
         {
-            $msg = array("error"=>1,"data"=>"»î¶¯ÃûÒÑ´æÔÚ");
+            $msg = array("error"=>1,"data"=>"ï¿½î¶¯ï¿½ï¿½ï¿½Ñ´ï¿½ï¿½ï¿½");
         }
         else
         {
@@ -59,7 +65,7 @@ if($act=='add_activity')
             $table = $Base->table('activity');
             if($Mysql->insert($data,$table))
             {
-                $msg = array("error"=>0,"data"=>"ÐÂ½¨³É¹¦","href"=>"/admin/activity.php");
+                $msg = array("error"=>0,"data"=>"ï¿½Â½ï¿½ï¿½É¹ï¿½","href"=>"/admin/activity.php");
             }
         }
         $msg = $Json->encode($msg);
@@ -67,15 +73,15 @@ if($act=='add_activity')
         exit;
     }
 }
-/* É¾³ýÕË»§ */
+/* É¾ï¿½ï¿½ï¿½Ë»ï¿½ */
 elseif($act=='delete_account')
 {
     $account_id = isset($_POST['account_id']) ? $_POST['account_id'] : 0;
-    $msg = array("error"=>1,"data"=>"ÏµÍ³´íÎó£¬ÇëÖØÊÔ");
+    $msg = array("error"=>1,"data"=>"ÏµÍ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
     $sql = "delete from ".$Base->table('account')." where account_id = ".$account_id;
     if($Mysql->query($sql))
     {
-        $msg = array("error"=>0,"data"=>"É¾³ý³É¹¦");
+        $msg = array("error"=>0,"data"=>"É¾ï¿½ï¿½ï¿½É¹ï¿½");
     }
     $msg = $Json->encode($msg);
     echo $msg;

@@ -12,9 +12,31 @@
     <div class="main_content">
 
         {if $act==default}
-        <form action="/admin/account.php" method="get" enctype="multipart/form-data" name="search">
+        <form action="/admin/valifycode.php" method="get" enctype="multipart/form-data" name="search">
+
             <input type="hidden" name="page" value="1">
+            <p class="f_content">
+            <table>
+            <td align="right">活动：</td>
+            <td style="padding-right: 20px">
+                <select name="activity">
+                    <option value="0">全部</option>
+                    {foreach from=$activitylist item=l}
+                    {if $l.key_id==$activity}
+                    <option value="{$l.key_id}" selected>{$l.name}</option>
+                    {else}
+                    <option value="{$l.key_id}">{$l.name}</option>
+                    {/if}
+                    {/foreach}
+                </select>
+            </td>
+            <td align="right">验证码：</td>
+            <td style="padding-right: 20px"><input type="text" class="searchinput" name="valifycode" value="{$valifycode}"></td>
+            <td><input type="submit" class="btn_primary" value="查询"></td>
+            </table>
+            </p>
         </form>
+        <div class="clear height20"></div>
         <table class="info_list" cellspacing="1" width="100%">
             <tr>
                 <th width="240px">活动ID</th>

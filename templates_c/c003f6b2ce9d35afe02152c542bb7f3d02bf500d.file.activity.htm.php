@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.7, created on 2015-12-18 11:29:59
+<?php /* Smarty version Smarty-3.1.7, created on 2015-12-19 16:20:03
          compiled from ".\templates\admin\activity.htm" */ ?>
 <?php /*%%SmartyHeaderCode:3617566bf44be99049-63672627%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'c003f6b2ce9d35afe02152c542bb7f3d02bf500d' => 
     array (
       0 => '.\\templates\\admin\\activity.htm',
-      1 => 1450409396,
+      1 => 1450513193,
       2 => 'file',
     ),
   ),
@@ -62,7 +62,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
                 }
             }
         </script>
-        <form action="/admin/account.php" method="get" enctype="multipart/form-data" name="search">
+        <form action="/admin/activity.php" method="get" enctype="multipart/form-data" name="search">
             <input type="hidden" name="page" value="1">
         </form>
         <table class="info_list" cellspacing="1" width="100%">
