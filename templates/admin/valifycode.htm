@@ -1,5 +1,4 @@
 {include file='admin/library/page_header.htm'}
-
 <div class="col_main">
     <div class="main_hd">
         <div class="title_tab">
@@ -107,4 +106,5 @@
             <p class="f_title">
                 <input type="button" class="btn_primary" value="生成" onclick="javascript:AjaxSubmit('product_valifycode');">
         </form>
+        <div id="loading" class="loading" style="display:none">验证码生成中,请等待...</div>
         {/if}

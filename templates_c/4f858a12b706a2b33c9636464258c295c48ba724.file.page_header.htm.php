@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.7, created on 2015-12-18 18:39:43
+<?php /* Smarty version Smarty-3.1.7, created on 2015-12-20 18:19:16
          compiled from ".\templates\admin\library\page_header.htm" */ ?>
 <?php /*%%SmartyHeaderCode:6671566bdf8cf41e37-29572595%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '4f858a12b706a2b33c9636464258c295c48ba724' => 
     array (
       0 => '.\\templates\\admin\\library\\page_header.htm',
-      1 => 1450435149,
+      1 => 1450606743,
       2 => 'file',
     ),
   ),
@@ -32,6 +32,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="robots" content="noarchive">
     <link rel="stylesheet" type="text/css" href="/templates/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/templates/css/detail.css">
     <link rel="stylesheet" type="text/css" href="/templates/admin/css/common.css">
     <script type="text/javascript" src="/templates/js/jquery-1.8.0.min.js"></script>
     <script type="text/javascript" src="/templates/js/jquery.form.js"></script>
