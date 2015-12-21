@@ -11,7 +11,7 @@ $act = isset($_REQUEST['act']) ? $Common->charFormat($_REQUEST['act']) : 'defaul
 $vcode = isset($_REQUEST['vcode']) ? $Common->charFormat($_REQUEST['vcode']) : '';
 $prize = array("name"=>12);
 $msg = array("result" => 0, "error" => 1, "data" => "系统错误","prize"=>$prize);
-/* 活动列表 */
+/* 抽取红包 */
 if ($act == 'default')
 {
 

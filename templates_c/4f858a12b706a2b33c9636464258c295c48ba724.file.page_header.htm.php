@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.7, created on 2015-12-20 18:19:16
+<?php /* Smarty version Smarty-3.1.7, created on 2015-12-21 16:12:33
          compiled from ".\templates\admin\library\page_header.htm" */ ?>
 <?php /*%%SmartyHeaderCode:6671566bdf8cf41e37-29572595%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '4f858a12b706a2b33c9636464258c295c48ba724' => 
     array (
       0 => '.\\templates\\admin\\library\\page_header.htm',
-      1 => 1450606743,
+      1 => 1450685551,
       2 => 'file',
     ),
   ),
@@ -38,6 +38,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     <script type="text/javascript" src="/templates/js/jquery.form.js"></script>
     <script type="text/javascript" src="/templates/js/common.js"></script>
     <script type="text/javascript" src="/templates/js/transaction.js"></script>
+    <script type="text/javascript" src="/templates/js/admin.js"></script>
     <title>管理中心 - <?php echo $_smarty_tpl->tpl_vars['_lang']->value['title'];?>
 </title>
 </head>

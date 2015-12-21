@@ -18,14 +18,14 @@ $admin = new Admin();
 if ($act == 'default') {
     //todo
     $pageNow = isset($_REQUEST['page']) ? intval($_REQUEST['page']) : 1;
-    $pageNum = 10;
+    $pageNum = 15;
     $activity = isset($_REQUEST['activity']) ? intval($_REQUEST['activity']) : 0;
     $valifycode = isset($_REQUEST['valifycode']) ? $Common->charFormat($_REQUEST['valifycode']) : '';
     $use_account = isset($_REQUEST['use_account']) ? $Common->charFormat($_REQUEST['use_account']) : '';
-    $pages = Admin::setPage($pageNum, $pageNow, $list['resNum']);
 
     $list = $admin->getValify($pageNow, $pageNum, $activity, $valifycode, $use_account);
     $activitylist = $admin->getAllActivity();
+    $pages = Admin::setPage($pageNum, $pageNow, $list['resNum']);
     $smarty->assign('list', $list);
     $smarty->assign('pages', $pages);
     $smarty->assign('activitylist', $activitylist);
@@ -36,6 +36,7 @@ if ($act == 'default') {
 
 if ($act == 'product') {
     $key = isset($_REQUEST['key']) ? $Common->charFormat($_REQUEST['key']) : '';
+    $msg = array('error' => 1, 'data' => '系统错误');
     if (empty($key)) {
         $activitylist = $admin->getAllActivity();
         $smarty->assign('activitylist', $activitylist);
@@ -43,7 +44,16 @@ if ($act == 'product') {
         $activity = isset($_REQUEST['activity']) ? intval($_REQUEST['activity']) : 0;
         $codedigit = isset($_REQUEST['codedigit']) ? intval($_REQUEST['codedigit']) : 6;
         $codecount = isset($_REQUEST['codecount']) ? intval($_REQUEST['codecount']) : 0;
-        $admin->productValifyCode($activity, $codecount, $codedigit);
+        $res = $admin->productValifyCode($activity, $codecount, $codedigit);
+        if ($res) {
+            $msg = array('error' => 0, 'data' => '生成成功', 'href' => '/admin/valifycode.php');
+        } else {
+            $msg = array('error' => 1, 'data' => '生成失败');
+        }
+
+        $msg = $Json->encode($msg);
+        echo $msg;
+        exit;
     }
 }
 

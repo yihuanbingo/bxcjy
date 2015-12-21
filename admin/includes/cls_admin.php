@@ -280,9 +280,8 @@ class Admin extends Common
         }
 
         $table = $GLOBALS['Base']->table('valifycode');
-        foreach ($dataArr as $v) {
-            $GLOBALS['Mysql']->insert($v, $table);
-        }
+        $res = $GLOBALS['Mysql']->insertBatch($dataArr, $table);
+        return $res;
     }
 
     // 生成随机验证码

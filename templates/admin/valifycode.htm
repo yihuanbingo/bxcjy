@@ -55,7 +55,7 @@
             <td>{$l.activity_id}</td>
             <td>{$l.valifycode}</td>
             <td>{$l.money_num}</td>
-            <td>{if $l.is_used==0}已使用{else}未使用{/if}</td>
+            <td>{if $l.is_used==0}未使用{else}已使用{/if}</td>
             <td>{$l.use_account}</td>
             <!--<td>-->
             <!--<a href="javascript:void(0)" onclick="javascript:deleteAccount({$l.account_id});">-->
@@ -76,7 +76,6 @@
         <div class="float_r">
             {include file="admin/library/page.htm"}
         </div>
-        <a href="/admin/activity.php?act=add_activity"><input type="button" class="btn_primary" value="新建活动"></a>
         {/if}
         {if $act==product}
         <form action="/admin/valifycode.php" method="post" enctype="multipart/form-data" id="product_valifycode" class="form">
@@ -104,7 +103,7 @@
                 <input name="key" value="do_add" style="display:none">
 
             <p class="f_title">
-                <input type="button" class="btn_primary" value="生成" onclick="javascript:AjaxSubmit('product_valifycode');">
+                <input type="button" class="btn_primary" id="product" value="生成" onclick="javascript:productValifyCode('product_valifycode');">
         </form>
         <div id="loading" class="loading" style="display:none">验证码生成中,请等待...</div>
         {/if}

@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.7, created on 2015-12-20 18:29:07
+<?php /* Smarty version Smarty-3.1.7, created on 2015-12-21 16:15:22
          compiled from ".\templates\admin\valifycode.htm" */ ?>
 <?php /*%%SmartyHeaderCode:225045673e28d771603-33744754%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '527195d5a1f1c7bbb964e5693100a2fa7a672458' => 
     array (
       0 => '.\\templates\\admin\\valifycode.htm',
-      1 => 1450607345,
+      1 => 1450685720,
       2 => 'file',
     ),
   ),
@@ -105,7 +105,7 @@ $_smarty_tpl->tpl_vars['l']->_loop = true;
 </td>
             <td><?php echo $_smarty_tpl->tpl_vars['l']->value['money_num'];?>
 </td>
-            <td><?php if ($_smarty_tpl->tpl_vars['l']->value['is_used']==0){?>已使用<?php }else{ ?>未使用<?php }?></td>
+            <td><?php if ($_smarty_tpl->tpl_vars['l']->value['is_used']==0){?>未使用<?php }else{ ?>已使用<?php }?></td>
             <td><?php echo $_smarty_tpl->tpl_vars['l']->value['use_account'];?>
 </td>
             <!--<td>-->
@@ -131,7 +131,6 @@ $_smarty_tpl->tpl_vars['l']->_loop = true;
             <?php echo $_smarty_tpl->getSubTemplate ("admin/library/page.htm", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null, array(), 0);?>
 
         </div>
-        <a href="/admin/activity.php?act=add_activity"><input type="button" class="btn_primary" value="新建活动"></a>
         <?php }?>
         <?php if ($_smarty_tpl->tpl_vars['act']->value=='product'){?>
         <form action="/admin/valifycode.php" method="post" enctype="multipart/form-data" id="product_valifycode" class="form">
@@ -167,7 +166,7 @@ $_smarty_tpl->tpl_vars['l']->_loop = true;
                 <input name="key" value="do_add" style="display:none">
 
             <p class="f_title">
-                <input type="button" class="btn_primary" value="生成" onclick="javascript:AjaxSubmit('product_valifycode');">
+                <input type="button" class="btn_primary" id="product" value="生成" onclick="javascript:productValifyCode('product_valifycode');">
         </form>
         <div id="loading" class="loading" style="display:none">验证码生成中,请等待...</div>
         <?php }?><?php }} ?>

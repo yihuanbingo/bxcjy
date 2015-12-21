@@ -3,9 +3,11 @@
  */
 /* 生成验证码 */
 function productValifyCode() {
-
+    $("#loading").css("display","block");
+    $("#product").attr("disabled","true");
     $("#product_valifycode").ajaxSubmit({
         success: function (data) {
+            $("#loading").css("display","none");
             var data = json_decode(data);
             if (data.error == 1) {
                 //$("#ajaxMsg").html(data.data);

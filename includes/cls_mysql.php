@@ -115,6 +115,24 @@ class Mysql
         return $this->query($sql);
     }
 
+    /**
+     * 单个数据表插入多条数据
+     * @param array $DataList array(array('字段1'=>'值','字段2'=>'值',),array('字段1'=>'值','字段2'=>'值',),)
+     * @param string $table 表名
+     * */
+    function insertBatch($DataList, $table)
+    {
+        $key_array = implode(',', array_keys($DataList[0]));
+        $sql = "insert into " . $table . " ($key_array) values ";
+        foreach ($DataList as $v) {
+            $key_val = '\'' . implode('\',\'', array_values($v)) . '\'';
+            $sql .= " ($key_val),";
+        }
+
+        $query_sql = substr($sql, 0, strlen($sql) - 1);
+        return $this->query($query_sql);
+    }
+
 
     /**
      * 更新单表
