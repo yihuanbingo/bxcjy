@@ -223,6 +223,14 @@ class Admin extends Common
         return $res;
     }
 
+    /* 根据ID获取活动 */
+    public function getActivity($activity_id)
+    {
+        $sql = "select * from " . $GLOBALS['Base']->table('activity')." where key_id=$activity_id";
+        $res = $GLOBALS['Mysql']->getRow($sql);
+        return $res;
+    }
+
     /* 获取验证码 */
     public function getValify($pageNow, $pageNum, $activity = 0, $valifycode = '', $use_account = '')
     {
@@ -333,6 +341,23 @@ class Admin extends Common
         }
 
         return $code;
+    }
+
+    // 根据验证码和活动ID获取一条数据
+    public function getValifyCode($code, $activity_id)
+    {
+        $sql = "select * from " . $GLOBALS['Base']->table('valifycode') . " where valifycode='$code' and ";
+        $sql .= "activity_id=$activity_id and isdelete=0";
+        $res = $GLOBALS['Mysql']->getRow($sql);
+        return $res;
+    }
+
+    // 更新验证码的金额
+    public function updateValifyCodeMoney($code, $activity_id,$moneynum)
+    {
+        $sql = "update ".$GLOBALS['Base']->table('valifycode')." set money_num=$moneynum ";
+        $sql .= " where valifycode='$code' and activity_id=$activity_id";
+        $res = $GLOBALS['Mysql']->query($sql);
     }
 
     /*
