@@ -1,33 +1,24 @@
 <?php
-// +----------------------------------------------------------------------
-// | JuhePHP [ NO ZUO NO DIE ]
-// +----------------------------------------------------------------------
-// | Copyright (c) 2010-2015 http://juhe.cn All rights reserved.
-// +----------------------------------------------------------------------
-// | Author: Juhedata <info@juhe.cn>
-// +----------------------------------------------------------------------
 
-//----------------------------------
-// 聚合数据-手机话费充值API调用类
-//----------------------------------
-class recharge
+class Recharge
 {
     private $appkey;
 
-    private $openid;
+    private $recharge_check_url = "http://p.apix.cn/apixlife/pay/phone/recharge_check";
 
-    private $telCheckUrl = 'http://op.juhe.cn/ofpay/mobile/telcheck';
+    private $recharge_query_url = 'http://p.apix.cn/apixlife/pay/phone/recharge_query';
 
-    private $telQueryUrl = 'http://op.juhe.cn/ofpay/mobile/telquery';
+    private $phone_recharge_url = "http://p.apix.cn/apixlife/pay/phone/phone_recharge";
 
-    private $submitUrl = 'http://op.juhe.cn/ofpay/mobile/onlineorder';
+    private $order_state_url = "http://p.apix.cn/apixlife/pay/phone/order_state";
 
-    private $staUrl = 'http://op.juhe.cn/ofpay/mobile/ordersta';
+    private $user_balance_url = "http://p.apix.cn/apixlife/pay/phone/user_balance";
 
-    public function __construct($appkey, $openid)
+    private $order_list_url = "http://p.apix.cn/apixlife/pay/phone/order_list";
+
+    public function __construct($appkey)
     {
         $this->appkey = $appkey;
-        $this->openid = $openid;
     }
 
     /**
@@ -36,16 +27,12 @@ class recharge
      * @param  int $pervalue [充值金额]
      * @return  boolean
      */
-    public function telcheck($mobile, $pervalue)
+    public function recharge_check($phone, $price)
     {
-        $params = 'key=' . $this->appkey . '&phoneno=' . $mobile . '&cardnum=' . $pervalue;
-        $content = $this->juhecurl($this->telCheckUrl, $params);
-        $result = $this->_returnArray($content);
-        if ($result['error_code'] == '0') {
-            return true;
-        } else {
-            return false;
-        }
+        $url = $this->recharge_check_url;
+        $url .= "?phone=" . $phone . "&price=" . $price;
+        $response = $this->commoncurl($url);
+        return $this->_returnArray($response);
     }
 
     /**
@@ -54,11 +41,12 @@ class recharge
      * @param  int $pervalue [充值金额]
      * @return  array
      */
-    public function telquery($mobile, $pervalue)
+    public function recharge_query($phone, $price)
     {
-        $params = 'key=' . $this->appkey . '&phoneno=' . $mobile . '&cardnum=' . $pervalue;
-        $content = $this->juhecurl($this->telQueryUrl, $params);
-        return $this->_returnArray($content);
+        $url = $this->recharge_query_url;
+        $url .= "?phone=" . $phone . "&price=" . $price;
+        $response = $this->commoncurl($url);
+        return $this->_returnArray($response);
     }
 
     /**
@@ -68,18 +56,13 @@ class recharge
      * @param  [string] $orderid  [自定义单号]
      * @return  [array]
      */
-    public function telcz($mobile, $pervalue, $orderid)
+    public function phone_recharge($phone, $price, $orderid)
     {
-        $sign = md5($this->openid . $this->appkey . $mobile . $pervalue . $orderid);//校验值计算
-        $params = array(
-            'key' => $this->appkey,
-            'phoneno' => $mobile,
-            'cardnum' => $pervalue,
-            'orderid' => $orderid,
-            'sign' => $sign
-        );
-        $content = $this->juhecurl($this->submitUrl, $params, 1);
-        return $this->_returnArray($content);
+        $sign = md5($phone . $price . $orderid);//校验值计算
+        $url = $this->phone_recharge_url;
+        $url .= "?phone=" . $phone . "&price=" . $price . "&orderid=$orderid" . "&sign=$sign";
+        $response = $this->commoncurl($url);
+        return $this->_returnArray($response);
     }
 
     /**
@@ -87,11 +70,19 @@ class recharge
      * @param  [string] $orderid [自定义单号]
      * @return  [array]
      */
-    public function sta($orderid)
+    public function order_state($orderid)
     {
-        $params = 'key=' . $this->appkey . '&orderid=' . $orderid;
-        $content = $this->juhecurl($this->staUrl, $params);
-        return $this->_returnArray($content);
+        $url = $this->phone_recharge_url;
+        $url .= "orderid=$orderid";
+        $response = $this->commoncurl($url);
+        return $this->_returnArray($response);
+    }
+
+    public function user_balance()
+    {
+        $url = $this->user_balance_url;
+        $response = $this->commoncurl($url);
+        return $this->_returnArray($response);
     }
 
     /**
@@ -111,36 +102,35 @@ class recharge
      * @param  int $ipost [是否采用POST形式]
      * @return  string
      */
-    public function juhecurl($url, $params = false, $ispost = 0)
+    public function commoncurl($url)
     {
-        $httpInfo = array();
-        $ch = curl_init();
+        $curl = curl_init();
 
-        curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
-        curl_setopt($ch, CURLOPT_USERAGENT, 'JuheData');
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 60);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 60);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        if ($ispost) {
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
-            curl_setopt($ch, CURLOPT_URL, $url);
-        } else {
-            if ($params) {
-                curl_setopt($ch, CURLOPT_URL, $url . '?' . $params);
-            } else {
-                curl_setopt($ch, CURLOPT_URL, $url);
-            }
-        }
-        $response = curl_exec($ch);
-        if ($response === FALSE) {
-            //echo "cURL Error: " . curl_error($ch);
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_HTTPHEADER => array(
+                "accept: application/json",
+                "apix-key: $this->appkey",
+                "content-type: application/json"
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
             return false;
+        } else {
+            return $response;
         }
-        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        $httpInfo = array_merge($httpInfo, curl_getinfo($ch));
-        curl_close($ch);
-        return $response;
     }
 }
 

@@ -39,6 +39,8 @@ define('APPID','wx91c5fd7d0669a634');
 define('APPSECRET','70fd10a8dfbfdb8f218e3cd4307e90ad');
 define('TOKEN','a23dfa3sdf34llk423oiu242342fasdf');
 
+/* APIX话费充值APPKEY */
+define('APIX_PHONE_APPKEY','3e8263866c22425644c869a052f53a1c');
 
 define('ROOT_PATH',                     './');   // 图片上传根目录
 
