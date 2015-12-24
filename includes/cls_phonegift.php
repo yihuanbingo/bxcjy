@@ -37,21 +37,26 @@ class Phonegift
                 $rulearr = explode('|', $this->activity['money_rule']);
                 foreach ($rulearr as $v) {
                     $arr = explode(':', $v);
-                    array_push($ruleres, array($arr[0] => $arr[1]));
+                    $ruleres[$arr[0]] = $arr[1];
                 }
 
                 $standard = 0;
-                $randnum = mt_rand(0,100);
+                //随机数1-100
+                $randnum = mt_rand(1,100);
                 foreach($ruleres as $k=>$v)
                 {
-                    if($randnum>=$standard&&$randnum<($standard+intval($v)))
+                    if($randnum>$standard&&$randnum<=($standard+intval($v)))
                     {
-
+                        return floatval($k);
                     }
 
                     $standard = $standard+intval($v);
                 }
+
+                return 0;
             }
         }
     }
 }
+
+?>

@@ -4,7 +4,7 @@ if (!defined('IN_BS')) {
     die('hacking attempt');
 }
 
-require("cls_common.php");
+require_once("cls_common.php");
 
 class Redpacket
 {
@@ -25,3 +25,6 @@ class Redpacket
         return $money;
     }
 }
+
+
+?>
