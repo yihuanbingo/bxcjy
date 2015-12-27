@@ -16,12 +16,12 @@ $prize = array("name" => 12);
 $msg = array("result" => 0, "error" => 1, "data" => "系统错误");
 $admin = new Admin();
 $activity_id = isset($_REQUEST['activity_id']) ? intval($_REQUEST['activity_id']) : 0;
+$code = isset($_REQUEST['code']) ? $Common->charFormat($_REQUEST['code']) : '';
 $activityres = $admin->getActivity($activity_id);
+$coderes = $admin->getValifyCode($code, $activity_id);
 /* 抽取红包 */
 if ($act == "draw") {
-    $code = isset($_REQUEST['code']) ? $Common->charFormat($_REQUEST['code']) : '';
     if ($activityres) {
-        $coderes = $admin->getValifyCode($code, $activity_id);
         if ($coderes['isvalid'] == 1) {
             $msg = array("result" => 0, "error" => 1, "data" => "验证码已禁用");
         } else {
@@ -62,8 +62,8 @@ if ($act == "draw") {
     switch ($activityres['gift_type']) {
         // 话费
         case "0":
-            $recharge = new Recharge(APIX_PHONE_APPKEY);
-            $asd = $recharge->recharge_query($account, 1);
+            $phonegift = new Phonegift($activityres,$coderes);
+            $asd = $phonegift->recharge($account);
             break;
         default:
             $msg = array("result" => 0, "error" => 1, "data" => "未支持的礼物方式");

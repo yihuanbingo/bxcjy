@@ -11,7 +11,7 @@ Property::checkCookie();
 Represent::checkCookie();
 if(isset($_SESSION['property']))
 {
-   $Common->base_header("Location:/property/");	
+   $Common->base_header("Location:/property/");
 }
 elseif(isset($_SESSION['represent']))
 {

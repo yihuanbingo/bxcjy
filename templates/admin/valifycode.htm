@@ -20,7 +20,7 @@
             <table>
                 <td align="right">活动：</td>
                 <td style="padding-right: 20px">
-                    <select name="activity">
+                    <select name="activity" id="activity">
                         <option value="0">全部</option>
                         {foreach from=$activitylist item=l}
                         {if $l.key_id==$activity}
@@ -32,12 +32,13 @@
                     </select>
                 </td>
                 <td align="right">验证码：</td>
-                <td style="padding-right: 20px"><input type="text" class="searchinput" name="valifycode"
+                <td style="padding-right: 20px"><input type="text" class="searchinput" name="valifycode" id="valifycode"
                                                        value="{$valifycode}"></td>
                 <td align="right">使用账号：</td>
-                <td style="padding-right: 20px"><input type="text" class="searchinput" name="use_account"
+                <td style="padding-right: 20px"><input type="text" class="searchinput" name="use_account" id="use_account"
                                                        value="{$use_account}"></td>
                 <td><input type="submit" class="btn_primary" value="查询"></td>
+                <td><input type="button" class="btn_primary" id="export" name="export" value="导出excel" onclick="exportValifyCode()"></td>
             </table>
             </p>
         </form>
@@ -78,7 +79,8 @@
         </div>
         {/if}
         {if $act==product}
-        <form action="/admin/valifycode.php" method="post" enctype="multipart/form-data" id="product_valifycode" class="form">
+        <form action="/admin/valifycode.php" method="post" enctype="multipart/form-data" id="product_valifycode"
+              class="form">
             <p class="f_title">活动：
 
             <p class="f_content">
@@ -103,7 +105,8 @@
                 <input name="key" value="do_add" style="display:none">
 
             <p class="f_title">
-                <input type="button" class="btn_primary" id="product" value="生成" onclick="javascript:productValifyCode('product_valifycode');">
+                <input type="button" class="btn_primary" id="product" value="生成"
+                       onclick="javascript:productValifyCode('product_valifycode');">
         </form>
         <div id="loading" class="loading" style="display:none">验证码生成中,请等待...</div>
         {/if}

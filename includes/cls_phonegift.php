@@ -6,6 +6,9 @@
  * Date: 2015/12/23
  * Time: 20:00
  */
+require_once("cls_rechage.php");
+require_once("cls_common.php");
+
 class Phonegift
 {
     /*
@@ -42,19 +45,34 @@ class Phonegift
 
                 $standard = 0;
                 //随机数1-100
-                $randnum = mt_rand(1,100);
-                foreach($ruleres as $k=>$v)
-                {
-                    if($randnum>$standard&&$randnum<=($standard+intval($v)))
-                    {
+                $randnum = mt_rand(1, 100);
+                foreach ($ruleres as $k => $v) {
+                    if ($randnum > $standard && $randnum <= ($standard + intval($v))) {
                         return floatval($k);
                     }
 
-                    $standard = $standard+intval($v);
+                    $standard = $standard + intval($v);
                 }
 
                 return 0;
             }
+        }
+    }
+
+    public function recharge($phone)
+    {
+        $msg = array("result" => 0, "msg" => "系统错误，请重试");
+        $common = new Common();
+        $orderid = $common->get_orderid(0);
+        $recharge = new Recharge(APIX_PHONE_APPKEY);
+        $check = $recharge->recharge_check($phone, $this->valifycode['money_num']);
+        if($check['Code']=='0')
+        {
+            $res = $recharge->phone_recharge($phone, $this->valifycode['money_num'], $orderid);
+        }
+        else
+        {
+            $msg = array("result" => 0, "msg" =>$check['Msg']);
         }
     }
 }

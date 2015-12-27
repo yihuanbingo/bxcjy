@@ -3,11 +3,11 @@
  */
 /* 生成验证码 */
 function productValifyCode() {
-    $("#loading").css("display","block");
-    $("#product").attr("disabled","true");
+    $("#loading").css("display", "block");
+    $("#product").attr("disabled", "true");
     $("#product_valifycode").ajaxSubmit({
         success: function (data) {
-            $("#loading").css("display","none");
+            $("#loading").css("display", "none");
             var data = json_decode(data);
             if (data.error == 1) {
                 //$("#ajaxMsg").html(data.data);
@@ -38,4 +38,12 @@ function productValifyCode() {
             }
         }
     });
+}
+
+function exportValifyCode() {
+    var activity = $("#activity").val();
+    var valifycode = $("#valifycode").val();
+    var use_account = $("#use_account").val();
+    window.location.href = "/admin/valifycode.php?act=export&activity=" + activity + "&valifycode=" + valifycode
+        + "&use_account=" + use_account;
 }

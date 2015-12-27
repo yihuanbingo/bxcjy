@@ -258,6 +258,28 @@ class Admin extends Common
         return $arr;
     }
 
+    /* 根据条件获取验证码 */
+    public function getValifyByCondition($activity = 0, $valifycode = '', $use_account = '')
+    {
+        $sql = "select * from " . $GLOBALS['Base']->table('valifycode');
+        $where = "where isdelete=0 ";
+        if ($activity != 0) {
+            $where .= "and activity_id=$activity ";
+        }
+
+        if (!empty($valifycode)) {
+            $where .= "and valifycode='$valifycode' ";
+        }
+
+        if (!empty($use_account)) {
+            $where .= "and use_account='$use_account' ";
+        }
+
+        $sql .= $where;
+        $res = $GLOBALS['Mysql']->getAll($sql);
+        return $res;
+    }
+
     // 生成验证码
     public function productValifyCode($activity, $codecount, $codedigit = 6)
     {
@@ -355,9 +377,10 @@ class Admin extends Common
     // 更新验证码的金额
     public function updateValifyCodeMoney($code, $activity_id,$moneynum)
     {
-        $sql = "update ".$GLOBALS['Base']->table('valifycode')." set money_num=$moneynum ";
+        $sql = "update ".$GLOBALS['Base']->table('valifycode')." set money_num=$moneynum,is_valified=1 ";
         $sql .= " where valifycode='$code' and activity_id=$activity_id";
         $res = $GLOBALS['Mysql']->query($sql);
+        return $res;
     }
 
     /*

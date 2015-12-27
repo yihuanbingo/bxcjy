@@ -58,6 +58,7 @@ class Recharge
      */
     public function phone_recharge($phone, $price, $orderid)
     {
+        $price = intval($price);
         $sign = md5($phone . $price . $orderid);//校验值计算
         $url = $this->phone_recharge_url;
         $url .= "?phone=" . $phone . "&price=" . $price . "&orderid=$orderid" . "&sign=$sign";
@@ -107,7 +108,7 @@ class Recharge
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => "",
+            CURLOPT_URL => $url,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
