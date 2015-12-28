@@ -67,15 +67,24 @@ if ($act == 'export') {
     $use_account = isset($_REQUEST['use_account']) ? $Common->charFormat($_REQUEST['use_account']) : '';
     $list = $admin->getValifyByCondition($activity, $valifycode, $use_account);
     $objPHPExcel = new PHPExcel();
+
+    $objPHPExcel->getActiveSheet()->setCellValue('A1', '活动ID');
+    $objPHPExcel->getActiveSheet()->setCellValue('B1', '活动名称');
+    $objPHPExcel->getActiveSheet()->setCellValue('C1', '验证码');
+    $objPHPExcel->getActiveSheet()->setCellValue('D1', '金额');
+    $objPHPExcel->getActiveSheet()->setCellValue('E1', '是否使用');
+    $objPHPExcel->getActiveSheet()->setCellValue('F1', '是否验证');
+    $objPHPExcel->getActiveSheet()->setCellValue('G1', '使用账号');
+    $objPHPExcel->getActiveSheet()->setCellValue('H1', '是否禁用');
     for ($i = 2; $i <= count($list) + 1; $i++) {
         $objPHPExcel->getActiveSheet()->setCellValue('A' . $i, $list[$i - 2]['activity_id']);
         $objPHPExcel->getActiveSheet()->setCellValue('B' . $i, $list[$i - 2]['activity_name']);
         $objPHPExcel->getActiveSheet()->setCellValue('C' . $i, $list[$i - 2]['valifycode']);
         $objPHPExcel->getActiveSheet()->setCellValue('D' . $i, $list[$i - 2]['money_num']);
-        $objPHPExcel->getActiveSheet()->setCellValue('E' . $i, $list[$i - 2]['is_used']);
-        $objPHPExcel->getActiveSheet()->setCellValue('F' . $i, $list[$i - 2]['is_valified']);
+        $objPHPExcel->getActiveSheet()->setCellValue('E' . $i, $list[$i - 2]['is_used']==0?'未使用':'已使用');
+        $objPHPExcel->getActiveSheet()->setCellValue('F' . $i, $list[$i - 2]['is_valified']==0?'未验证':'已验证');
         $objPHPExcel->getActiveSheet()->setCellValue('G' . $i, $list[$i - 2]['use_account']);
-        $objPHPExcel->getActiveSheet()->setCellValue('H' . $i, $list[$i - 2]['isvalid']);
+        $objPHPExcel->getActiveSheet()->setCellValue('H' . $i, $list[$i - 2]['isvalid']==0?'启用':'禁用');
     }
 
     $date = date("ymdHis", time());
@@ -88,7 +97,7 @@ if ($act == 'export') {
     header("Content-Type:application/vnd.ms-execl");
     header("Content-Type:application/octet-stream");
     header("Content-Type:application/download");;
-    header('Content-Disposition:attachment;filename="'.$outputFileName.'"');
+    header('Content-Disposition:attachment;filename="' . $outputFileName . '"');
     header("Content-Transfer-Encoding:binary");
     $write->save('php://output');
     exit;

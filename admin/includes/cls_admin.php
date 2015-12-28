@@ -383,6 +383,21 @@ class Admin extends Common
         return $res;
     }
 
+    /* 获取交易记录 */
+    public function getTradeRecord($pageNow, $pageNum)
+    {
+        $start = ($pageNow - 1) * $pageNum;
+        $sql = "select * from " . $GLOBALS['Base']->table('traderecord');
+        $where = "where isdelete=0 ";
+        $sql .= $where;
+        $resNum = $GLOBALS['Mysql']->getCount($sql);
+        $sql .= "limit $start, $pageNum ";
+        $res = $GLOBALS['Mysql']->getAll($sql);
+
+        $arr = array('resNum' => $resNum, 'res' => $res);
+        return $arr;
+    }
+
     /*
     * 检查上传文件类型
     * param String file_name

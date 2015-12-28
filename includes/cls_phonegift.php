@@ -68,7 +68,14 @@ class Phonegift
         $check = $recharge->recharge_check($phone, $this->valifycode['money_num']);
         if($check['Code']=='0')
         {
+
             $res = $recharge->phone_recharge($phone, $this->valifycode['money_num'], $orderid);
+            $data = array('orderid'=>$orderid,'activity_id'=>$this->valifycode['activity_id'],
+                'activity_name'=>$this->valifycode['activity_name'],'valifycode'=>$this->valifycode['valifycode'],
+                'money_num'=>$this->valifycode['money_num'],'tradeplat'=>'APIX','tradeaccount'=>$phone,
+                'tradestatus'=>$res['Code'],'failreason'=>$res['failreason']);
+            $table = $GLOBALS['Base']->table('traderecord');
+            $GLOBALS['Mysql']->insert($data,$table);
         }
         else
         {
