@@ -226,7 +226,7 @@ class Admin extends Common
     /* 根据ID获取活动 */
     public function getActivity($activity_id)
     {
-        $sql = "select * from " . $GLOBALS['Base']->table('activity')." where key_id=$activity_id";
+        $sql = "select * from " . $GLOBALS['Base']->table('activity') . " where key_id=$activity_id";
         $res = $GLOBALS['Mysql']->getRow($sql);
         return $res;
     }
@@ -375,20 +375,38 @@ class Admin extends Common
     }
 
     // 更新验证码的金额
-    public function updateValifyCodeMoney($code, $activity_id,$moneynum)
+    public function updateValifyCodeMoney($code, $activity_id, $moneynum)
     {
-        $sql = "update ".$GLOBALS['Base']->table('valifycode')." set money_num=$moneynum,is_valified=1 ";
+        $sql = "update " . $GLOBALS['Base']->table('valifycode') . " set money_num=$moneynum,is_valified=1 ";
         $sql .= " where valifycode='$code' and activity_id=$activity_id";
         $res = $GLOBALS['Mysql']->query($sql);
         return $res;
     }
 
-    /* 获取交易记录 */
-    public function getTradeRecord($pageNow, $pageNum)
+    /* 获取充值记录 */
+    public function getRechargeRecord($pageNow, $pageNum, $activity = 0, $valifycode = '', $tradeaccount = '', $status = -1)
     {
         $start = ($pageNow - 1) * $pageNum;
-        $sql = "select * from " . $GLOBALS['Base']->table('traderecord');
+        $sql = "select * from " . $GLOBALS['Base']->table('rechargerecord');
         $where = "where isdelete=0 ";
+
+        if ($activity != 0) {
+            $where .= "and activity_id=$activity ";
+        }
+
+        if (!empty($valifycode)) {
+            $where .= "and valifycode='$valifycode' ";
+        }
+
+        if (!empty($tradeaccount)) {
+            $where .= "and tradeaccount='$tradeaccount' ";
+        }
+
+        if($status!=-1)
+        {
+            $where .= "and tradestatus=$status ";
+        }
+
         $sql .= $where;
         $resNum = $GLOBALS['Mysql']->getCount($sql);
         $sql .= "limit $start, $pageNum ";
@@ -396,6 +414,44 @@ class Admin extends Common
 
         $arr = array('resNum' => $resNum, 'res' => $res);
         return $arr;
+    }
+
+    /* 获取充值记录 */
+    public function getRechargeRecordByCondition($activity = 0, $valifycode = '', $tradeaccount = '', $status = -1)
+    {
+        $sql = "select * from " . $GLOBALS['Base']->table('rechargerecord');
+        $where = "where isdelete=0 ";
+
+        if ($activity != 0) {
+            $where .= "and activity_id=$activity ";
+        }
+
+        if (!empty($valifycode)) {
+            $where .= "and valifycode='$valifycode' ";
+        }
+
+        if (!empty($tradeaccount)) {
+            $where .= "and tradeaccount='$tradeaccount' ";
+        }
+
+        if($status!=-1)
+        {
+            $where .= "and tradestatus=$status ";
+        }
+
+        $sql .= $where;
+        $res = $GLOBALS['Mysql']->getAll($sql);
+
+        return $res;
+    }
+
+    /* 更新充值记录 */
+    public function updateRechargeRecord($orderid, $status, $message)
+    {
+        $sql = "update " . $GLOBALS['Base']->table('rechargerecord') . " set tradestatus=$status,message=$message";
+        $sql .= " where orderid=$orderid";
+        $res = $GLOBALS['Mysql']->query($sql);
+        return $res;
     }
 
     /*

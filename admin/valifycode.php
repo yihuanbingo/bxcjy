@@ -60,7 +60,7 @@ if ($act == 'product') {
     }
 }
 
-//导出能力
+//导出
 if ($act == 'export') {
     $activity = isset($_REQUEST['activity']) ? intval($_REQUEST['activity']) : 0;
     $valifycode = isset($_REQUEST['valifycode']) ? $Common->charFormat($_REQUEST['valifycode']) : '';

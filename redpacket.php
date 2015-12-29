@@ -55,22 +55,19 @@ if ($act == "draw") {
     } else {
         $msg = array("result" => 0, "error" => 1, "data" => "活动不存在");
     }
-
-    echo $Json->encode($msg);
 } else if ($act == "receive") {
     $account = isset($_REQUEST['account']) ? $Common->charFormat($_REQUEST['account']) : '';
     switch ($activityres['gift_type']) {
         // 话费
         case "0":
-            $phonegift = new Phonegift($activityres,$coderes);
-            $asd = $phonegift->recharge($account);
+            $phonegift = new Phonegift($activityres, $coderes);
+            $msg = $phonegift->recharge($account);
             break;
         default:
             $msg = array("result" => 0, "error" => 1, "data" => "未支持的礼物方式");
     }
 }
 
-echo "jsonpReturn(" . $Json->encode(array("name" => "asd")) . ");";
-//return $Json->encode($msg);
+echo json_encode($msg, JSON_UNESCAPED_UNICODE);
 exit;
 ?>

@@ -61,26 +61,30 @@ class Phonegift
 
     public function recharge($phone)
     {
-        $msg = array("result" => 0, "msg" => "系统错误，请重试");
+        $msg = array("result" => 0, "error" => 1, "msg" => "系统错误，请重试");
         $common = new Common();
         $orderid = $common->get_orderid(0);
         $recharge = new Recharge(APIX_PHONE_APPKEY);
         $check = $recharge->recharge_check($phone, $this->valifycode['money_num']);
-        if($check['Code']=='0')
-        {
+        if ($check['Code'] == '0') {
 
             $res = $recharge->phone_recharge($phone, $this->valifycode['money_num'], $orderid);
-            $data = array('orderid'=>$orderid,'activity_id'=>$this->valifycode['activity_id'],
-                'activity_name'=>$this->valifycode['activity_name'],'valifycode'=>$this->valifycode['valifycode'],
-                'money_num'=>$this->valifycode['money_num'],'tradeplat'=>'APIX','tradeaccount'=>$phone,
-                'tradestatus'=>$res['Code'],'failreason'=>$res['failreason']);
-            $table = $GLOBALS['Base']->table('traderecord');
-            $GLOBALS['Mysql']->insert($data,$table);
+            $data = array('orderid' => $orderid, 'activity_id' => $this->valifycode['activity_id'],
+                'activity_name' => $this->valifycode['activity_name'], 'valifycode' => $this->valifycode['valifycode'],
+                'money_num' => $this->valifycode['money_num'], 'tradeplat' => 'APIX', 'tradeaccount' => $phone,
+                'tradestatus' => $res['Code'] == '0' ? 0 : 1, 'message' => $res['Msg']);
+            $table = $GLOBALS['Base']->table('rechargerecord');
+            $GLOBALS['Mysql']->insert($data, $table);
+            if ($res && $res['Code'] == '0') {
+                $msg = array("result" => 1, "error" => 0, "msg" => "充值成功");
+            } else {
+                $msg = array("result" => 0, "error" => 1, "msg" => "充值失败");
+            }
+        } else {
+            $msg = array("result" => 0, "error" => 1, "msg" => $check['Msg']);
         }
-        else
-        {
-            $msg = array("result" => 0, "msg" =>$check['Msg']);
-        }
+
+        return $msg;
     }
 }
 

@@ -93,28 +93,38 @@
             <p class="f_title">送礼方式：
 
             <p class="f_content">
-                <select name="type" id="gift_type">
-                    <option value="1">话费</option>
+                <select name="type" id="gift_type" onchange="selectGiftType()">
+                    <option value="0">话费</option>
                 </select>
             <p class="f_title">送出金额类型：
 
             <p class="f_content">
-                <select name="type" id="money_type">
-                    <option value="1">固定金额</option>
-                    <option value="2">随机金额</option>
+                <select name="type" id="money_type" onchange="selectMoneyType()">
+                    <option value="0">固定金额</option>
+                    <option value="1">随机金额</option>
                 </select>
+            <div id="gudingdiv" style="display: block">
             <p class="f_title">送出金额数：
-
-            <p class="f_content"><input type="text" name="money_num" class="input">
-
+            <p class="f_content"><input type="text" name="money_num" id="money_num" class="input">
+            </div>
+            <div id="suijidiv0" style="display: none">
+            <p class="f_title">随机规则：
+            <p class="f_content">
+                &nbsp;&nbsp;0：<input type="text" class="smallinput" id="huafei0" name="haufei0">%
+                &nbsp;&nbsp;1：<input type="text" class="smallinput" id="huafei1" name="huafei1">%
+                &nbsp;&nbsp;2：<input type="text" class="smallinput" id="huafei2" name="huafei2">%
+                &nbsp;&nbsp;5：<input type="text" class="smallinput" id="huafei5" name="huafei5">%
+                10：<input type="text" class="smallinput" id="huafei10" name="huafei10">%
+                <br>
+                20：<input type="text" class="smallinput" id="huafei20" name="huafei20">%
+            </div>
             <p class="f_title">图片地址：
-
             <p class="f_content"><input type="text" name="image_address" class="input">
 
                 <input name="act" value="add_activity" style="display:none">
                 <input name="key" value="do_add" style="display:none">
 
             <p class="f_title">
-                <input type="button" class="btn_primary" value="确认" onclick="javascript:AjaxSubmit('add_activity');">
+                <input type="button" class="btn_primary" value="确认" onclick="addActivity();">
         </form>
         {/if}

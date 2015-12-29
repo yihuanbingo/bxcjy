@@ -18,3 +18,12 @@ $ordertime = isset($_REQUEST['ordertime']) ? $Common->charFormat($_REQUEST['orde
 $sign = isset($_REQUEST['sign']) ? $Common->charFormat($_REQUEST['sign']) : '';
 $err_msg = isset($_REQUEST['err_msg']) ? $Common->charFormat($_REQUEST['err_msg']) : '';
 
+//验签通过
+if ($sign == md5(APIX_PHONE_APPKEY . $orderid . $ordertime)) {
+    $admin = new Admin();
+    $admin->updateRechargeRecord($orderid, intval($state), $err_msg);
+}
+
+echo "success";
+
+?>
