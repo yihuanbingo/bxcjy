@@ -37,12 +37,31 @@ if($act=='add_activity')
     elseif($key=='do_add')
     {
         $msg = array("error"=>1,"data"=>"系统错误");
-        $name = isset($_POST['name']) ? $Common->charFormat($_POST['name']) : '';
-        $descrpition = isset($_POST['descrpition']) ? $Common->charFormat($_POST['descrpition']) : '';
-        $gift_type = isset($_POST['gift_type']) ? intval($_POST['gift_type']) : 0;
-        $money_type = isset($_POST['money_type']) ? intval($_POST['money_type']) : 0;
-        $money_num = isset($_POST['money_num']) ? doubleval($_POST['money_num']) : 0;
-        $image_address = isset($_POST['image_address']) ? $Common->charFormat($_POST['image_address']) : '';
+        $name = isset($_POST['name']) ? $Common->charFormat($_REQUEST['name']) : '';
+        $descrpition = isset($_REQUEST['descrpition']) ? $Common->charFormat($_REQUEST['descrpition']) : '';
+        $gift_type = isset($_REQUEST['gift_type']) ? intval($_REQUEST['gift_type']) : 0;
+        $money_type = isset($_REQUEST['money_type']) ? intval($_REQUEST['money_type']) : 0;
+        $money_num = isset($_REQUEST['money_num']) ? doubleval($_REQUEST['money_num']) : 0;
+        $image_address = isset($_REQUEST['image_address']) ? $Common->charFormat($_REQUEST['image_address']) : '';
+
+        $money_rule = '';
+        if($money_type==0)
+        {
+            $money_rule = $money_num;
+        }
+        else
+        {
+            if($gift_type==0)
+            {
+                $huafei0 = isset($_REQUEST['huafei0']) ? intval($_REQUEST['huafei0']) : 0;
+                $huafei1 = isset($_REQUEST['huafei1']) ? intval($_REQUEST['huafei1']) : 0;
+                $huafei2 = isset($_REQUEST['huafei2']) ? intval($_REQUEST['huafei2']) : 0;
+                $huafei5 = isset($_REQUEST['huafei5']) ? intval($_REQUEST['huafei5']) : 0;
+                $huafei10 = isset($_REQUEST['huafei10']) ? intval($_REQUEST['huafei10']) : 0;
+                $huafei20 = isset($_REQUEST['huafei20']) ? intval($_REQUEST['huafei20']) : 0;
+                $money_rule = "0:".$huafei0."|1:".$huafei1."|2:".$huafei2."|5:".$huafei5."|10:".$huafei10."|20:".$huafei20;
+            }
+        }
 
         if(empty($name))
         {

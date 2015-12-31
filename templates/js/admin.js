@@ -13,7 +13,7 @@ function addActivity() {
         var huafei20 = Number($("#huafei20").val());
         if (huafei0 >= 0 && huafei1 >= 0 && huafei2 >= 0 && huafei5 >= 0 && huafei10 >= 0 && huafei20 >= 0) {
             if ((huafei0 + huafei1 + huafei2 + huafei5 + huafei10 + huafei20) != 100) {
-                alertMsg("所以随机规则值的总和要等于100");
+                alertMsg("所有随机规则值的总和要等于100");
                 return false;
             }
         }
