@@ -1,0 +1,737 @@
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td {
+    margin: 0;
+    padding: 0;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+fieldset, img {
+    border: 0;
+}
+
+address, caption, cite, code, dfn, em, strong, th, var {
+    font-style: normal;
+    font-weight: normal;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+caption {
+    text-align: left;
+}
+
+h1, h2, h3, h4, h5, h6, b {
+    font-weight: normal;
+}
+
+q:before, q:after {
+    content: '';
+}
+
+abbr, acronym {
+    border: 0;
+    font-variant: normal;
+}
+
+sup {
+    vertical-align: text-top;
+}
+
+sub {
+    vertical-align: text-bottom;
+}
+
+input, textarea, select, button {
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    *font-size: 100%;
+    outline: none;
+    border: 0;
+    -webkit-appearance: none;
+    border-radius: 0;
+}
+
+a, button, input, div {
+    text-decoration: none;
+    outline: none;
+    border: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+i, b {
+    font-style: normal;
+}
+
+.clearfix:before, .clearfix:after {
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+/*IE/7/6*/
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+img {
+    width: 100%;
+    height: auto;
+}
+
+select {
+    -webkit-appearance: none;
+}
+
+/*  end--reset.css*/
+
+body {
+    font-family: Microsoft YaHei, Helvetica, STHeiti STXihei, Microsoft JhengHei, Arial;
+    font-size: 1.2rem;
+    min-width: 320px;
+    max-width: 768px;
+    margin: 0 auto;
+    position: relative;
+    background-color: #B3001E;
+}
+
+.yellow {
+    color: #fff7a8 !important;
+}
+
+.red {
+    color: #b21d23;
+}
+
+.hide {
+    display: none;
+}
+
+.overtext {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+a {
+    color: #333;
+}
+
+/*头部标题*/
+header {
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    width: 100%;
+    min-width: 320px;
+    max-width: 768px;
+    height: 3.6rem;
+    background-color: #b21d23;
+}
+
+header h1 {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #f8eccd;
+    line-height: 3.6rem;
+}
+
+header a {
+    position: absolute;
+    top: 0;
+    color: #fff;
+    height: 100%;
+    line-height: 3.6rem;
+    font-size: 1.2rem;
+}
+
+header a.h-l {
+    left: 10px;
+}
+
+header a.h-l::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: url(../images/i_icons.png) no-repeat center -658px;
+    background-size: 40px;
+    vertical-align: middle;
+}
+
+header a.h-r {
+    right: 10px;
+}
+
+.btn-orange {
+    display: block;
+    width: 100%;
+    height: 3rem;
+    line-height: 3rem;
+    background-color: #fef7a7;
+    text-align: center;
+    font-size: 1.3rem;
+    color: #b3001f;
+    -webkit-box-shadow: 3px 0 5px 3px rgba(176, 20, 20, 0.5);
+    box-shadow: 3px 0 5px 3px rgba(176, 20, 20, 0.5);
+    border-radius: 4px;
+}
+
+/*验真页面*/
+.imitate-checkbox, .imitate-radio {
+    position: relative;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    overflow: hidden;
+}
+
+/*弹出层样式*/
+.p_chance {
+    overflow: hidden;
+    line-height: 1;
+    padding: 6px 0 15px;
+    font-size: 1.1rem;
+    text-align: left;
+}
+
+.p_chance input[type="checkbox"] {
+    background-color: #fff;
+    border: 1px solid #595959;
+    border-radius: 3px;
+    width: 1.3rem;
+    height: 1.3rem;
+    margin-right: 3px;
+    vertical-align: text-top;
+}
+
+.p_chance input[type="checkbox"]:checked {
+    background: #fff url(../images/icon.png) no-repeat center -0.55rem;
+    background-size: 3rem auto;
+}
+
+/*首页轮播*/
+.winners {
+    height: 35px;
+    background: #fff;
+    width: 85%;
+    margin: 0 auto;
+    font-size: 12px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 6px;
+    margin-bottom: 6px;
+}
+
+.winners-ul {
+    position: absolute;
+    top: 0px;
+    left: 30px;
+}
+
+.winners-ul {
+    -webkit-transition: top 0.4s;
+    transition: top 0.4s;
+}
+
+.winners-ul li {
+    color: #363636;
+    height: 35px;
+    line-height: 35px;
+}
+
+.winners::before {
+    content: '';
+    position: absolute;
+    top: 2.5px;
+    left: 2.5px;
+    width: 30px;
+    height: 30px;
+    background: url(../images/s_03_03.jpg) no-repeat center;
+    background-size: 80% auto;
+}
+
+/*扫描结果*/
+.lottery-wrap {
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    z-index: 3;
+    overflow: hidden;
+    margin: 2rem auto 0;
+    color: #fff;
+    text-align: center;
+}
+
+.lottery-box {
+    width: 85%;
+    margin: 0 auto;
+}
+
+.lottery-form {
+    position: relative;
+    margin: 0 auto;
+    z-index: 3;
+}
+
+.lottery-tip {
+    text-align: center;
+    width: 100%;
+    font-size: 1rem;
+    line-height: 1.2;
+    display: block;
+    margin: 3rem 0;
+    color: #fff;
+}
+
+.hint-text {
+    font-size: 1rem;
+}
+
+.hint-text .p {
+    text-align: left;
+    margin-bottom: 5px;
+}
+
+.hint-text .fail-img {
+    display: inline-block;
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin: 10px auto;
+}
+
+.hint-text .code-input {
+    width: 100%;
+    padding: 0.6rem;
+    border-radius: 4px;
+}
+
+.more {
+    font-size: 1rem;
+    margin: 1rem 0;
+    text-align: left;
+}
+
+/*商城链接*/
+.mall {
+    float: right;
+    color: #fff;
+    position: relative;
+    padding-right: 1.4rem;
+}
+
+.mall::before, .mall::after {
+    content: '';
+    position: absolute;
+    right: 0.6rem;
+    top: 45%;
+    width: 8px;
+    height: 8px;
+    border-right: 1px solid #fff;
+    border-top: 1px solid #fff;
+    -webkit-transform: rotate(45deg) translateY(-50%);
+    -ms-transform: rotate(45deg) translateY(-50%);
+    transform: rotate(45deg) translateY(-50%);
+}
+
+.mall::before {
+    right: 0.9rem;
+}
+
+.open-area .title .mall {
+    position: absolute;
+    right: 0.5rem;
+    font-size: 1.2rem;
+    top: 50%;
+    margin-top: -0.75rem;
+    color: #b3001f;
+}
+
+.open-area .title .mall::before, .open-area .title .mall::after {
+    border-right: 1px solid #b3001f;
+    border-top: 1px solid #b3001f;
+}
+
+/*拆开状态*/
+.open-scan {
+    margin-top: 3rem;
+}
+
+.s-red {
+    color: #b60020;
+}
+
+.open-area {
+    position: relative;
+    width: 100%;
+    padding: 10px 15px 0;
+}
+
+.open-area::before, .open-area::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #420727 url(../images/s_3.png) no-repeat center bottom;
+    background-size: 100% auto;
+    z-index: -1;
+}
+
+.open-area-hint {
+    padding: 0.5rem;
+    padding-left: 0;
+    position: relative;
+    padding-left: 0.8rem;
+}
+
+.open-area-hint p::before {
+    content: '';
+    display: inline-block;
+    width: 0.4rem;
+    height: 0.4rem;
+    background: #fff7a8;
+    border-radius: 50%;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    margin-top: -0.2rem;
+}
+
+.float-img {
+    position: absolute;
+    bottom: 0;
+    font-size: 0;
+    left: 0;
+    width: 100%;
+}
+
+.open-area .title {
+    background: url(../images/s_1.png) no-repeat;
+    background-size: 100% 100%;
+    text-align: center;
+    color: #b60020;
+    font-size: 1.6rem;
+    padding: 10px;
+    position: relative;
+}
+
+.open-area .prize {
+    text-align: center;
+    background: url(../images/s_2.png) no-repeat;
+    background-size: 100% auto;
+    color: #505050;
+    line-height: 1.8;
+    padding: 0 1rem;
+    padding-bottom: 6.2rem;
+}
+
+.prize-xiaomi {
+    font-size: 0;
+    display: table;
+    width: 100%;
+}
+
+.prize-xiaomi .p-img {
+    display: table-cell;
+    width: 30%;
+    padding: 10px;
+    vertical-align: middle;
+    max-width: 200px;
+    min-width: 110px;
+}
+
+.prize-xiaomi .p-img img {
+    border-radius: 4px;
+    border: 1px solid #b7b58d;
+}
+
+.prize-xiaomi .p-info {
+    display: table-cell;
+    width: 70%;
+    text-align: left;
+    vertical-align: middle;
+    font-size: 1.2rem;
+}
+
+.prize .p-inte {
+    color: #b60020;
+}
+
+.prize .p-inte .big {
+    font-size: 2rem;
+    font-weight: bolder;
+    vertical-align: middle;
+}
+
+.prize .p-input input {
+    width: 80%;
+    padding: 0.6rem;
+    margin-top: 1rem;
+    max-width: 350px;
+    -webkit-box-shadow: 0 0 3px #DEDDDD inset;
+    box-shadow: 0 0 3px #DEDDDD inset;
+}
+
+.p-pour-t {
+    font-size: 1.3rem;
+}
+
+.p-pour-b {
+    font-size: 1.1rem;
+}
+
+.time {
+    background-color: #515151;
+    color: #fff;
+    padding: 0 2px;
+}
+
+.open-area-top {
+    -webkit-transform: translateY(100%);
+    transform: translateY(100%);
+    -ms-transform: translateY(100%);
+    transform: translateY(100%);
+    -webkit-transition: -webkit-transform 0.4s ease;
+    transition: transform 0.4s ease;
+}
+
+.open-area-top.s-win {
+    -webkit-transform: translateY(0%);
+    -ms-transform: translateY(0%);
+    transform: translateY(0%);
+}
+
+.open-scan-bottom {
+    background-color: #B3001F;
+    position: relative;
+    z-index: 9;
+}
+
+/*领取积分*/
+.btn-area {
+    text-align: center;
+    padding: 20px 10px;
+    position: relative;
+    z-index: 5;
+    overflow: hidden;
+}
+
+.btn-area input {
+    display: block;
+    width: 100%;
+    font-size: 1.4rem;
+    line-height: 3.2rem;
+    background: #fef7a7;
+    color: #b3001f;
+    border-radius: 5px;
+}
+
+.btn-area.overdue input {
+    background: #7a7a7a;
+    color: #fff;
+}
+
+.win-but {
+    padding: 10px 10px 0;
+}
+
+.win-but a {
+    display: block;
+    width: 100%;
+    font-size: 1.4rem;
+    line-height: 3.2rem;
+    background: #b60020;
+    color: #fff9a9;
+    border-radius: 5px;
+}
+
+.win-but p {
+    font-size: 1rem;
+}
+
+.btn-area .mall {
+    margin-top: 1rem;
+}
+
+/*关注微信*/
+.weixi-area {
+    padding-bottom: 2rem;
+}
+
+.weixi-area p {
+    text-align: center;
+    color: #fff;
+    font-size: 1.1rem;
+    padding: 0.5rem;
+}
+
+.weixi-area p.wx-title {
+    font-size: 1.4rem;
+    color: #fff7a8;
+}
+
+.weixi-area .wx-img {
+    width: 40%;
+    margin: 0 auto;
+    max-width: 200px;
+}
+
+/*领取成功*/
+.win-wrap {
+    position: fixed;
+    top: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    background: url(../images/s_7.jpg) no-repeat;
+    background-size: 100% 100%;
+    min-width: 320px;
+    max-width: 768px;
+}
+
+.win-box {
+    position: absolute;
+    top: 4.6rem;
+    left: 1rem;
+    right: 1rem;
+    bottom: 4rem;
+    background: url(../images/s_2.png) no-repeat;
+    background-size: 100% 100%;
+    border-radius: 4px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.win-box h2 {
+    text-align: center;
+    color: #b60020;
+    font-size: 1.5rem;
+    padding: 1rem;
+    position: relative;
+    background: url(../images/s_1.jpg) no-repeat;
+    background-size: 100% 100%;
+    border-radius: 4px 4px 0 0;
+}
+
+.w-text {
+    text-align: center;
+}
+
+.w-text p {
+    margin: 1rem 0;
+}
+
+.win-wrap .weixi-area {
+    padding: 0;
+}
+
+.win-wrap .weixi-area p {
+    color: #4e4e4e;
+}
+
+.kefu {
+    position: fixed;
+    bottom: 2rem;
+    width: 100%;
+    color: #FFF;
+    text-align: center;
+    height: 2rem;
+    line-height: 2rem;
+    font-size: 1rem;
+}
+
+/*温馨提示*/
+.hint-btm {
+    /*background:#B3001F;*/
+    padding: 1.5rem;
+    position: relative;
+    z-index: 100;
+}
+
+.hint-btm-text {
+    margin: 1rem auto 0;
+    text-align: justify;
+    background-color: #fff;
+    padding: 1rem;
+    line-height: 1.4;
+    border-radius: 6px;
+    border: 1px dashed #de001f;
+    color: #3b3b3b;
+}
+
+.hint-btm-text h3 {
+    font-weight: bolder;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    z-index: 100;
+    width: 100%;
+    line-height: 2rem;
+    text-align: center;
+    background-color: #5f010f;
+    color: #fff;
+    font-size: 0.9rem;
+    min-width: 320px;
+    max-width: 768px;
+}
+
+.fadeIn {
+    animation: fadeIn 1s ease alternate 2;
+    -webkit-animation: fadeIn 1s ease alternate 2;
+    -ms-animation: fadeIn 1s ease alternate 2;
+}
+
+/*动画*/
+@-webkit-keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
