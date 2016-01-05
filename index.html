@@ -60,9 +60,9 @@
     <div class="lottery-tip">客服热线：400-020-1906<br>更多活动与奖品请关注双喜微信公众号</div>
     <!-- <div style="height:50px;"></div> -->
 </section>
-<div class="footer">
-    <p>吸烟有害健康</p>
-</div>
+<!--<div class="footer">-->
+    <!--<p>吸烟有害健康</p>-->
+<!--</div>-->
 <script type="text/javascript">
     var prize_name = ''; //奖品名称
     var get_name = ''; //领取名称
@@ -94,36 +94,49 @@
                 return false;
             }
             var d = new Date();
-            $.ajax({
-                url: 'http://guangdong-tobacco.ycwemedia.com/scan/ajax_lottery?brand_id=1&barcode=TJ1RM275IV5' + '&captcha=' + captcha + '&t=' + d.getTime(),
-                timeout: 5000,
-                dataType: "json",
-                success: function (data) {
-                    if(data.err != 0){ //错误
-                        common.hint(data.msg);
-                        return false;
-                    }
-                    $('#body').html(data.html);
-                    //$("html,body").animate({scrollTop:0},0);
-                    document.documentElement.scrollTop = document.body.scrollTop = 0;
-
-                },
-                error: function () {
-                }
-            });
+//            $.ajax({
+//                url: 'http://guangdong-tobacco.ycwemedia.com/scan/ajax_lottery?brand_id=1&barcode=TJ1RM275IV5' + '&captcha=' + captcha + '&t=' + d.getTime(),
+//                timeout: 5000,
+//                dataType: "json",
+//                success: function (data) {
+//                    if(data.err != 0){ //错误
+//                        common.hint(data.msg);
+//                        return false;
+//                    }
+//                    $('#body').html(data.html);
+//                    //$("html,body").animate({scrollTop:0},0);
+//                    document.documentElement.scrollTop = document.body.scrollTop = 0;
+//
+//                },
+//                error: function () {
+//                }
+//            });
+            $.post("/redpacket.php",
+                    {
+                        act: "draw", code: captcha, activity_id: 1},
+                    function (data) {
+                        var data = json_decode(data);
+                        if (data.error == 0) {
+                            common.hint(data.data);
+                        }
+                        if (data.error == 1) {
+                            /* 弹出错误提示 */
+                            common.hint(data.data);
+                        }
+                    });
         });
 
         $.getJSON('http://guangdong-tobacco.ycwemedia.com/scan/ajax_scan?brand_id=1&barcode=TJ1RM275IV5', function(data){
         })
     });
-    //中奖播报
-    function auto_scroll(obj) {
-        $(obj).find("ul li").first().animate({
-            marginTop: "-35px"
-        },  500,  function() {
-            $(obj).find("ul li").first().css({marginTop: '0px'}).appendTo($(".jc_scroll ul"));
-        });
-    }
+//    //中奖播报
+//    function auto_scroll(obj) {
+//        $(obj).find("ul li").first().animate({
+//            marginTop: "-35px"
+//        },  500,  function() {
+//            $(obj).find("ul li").first().css({marginTop: '0px'}).appendTo($(".jc_scroll ul"));
+//        });
+//    }
 </script>
 
 </body>
