@@ -41,7 +41,7 @@
                 <th width="240px">活动名称</th>
                 <th width="100px">送礼方式</th>
                 <th width="240px">送出金额类型</th>
-                <th width="240px">送出金额</th>
+                <th width="240px">金额规则</th>
                 <th width="240px">活动url</th>
                 <th width="120px">操作</th>
             </tr>
@@ -49,12 +49,8 @@
             <td>{$l.name}</td>
             <td>{if $l.gift_type==0}话费{else}其他{/if}</td>
             <td>{if $l.money_type==0}固定金额{else}随机金额{/if}</td>
-            {if $l.money_type==0}
-            <td>{$l.money_num}</td>
-            {else}
-            <td>{$l.money_min}-{$l.money_max}</td>
-            {/if}
-            <td>{$l.activi_url}</td>
+            <td>{$l.money_rule}</td>
+            <td>{$l.activity_url}</td>
             <!--<td>-->
             <!--<a href="javascript:void(0)" onclick="javascript:deleteAccount({$l.account_id});">-->
             <!--<img src="/templates/images/icon/icon_trash.gif" title="删除">-->
@@ -83,23 +79,23 @@
         <form action="/admin/activity.php" method="post" enctype="multipart/form-data" id="add_activity" class="form">
             <p class="f_title">活动名称：<span class="color999 fontSize12">（活动名不多于30个字符）</span>
 
-            <p class="f_content"><input type="text" name="name" class="input">
+            <p class="f_content"><input type="text" id="name" name="name" class="input">
 
             <p class="f_title">活动描述：
 
             <p class="f_content">
-                <textarea type="text" name="descrpition" class="input"></textarea>
+                <textarea type="text" id="descrpition" name="descrpition" class="input"></textarea>
 
             <p class="f_title">送礼方式：
 
             <p class="f_content">
-                <select name="type" id="gift_type" onchange="selectGiftType()">
+                <select name="gift_type" id="gift_type" onchange="selectGiftType()">
                     <option value="0">话费</option>
                 </select>
             <p class="f_title">送出金额类型：
 
             <p class="f_content">
-                <select name="type" id="money_type" onchange="selectMoneyType()">
+                <select name="money_type" id="money_type" onchange="selectMoneyType()">
                     <option value="0">固定金额</option>
                     <option value="1">随机金额</option>
                 </select>
@@ -119,7 +115,7 @@
                 20：<input type="text" class="smallinput" id="huafei20" name="huafei20">%
             </div>
             <p class="f_title">图片地址：
-            <p class="f_content"><input type="text" name="image_address" class="input">
+            <p class="f_content"><input type="text" id="image_address" name="image_address" class="input">
 
                 <input name="act" value="add_activity" style="display:none">
                 <input name="key" value="do_add" style="display:none">

@@ -74,7 +74,7 @@ if($act=='add_activity')
         else
         {
             $data = array('name'=>$name,'descrpition'=>$descrpition,'gift_type'=>$gift_type,'money_type'=>$money_type,
-                'money_num'=>$money_num,'image_address'=>$image_address);
+                'image_address'=>$image_address,'money_rule'=>$money_rule);
             $table = $Base->table('activity');
             if($Mysql->insert($data,$table))
             {
