@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalabel=no">
     <meta http-equiv="Expires" content="-1">
     <meta http-equiv="Cache-Control" content="no-cache">
@@ -12,7 +12,7 @@
     <script type="text/javascript" src="/templates/js/redpacket/utils.js"></script>
     <script type="text/javascript" src="/templates/js/redpacket/countdown.js"></script>
     <script type="text/javascript" src="/templates/js/common.js"></script>
-    <link rel="stylesheet" type="text/css" href="/templates/css/redpacket.css" />
+    <link rel="stylesheet" type="text/css" href="/templates/css/redpacket.css"/>
 </head>
 <body id="body">
 <header>
@@ -21,76 +21,97 @@
 </header>
 <section id="ad_wrap">
     <div class="ad_pic">
-        <img src="/images/redpacket/s_01.jpg" height="352" width="640" alt="" />
+        <img src="/images/redpacket/s_01.jpg" height="352" width="640" alt=""/>
     </div>
 </section>
-<section class="lottery-wrap">
-    <!--<div class="winners jc_scroll">-->
-        <!--<ul class="winners-ul">-->
-            <!--<li>恭喜<i class="red">尾号2755</i>的用户抽中<i class="red">5元话费</i></li>-->
-            <!--<li>恭喜<i class="red">尾号4421</i>的用户抽中<i class="red">5元话费</i></li>-->
-            <!--<li>恭喜<i class="red">尾号2824</i>的用户抽中<i class="red">5元话费</i></li>-->
-            <!--<li>恭喜<i class="red">尾号9898</i>的用户抽中<i class="red">10元话费</i></li>-->
-        <!--</ul>-->
-    <!--</div>-->
-    <!-- 扫描结果 -->
-    <div class="lottery-box">
-        <!-- 扫描为正品 -->
-        <div class="win-hint">
-            <!-- 需输入验证码 -->
-            <div class="hint-text">
-                <div class="p yellow" style="display: none;">提示：扫一扫二维码，输入验证即可抽大礼喔！</div>
-                <img class="win-img" title="" src="/images/redpacket/gongfang-1.jpg">
-                <input class="code-input" type="text" id="captcha" maxlength="6" placeholder="请输入包装内侧的6位验证码" />
-            </div>
-            <!--输入验证拆红包 -->
-            <ul>
-                <li>
-                    <div class="chance p_chance">
-                        <label for="checkbox" class="law_x "><input id="j_law" type="checkbox" class="imitate-checkbox" checked="checked" value="1"><span class="white lawp_chance">我已阅读并同意<a href="/law.html" style="color: #FFF">《法律责任声明》</a></span></label>
-                    </div>
-                </li>
-                <li>
-                    <button class="btn btn-orange" id="j_lottery">立即拆红包</button>
-                    <p class="more yellow">注：活动期间凡购买双喜（经典工坊）、双喜（喜百年）、双喜（百年经典）、双喜（和喜）香烟可轻松获取百元话费，还有小米手机大礼天天放送，机会多多，永不落空。</p>
-                </li>
-            </ul>
+<section class="open-scan" id="open-area">    <!-- 拆开奖项 -->
+    <div class="open-area">
+        <div class="open-area-top s-win"><h2 class="title"><i>恭喜您获得</i>
+        </h2> <!-- 积分，话费领取 -->
+            <div class="prize"><p class="p-inte"><i class="big">20</i>元</p>
+
+                <p class="p-pour-t">您可以领取相应话费。</p></div>
+        </div>
+        <div class="float-img"><img src="/images/redpacket/s_4.png" height="128" width="640" alt=""/></div>
+    </div>
+    <div class="open-scan-bottom">
+        <div class="btn-area overdue" style="display: none" id="overdue-area">
+            <input type="button" value="奖品已被领取"/>
+        </div>
+        <div class="input-area" id="input-area">
+            <input class="input-text" type="text" placeholder="请输入手机号码"/>
+            <br>
+            <input class="btn-receive" type="button" value="领取话费"/>
         </div>
     </div>
-    <!-- 客服热线 -->
-    <div class="lottery-tip">客服热线：400-020-1906<br>更多活动与奖品请关注双喜微信公众号</div>
-    <!-- <div style="height:50px;"></div> -->
 </section>
+<!--<section class="lottery-wrap">-->
+<!--&lt;!&ndash;<div class="winners jc_scroll">&ndash;&gt;-->
+<!--&lt;!&ndash;<ul class="winners-ul">&ndash;&gt;-->
+<!--&lt;!&ndash;<li>恭喜<i class="red">尾号2755</i>的用户抽中<i class="red">5元话费</i></li>&ndash;&gt;-->
+<!--&lt;!&ndash;<li>恭喜<i class="red">尾号4421</i>的用户抽中<i class="red">5元话费</i></li>&ndash;&gt;-->
+<!--&lt;!&ndash;<li>恭喜<i class="red">尾号2824</i>的用户抽中<i class="red">5元话费</i></li>&ndash;&gt;-->
+<!--&lt;!&ndash;<li>恭喜<i class="red">尾号9898</i>的用户抽中<i class="red">10元话费</i></li>&ndash;&gt;-->
+<!--&lt;!&ndash;</ul>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash; 扫描结果 &ndash;&gt;-->
+<!--<div class="lottery-box">-->
+<!--&lt;!&ndash; 扫描为正品 &ndash;&gt;-->
+<!--<div class="win-hint">-->
+<!--&lt;!&ndash; 需输入验证码 &ndash;&gt;-->
+<!--<div class="hint-text">-->
+<!--<div class="p yellow" style="display: none;">提示：扫一扫二维码，输入验证即可抽大礼喔！</div>-->
+<!--<img class="win-img" title="" src="/images/redpacket/gongfang-1.jpg">-->
+<!--<input class="code-input" type="text" id="captcha" maxlength="6" placeholder="请输入包装内侧的6位验证码" />-->
+<!--</div>-->
+<!--&lt;!&ndash;输入验证拆红包 &ndash;&gt;-->
+<!--<ul>-->
+<!--<li>-->
+<!--<div class="chance p_chance">-->
+<!--<label for="checkbox" class="law_x "><input id="j_law" type="checkbox" class="imitate-checkbox" checked="checked" value="1"><span class="white lawp_chance">我已阅读并同意<a href="/law.html" style="color: #FFF">《法律责任声明》</a></span></label>-->
+<!--</div>-->
+<!--</li>-->
+<!--<li>-->
+<!--<button class="btn btn-orange" id="j_lottery">立即拆红包</button>-->
+<!--<p class="more yellow">注：活动期间凡购买双喜（经典工坊）、双喜（喜百年）、双喜（百年经典）、双喜（和喜）香烟可轻松获取百元话费，还有小米手机大礼天天放送，机会多多，永不落空。</p>-->
+<!--</li>-->
+<!--</ul>-->
+<!--</div>-->
+<!--</div>-->
+<!--&lt;!&ndash; 客服热线 &ndash;&gt;-->
+<!--<div class="lottery-tip">客服热线：400-020-1906<br>更多活动与奖品请关注双喜微信公众号</div>-->
+<!--&lt;!&ndash; <div style="height:50px;"></div> &ndash;&gt;-->
+<!--</section>-->
 <!--<div class="footer">-->
-    <!--<p>吸烟有害健康</p>-->
+<!--<p>吸烟有害健康</p>-->
 <!--</div>-->
 <script type="text/javascript">
     var prize_name = ''; //奖品名称
     var get_name = ''; //领取名称
 
     var scroll_prize;
-    $(function(){
+    $(function () {
         scroll_prize = setInterval('auto_scroll(".jc_scroll")', 2000);
         //重拆红包
-        $('#reset').click(function(){
+        $('#reset').click(function () {
             $('.jc_captcha_error').hide();
             $('.jc_captcha_init').show();
             $('.jc_captcha').show();
         });
 
         //拆红包
-        $('#j_lottery').click(function(){
+        $('#j_lottery').click(function () {
             var captcha = '';
             captcha = $('#captcha').val();
-            if(captcha.length == 0){
+            if (captcha.length == 0) {
                 common.hint('请填写校验码！');
                 return false;
             }
-            if(captcha.length != 6){
+            if (captcha.length != 6) {
                 common.hint('请填写6位校验码！');
                 return false;
             }
-            if(!$('#j_law').is(':checked') ){
+            if (!$('#j_law').is(':checked')) {
                 common.hint('请勾选“法律责任声明”！');
                 return false;
             }
@@ -114,7 +135,8 @@
 //            });
             $.post("/redpacket.php",
                     {
-                        act: "draw", code: captcha, activity_id: 1},
+                        act: "draw", code: captcha, activity_id: 1
+                    },
                     function (data) {
                         var data = json_decode(data);
                         if (data.error == 0) {
@@ -127,17 +149,17 @@
                     });
         });
 
-        $.getJSON('http://guangdong-tobacco.ycwemedia.com/scan/ajax_scan?brand_id=1&barcode=TJ1RM275IV5', function(data){
+        $.getJSON('http://guangdong-tobacco.ycwemedia.com/scan/ajax_scan?brand_id=1&barcode=TJ1RM275IV5', function (data) {
         })
     });
-//    //中奖播报
-//    function auto_scroll(obj) {
-//        $(obj).find("ul li").first().animate({
-//            marginTop: "-35px"
-//        },  500,  function() {
-//            $(obj).find("ul li").first().css({marginTop: '0px'}).appendTo($(".jc_scroll ul"));
-//        });
-//    }
+    //    //中奖播报
+    //    function auto_scroll(obj) {
+    //        $(obj).find("ul li").first().animate({
+    //            marginTop: "-35px"
+    //        },  500,  function() {
+    //            $(obj).find("ul li").first().css({marginTop: '0px'}).appendTo($(".jc_scroll ul"));
+    //        });
+    //    }
 </script>
 
 </body>

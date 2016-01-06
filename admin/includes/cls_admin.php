@@ -402,8 +402,7 @@ class Admin extends Common
             $where .= "and tradeaccount='$tradeaccount' ";
         }
 
-        if($status!=-1)
-        {
+        if ($status != -1) {
             $where .= "and tradestatus=$status ";
         }
 
@@ -434,8 +433,7 @@ class Admin extends Common
             $where .= "and tradeaccount='$tradeaccount' ";
         }
 
-        if($status!=-1)
-        {
+        if ($status != -1) {
             $where .= "and tradestatus=$status ";
         }
 
@@ -450,6 +448,15 @@ class Admin extends Common
     {
         $sql = "update " . $GLOBALS['Base']->table('rechargerecord') . " set tradestatus=$status,message=$message";
         $sql .= " where orderid=$orderid";
+        $res = $GLOBALS['Mysql']->query($sql);
+        return $res;
+    }
+
+    /* 更新验证码使用状态 */
+    public function updateValifyCodeUseStatus($key_id, $is_used, $account)
+    {
+        $sql = "update " . $GLOBALS['Base']->table('valifycode') . " set is_used=$is_used,use_account=$account";
+        $sql .= " where key_id=$key_id";
         $res = $GLOBALS['Mysql']->query($sql);
         return $res;
     }

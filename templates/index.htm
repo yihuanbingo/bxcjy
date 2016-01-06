@@ -25,7 +25,10 @@
         <img src="/images/redpacket/s_01.jpg" height="352" width="640" alt=""/>
     </div>
 </section>
-<section class="lottery-wrap">
+<input id="activity_id" value="{$activity_id}" style="display: none">
+<input id="valifycode" style="display: none">
+<!-- 验证 -->
+<section class="lottery-wrap" id="valify-area">
     <!--<div class="winners jc_scroll">-->
     <!--<ul class="winners-ul">-->
     <!--<li>恭喜<i class="red">尾号2755</i>的用户抽中<i class="red">5元话费</i></li>-->
@@ -55,7 +58,7 @@
                     </div>
                 </li>
                 <li>
-                    <input id="activity_id" value="{$activity_id}" style="display: none">
+
                     <button class="btn btn-orange" id="j_lottery">立即拆红包</button>
                     <p class="more yellow">
                         注：活动期间凡购买双喜（经典工坊）、双喜（喜百年）、双喜（百年经典）、双喜（和喜）香烟可轻松获取百元话费，还有小米手机大礼天天放送，机会多多，永不落空。</p>
@@ -67,6 +70,31 @@
     <div class="lottery-tip">客服热线：400-020-1906<br>更多活动与奖品请关注双喜微信公众号</div>
     <!-- <div style="height:50px;"></div> -->
 </section>
+
+<!-- 拆开奖项 -->
+<section class="open-scan" id="open-area" style="display: none">    <!-- 拆开奖项 -->
+    <div class="open-area">
+        <div class="open-area-top s-win"><h2 class="title"><i>恭喜您获得</i>
+        </h2> <!-- 积分，话费领取 -->
+            <div class="prize"><p class="p-inte"><i class="big" id="money"></i>元</p>
+
+                <p class="p-pour-t">您可以领取相应话费。</p></div>
+        </div>
+        <div class="float-img"><img src="/images/redpacket/s_4.png" height="128" width="640" alt=""/></div>
+    </div>
+    <div class="open-scan-bottom">
+        <div class="btn-area overdue" style="display: none" id="overdue-area">
+            <input type="button" value="奖品已被领取"/>
+        </div>
+        <div class="input-area" id="input-area">
+            <input class="input-text" type="text" placeholder="请输入手机号码" id="phone"/>
+            <br>
+            <input class="btn-receive" type="button" value="领取话费" onclick="receive();"/>
+        </div>
+    </div>
+</section>
+
+
 <!--<div class="footer">-->
 <!--<p>吸烟有害健康</p>-->
 <!--</div>-->
@@ -88,6 +116,7 @@
         $('#j_lottery').click(function () {
             var captcha = '';
             captcha = $('#captcha').val();
+            $('#valifycode').val(captcha);
             if (captcha.length == 0) {
                 common.hint('请填写校验码！');
                 return false;
@@ -109,7 +138,9 @@
                     function (data) {
                         var data = json_decode(data);
                         if (data.error == 0) {
-                            common.hint(data.data);
+                            $('#valify-area').css("display", "none");
+                            $('#open-area').css("display", "block");
+                            $('#money').html(data.money);
                         }
                         if (data.error == 1) {
                             /* 弹出错误提示 */
@@ -118,6 +149,29 @@
                     });
         });
     });
+
+    function receive() {
+        var valifycode = $('#valifycode').val();
+        var activity_id = $('#activity_id').val();
+        var account = $('#phone').val();
+        $.post("/redpacket.php",
+                {
+                    act: "receive", code: valifycode, activity_id: activity_id, account: account
+                },
+                function (data) {
+                    var data = json_decode(data);
+                    if (data.error == 0) {
+                        $('#input-area').css("display", "none");
+                        $('#overdue-area').css("display", "block");
+                        common.hint(data.data);
+                        $('#overdue-area input').val(data.data);
+                    }
+                    if (data.error == 1) {
+                        /* 弹出错误提示 */
+                        common.hint(data.data);
+                    }
+                });
+    }
 </script>
 
 </body>

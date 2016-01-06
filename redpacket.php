@@ -22,35 +22,39 @@ $coderes = $admin->getValifyCode($code, $activity_id);
 /* 抽取红包 */
 if ($act == "draw") {
     if ($activityres) {
-        if ($coderes['isvalid'] == 1) {
-            $msg = array("result" => 0, "error" => 1, "data" => "验证码已禁用");
-        } else {
-            if ($coderes['is_used'] == 1) {
-                $msg = array("result" => 0, "error" => 1, "data" => "验证码已使用", "money" => $coderes['money_num']);
+        if ($coderes) {
+            if ($coderes['isvalid'] == 1) {
+                $msg = array("result" => 0, "error" => 1, "data" => "验证码已禁用");
             } else {
-                //看看是否验证过
-                if ($coderes['is_valified'] == 0) {
-                    $moneynum = 0;
-                    switch ($activityres['gift_type']) {
-                        case 0:
-                            $phonegift = new Phonegift($activityres, $coderes);
-                            $moneynum = $phonegift->getMoneyNum();
-                            break;
-                        default:
-                            echo $Json->encode(array("result" => 0, "error" => 1, "data" => "不支持的礼物方式"));
-                            exit;
-                    }
-
-                    $res = $admin->updateValifyCodeMoney($code, $activity_id, $moneynum);
-                    if ($res) {
-                        $msg = array("result" => 0, "error" => 0, "data" => "验证成功", "money" => $moneynum);
-                    } else {
-                        $msg = array("result" => 0, "error" => 1, "data" => "系统错误，请重试");
-                    }
+                if ($coderes['is_used'] == 1) {
+                    $msg = array("result" => 0, "error" => 1, "data" => "验证码已使用", "money" => $coderes['money_num']);
                 } else {
-                    $msg = array("result" => 0, "error" => 1, "data" => "验证码已验证", "money" => $coderes['money_num']);
+                    //看看是否验证过
+                    if ($coderes['is_valified'] == 0) {
+                        $moneynum = 0;
+                        switch ($activityres['gift_type']) {
+                            case 0:
+                                $phonegift = new Phonegift($activityres, $coderes);
+                                $moneynum = $phonegift->getMoneyNum();
+                                break;
+                            default:
+                                echo $Json->encode(array("result" => 0, "error" => 1, "data" => "不支持的礼物方式"));
+                                exit;
+                        }
+
+                        $res = $admin->updateValifyCodeMoney($code, $activity_id, $moneynum);
+                        if ($res) {
+                            $msg = array("result" => 0, "error" => 0, "data" => "验证成功", "money" => $moneynum);
+                        } else {
+                            $msg = array("result" => 0, "error" => 1, "data" => "系统错误，请重试");
+                        }
+                    } else {
+                        $msg = array("result" => 0, "error" => 0, "data" => "验证码已验证", "money" => $coderes['money_num']);
+                    }
                 }
             }
+        } else {
+            $msg = array("result" => 0, "error" => 1, "data" => "验证码错误");
         }
     } else {
         $msg = array("result" => 0, "error" => 1, "data" => "活动不存在");
@@ -65,6 +69,10 @@ if ($act == "draw") {
             break;
         default:
             $msg = array("result" => 0, "error" => 1, "data" => "未支持的礼物方式");
+    }
+
+    if ($msg["error"] == 0) {
+        $admin->updateValifyCodeUseStatus($coderes["key_id"], 1, $account);
     }
 }
 

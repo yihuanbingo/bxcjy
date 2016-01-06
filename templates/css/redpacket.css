@@ -545,6 +545,33 @@ header a.h-r {
     color: #fff;
 }
 
+.btn-receive {
+    display: block;
+    width: 100%;
+    font-size: 1.4rem;
+    line-height: 3.2rem;
+    background: #fef7a7;
+    color: #b3001f;
+    border-radius: 5px;
+}
+
+.input-text {
+    display: block;
+    width: 100%;
+    font-size: 1.4rem;
+    line-height: 3.2rem;
+    border-radius: 5px;
+}
+
+.input-area {
+    text-align: center;
+    padding: 20px 10px;
+    position: relative;
+    z-index: 5;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
 .win-but {
     padding: 10px 10px 0;
 }
