@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.7, created on 2015-12-12 11:13:29
+<?php /* Smarty version Smarty-3.1.7, created on 2016-01-08 00:06:27
          compiled from ".\templates\index.htm" */ ?>
 <?php /*%%SmartyHeaderCode:21939566b90d90f0475-09695722%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '051f931158ab43d8f98eed833984a03bdbf9a32d' => 
     array (
       0 => '.\\templates\\index.htm',
-      1 => 1405141940,
+      1 => 1452182784,
       2 => 'file',
     ),
   ),
@@ -15,143 +15,193 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
-  'variables' => 
-  array (
-    'nav' => 0,
-    'error' => 0,
-  ),
-  'has_nocache_code' => false,
   'version' => 'Smarty-3.1.7',
   'unifunc' => 'content_566b90d962c32',
+  'variables' => 
+  array (
+    'activity' => 0,
+  ),
+  'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_566b90d962c32')) {function content_566b90d962c32($_smarty_tpl) {?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?php if ($_valid && !is_callable('content_566b90d962c32')) {function content_566b90d962c32($_smarty_tpl) {?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="robots" content="noarchive">
-<link rel="stylesheet" type="text/css"  href="/templates/css/common.css">
-<link rel="stylesheet" type="text/css"  href="/templates/property/css/common.css">
-<link rel="stylesheet" type="text/css"  href="/templates/css/passport.css">
-<script type="text/javascript" src="/templates/js/jquery-1.8.0.min.js"></script>
-<script type="text/javascript" src="/templates/js/jquery.form.js"></script>
-<script type="text/javascript" src="/templates/js/common.js"></script>
-<script type="text/javascript" src="/templates/js/transaction.js"></script>
-<title>小区快帮 - 用户登录</title>
-<style type="text/css">
-body{
-background: url(/templates/images/banner_property_login.jpg) 0 0 repeat;background-size:100% auto;
-}
-.yswitch{
-}
-.yswitch li{
-height:35px;line-height:35px;padding:0 15px;border:1px solid #ccc;border-bottom:0;border-right:0;background:#fff;
-}
-.yswitch li.onclick{
-background:#5ba10e;color:#fff;font-weight:bold
-}
-</style>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalabel=no">
+    <meta http-equiv="Expires" content="-1">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <title>巴乡春酒业-<?php echo $_smarty_tpl->tpl_vars['activity']->value['name'];?>
+</title>
+    <script type="text/javascript" src="/templates/js/redpacket/zepto.js"></script>
+    <script type="text/javascript" src="/templates/js/redpacket/common.js"></script>
+    <script type="text/javascript" src="/templates/js/redpacket/utils.js"></script>
+    <script type="text/javascript" src="/templates/js/redpacket/countdown.js"></script>
+    <script type="text/javascript" src="/templates/js/common.js"></script>
+    <link rel="stylesheet" type="text/css" href="/templates/css/redpacket.css"/>
 </head>
-<body>
-
-<div id="popDiv" class="mydiv" style="display:none">
-<div class="middle"><div id="alertMsg"></div></div>
-</div>
-
-<div id="bg" class="bg" style="display:none"></div>
-
-<div class="head_box">
- <div class="head">
-  <img src="/templates/images/logo_40.png" class="logo float_l">
-  <div class="member_info float_r" style="display:none">
-   <div class="mr float_r">
-    <?php if ($_smarty_tpl->tpl_vars['nav']->value=='login'){?>
-	  还没有账号？<a href="/property/apply">立即申请</a>
-	<?php }?>
-	<?php if ($_smarty_tpl->tpl_vars['nav']->value=='apply'){?>
-	  已有账号？<a href="/property/login">直接登录</a>
-	<?php }?>
-   </div>
-  </div>
- </div>
-</div>
-
-<div class="clear height20"></div>
-
-<div class="login-box">
-<div class="login-panel">     
-<h3>请选择自己的身份进行登录</h3>
-<div class="login-mod">
-  <div class="login-err-panel" id="err_area" style="display:none">
-    <span class="icon-wrapper"><i class="icon24-login err" style="margin-top:-.2em;*margin-top:0;"></i></span>
-	<span id="err_tips" style="display:inline;">你还没有输入帐号！</span>
-  </div>
-  <ul class="yswitch">
-   <a href="javascript:;" onclick="switchLoginUser('property');"><li id="property" class="onclick" style="border-top-left-radius:5px">小区物业</li></a>
-   <a href="javascript:;" onclick="switchLoginUser('represent');"><li id="represent">小区管理员</li></a>
-   <a href="javascript:;" onclick="switchLoginUser('agent');"><li id="agent" style="border-top-right-radius:5px;border-right:1px solid #ccc">代理商</li></a>
-  </ul>
-  <div class="clear"></div>
-  <form action="/property/login" method="post" enctype="multipart/form-data" class="login-form" id="login-form" name="login-form">
-    <div class="login-un">
-      <span class="icon-wrapper"><i class="icon24-login un"></i></span>
-      <input type="text" name="account" placeholder="请输入登录账号">
+<body id="body">
+<header>
+    <h1 id="j_time"><?php echo $_smarty_tpl->tpl_vars['activity']->value['name'];?>
+</h1>
+    <a class="h-r" href="/law.html">活动规则</a>
+</header>
+<section id="ad_wrap">
+    <div class="ad_pic">
+        <img src="<?php echo $_smarty_tpl->tpl_vars['activity']->value['image_address'];?>
+" height="352" width="640" alt=""/>
     </div>
-    <div class="login-pwd">
-      <span class="icon-wrapper"><i class="icon24-login pwd"></i></span>
-      <input type="password" name="passwd" placeholder="请输入登录密码">
-	  <input type="hidden" name="act" value="act_default">
-      <input type="hidden" id="rememberPwd" name="rememberPwd" value="0">
+</section>
+<input id="activity_id" value="<?php echo $_smarty_tpl->tpl_vars['activity']->value['key_id'];?>
+" style="display: none">
+<input id="valifycode" style="display: none">
+<!-- 验证 -->
+<section class="lottery-wrap" id="valify-area">
+    <!--<div class="winners jc_scroll">-->
+    <!--<ul class="winners-ul">-->
+    <!--<li>恭喜<i class="red">尾号2755</i>的用户抽中<i class="red">5元话费</i></li>-->
+    <!--<li>恭喜<i class="red">尾号4421</i>的用户抽中<i class="red">5元话费</i></li>-->
+    <!--<li>恭喜<i class="red">尾号2824</i>的用户抽中<i class="red">5元话费</i></li>-->
+    <!--<li>恭喜<i class="red">尾号9898</i>的用户抽中<i class="red">10元话费</i></li>-->
+    <!--</ul>-->
+    <!--</div>-->
+    <!-- 扫描结果 -->
+    <div class="lottery-box">
+        <!-- 扫描为正品 -->
+        <div class="win-hint">
+            <!-- 需输入验证码 -->
+            <div class="hint-text">
+                <div class="p yellow" style="display: none;">提示：扫一扫二维码，输入验证即可抽大礼喔！</div>
+                <img class="win-img" title="" src="/images/redpacket/gongfang-1.jpg">
+                <input class="code-input" type="text" id="captcha" maxlength="6" placeholder="请输入包装内侧的6位验证码"/>
+            </div>
+            <!--输入验证拆红包 -->
+            <ul>
+                <li>
+                    <div class="chance p_chance">
+                        <label for="checkbox" class="law_x "><input id="j_law" type="checkbox" class="imitate-checkbox"
+                                                                    checked="checked" value="1"><span
+                                class="white lawp_chance">我已阅读并同意<a href="/law.html"
+                                                                    style="color: #FFF">《法律责任声明》</a></span></label>
+                    </div>
+                </li>
+                <li>
+
+                    <button class="btn btn-orange" id="j_lottery">立即拆红包</button>
+                    <p class="more yellow">
+                        <?php echo $_smarty_tpl->tpl_vars['activity']->value['descrpition'];?>
+</p>
+                </li>
+            </ul>
+        </div>
     </div>
-  </form> 
-  <div class="login-help-panel">
-    <a class="login-remember-pwd" href="javascript:void(0);" onclick="javascript:rememberPwd();">
-	 <i id="rememberPwdIcon" class="icon24-login checkbox"></i>记住帐号</a>
-    <a class="login-forget-pwd" href="">无法登录？</a>
-  </div>
-  <div class="login-btn-panel">
-    <a class="login-btn" title="点击登录" href="javascript:AjaxSubmit('login-form');" id="login_button">登录</a>
-    <span style="color:red;display:inline"><?php echo $_smarty_tpl->tpl_vars['error']->value;?>
-</span>
-  </div>
-</div>
-</div>
-</div>
+    <!-- 客服热线 -->
+    <div class="lottery-tip">客服热线：400-020-1906<br>更多活动与奖品请关注巴乡村酒业微信公众号</div>
+    <!-- <div style="height:50px;"></div> -->
+</section>
+
+<!-- 拆开奖项 -->
+<section class="open-scan" id="open-area" style="display: none">    <!-- 拆开奖项 -->
+    <div class="open-area">
+        <div class="open-area-top s-win"><h2 class="title"><i>恭喜您获得</i>
+        </h2> <!-- 积分，话费领取 -->
+            <div class="prize"><p class="p-inte"><i class="big" id="money"></i>元</p>
+
+                <p class="p-pour-t">您可以领取相应话费。</p></div>
+        </div>
+        <div class="float-img"><img src="/images/redpacket/s_4.png" height="128" width="640" alt=""/></div>
+    </div>
+    <div class="open-scan-bottom">
+        <div class="btn-area overdue" style="display: none" id="overdue-area">
+            <input type="button" value="奖品已被领取"/>
+        </div>
+        <div class="input-area" id="input-area">
+            <input class="input-text" type="text" placeholder="请输入手机号码" id="phone"/>
+            <br>
+            <input class="btn-receive" type="button" value="领取话费" onclick="receive();"/>
+        </div>
+    </div>
+</section>
+
+
+<!--<div class="footer">-->
+<!--<p>吸烟有害健康</p>-->
+<!--</div>-->
 <script type="text/javascript">
-/*
-* 记住密码
-*/
-function rememberPwd(){
- var classNow = document.getElementById('rememberPwdIcon');
- if(classNow.className=='icon24-login checkbox')
- {
-    classNow.className = 'icon24-login checkbox_checked';
-	$("#rememberPwd").val(1);
-	return ;
- }
- if(classNow.className=='icon24-login checkbox_checked')
- {
-    classNow.className = 'icon24-login checkbox';
-	$("#rememberPwd").val(0);
-	return ;
- }
-}
+    var prize_name = ''; //奖品名称
+    var get_name = ''; //领取名称
 
-/*
-* 切换登录用户
-*/
-function switchLoginUser(user){
-  var usertype = new Array("property","represent","agent");
-  var count = usertype.length;
-  for(var i=0; i < count; i++){
-    if(user==usertype[i]){
-	  document.getElementById(user).className="onclick";
-	}else{
-	  document.getElementById(usertype[i]).className = "";
-	}
-  }
-  var action = "/"+user+"/login";
-  document.forms["login-form"].action = action;    
-}
+    var scroll_prize;
+    $(function () {
+        scroll_prize = setInterval('auto_scroll(".jc_scroll")', 2000);
+        //重拆红包
+        $('#reset').click(function () {
+            $('.jc_captcha_error').hide();
+            $('.jc_captcha_init').show();
+            $('.jc_captcha').show();
+        });
+
+        //拆红包
+        $('#j_lottery').click(function () {
+            var captcha = '';
+            captcha = $('#captcha').val();
+            $('#valifycode').val(captcha);
+            if (captcha.length == 0) {
+                common.hint('请填写校验码！');
+                return false;
+            }
+            if (captcha.length != 6) {
+                common.hint('请填写6位校验码！');
+                return false;
+            }
+            if (!$('#j_law').is(':checked')) {
+                common.hint('请勾选“法律责任声明”！');
+                return false;
+            }
+            var d = new Date();
+            var activity_id = $('#activity_id').val();
+            $.post("/redpacket.php",
+                    {
+                        act: "draw", code: captcha, activity_id: activity_id
+                    },
+                    function (data) {
+                        var data = json_decode(data);
+                        if (data.error == 0) {
+                            $('#valify-area').css("display", "none");
+                            $('#open-area').css("display", "block");
+                            $('#money').html(data.money);
+                        }
+                        if (data.error == 1) {
+                            /* 弹出错误提示 */
+                            common.hint(data.data);
+                        }
+                    });
+        });
+    });
+
+    function receive() {
+        var valifycode = $('#valifycode').val();
+        var activity_id = $('#activity_id').val();
+        var account = $('#phone').val();
+        $.post("/redpacket.php",
+                {
+                    act: "receive", code: valifycode, activity_id: activity_id, account: account
+                },
+                function (data) {
+                    var data = json_decode(data);
+                    if (data.error == 0) {
+                        $('#input-area').css("display", "none");
+                        $('#overdue-area').css("display", "block");
+                        common.hint(data.data);
+                        $('#overdue-area input').val(data.data);
+                    }
+                    if (data.error == 1) {
+                        /* 弹出错误提示 */
+                        common.hint(data.data);
+                    }
+                });
+    }
 </script>
 
 </body>

@@ -7,7 +7,7 @@
     <meta http-equiv="Expires" content="-1">
     <meta http-equiv="Cache-Control" content="no-cache">
     <meta http-equiv="Pragma" content="no-cache">
-    <title>巴乡春酒业</title>
+    <title>巴乡春酒业-{$activity.name}</title>
     <script type="text/javascript" src="/templates/js/redpacket/zepto.js"></script>
     <script type="text/javascript" src="/templates/js/redpacket/common.js"></script>
     <script type="text/javascript" src="/templates/js/redpacket/utils.js"></script>
@@ -17,15 +17,15 @@
 </head>
 <body id="body">
 <header>
-    <h1 id="j_time">抽取红包</h1>
-    <a class="h-r" href="http://guangdong-tobacco.ycwemedia.com/scan/rule?brand_id=1&barcode=TJ1RM275IV5">活动规则</a>
+    <h1 id="j_time">{$activity.name}</h1>
+    <a class="h-r" href="/law.html">活动规则</a>
 </header>
 <section id="ad_wrap">
     <div class="ad_pic">
-        <img src="/images/redpacket/s_01.jpg" height="352" width="640" alt=""/>
+        <img src="{$activity.image_address}" height="352" width="640" alt=""/>
     </div>
 </section>
-<input id="activity_id" value="{$activity_id}" style="display: none">
+<input id="activity_id" value="{$activity.key_id}" style="display: none">
 <input id="valifycode" style="display: none">
 <!-- 验证 -->
 <section class="lottery-wrap" id="valify-area">
@@ -61,13 +61,13 @@
 
                     <button class="btn btn-orange" id="j_lottery">立即拆红包</button>
                     <p class="more yellow">
-                        注：活动期间凡购买双喜（经典工坊）、双喜（喜百年）、双喜（百年经典）、双喜（和喜）香烟可轻松获取百元话费，还有小米手机大礼天天放送，机会多多，永不落空。</p>
+                        {$activity.descrpition}</p>
                 </li>
             </ul>
         </div>
     </div>
     <!-- 客服热线 -->
-    <div class="lottery-tip">客服热线：400-020-1906<br>更多活动与奖品请关注双喜微信公众号</div>
+    <div class="lottery-tip">客服热线：400-020-1906<br>更多活动与奖品请关注巴乡村酒业微信公众号</div>
     <!-- <div style="height:50px;"></div> -->
 </section>
 

@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.7, created on 2015-12-13 00:39:43
+<?php /* Smarty version Smarty-3.1.7, created on 2016-01-07 20:56:21
          compiled from ".\templates\admin\masssend.htm" */ ?>
 <?php /*%%SmartyHeaderCode:8908566c4dcfc4a0c3-60561842%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '9c952a9838e5fddb0757a1fdfd2b065c3f648bb4' => 
     array (
       0 => '.\\templates\\admin\\masssend.htm',
-      1 => 1404099140,
+      1 => 1450618919,
       2 => 'file',
     ),
   ),
@@ -15,6 +15,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
+  'version' => 'Smarty-3.1.7',
+  'unifunc' => 'content_566c4dd25b707',
   'variables' => 
   array (
     'act' => 0,
@@ -29,8 +31,6 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'p' => 0,
   ),
   'has_nocache_code' => false,
-  'version' => 'Smarty-3.1.7',
-  'unifunc' => 'content_566c4dd25b707',
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_566c4dd25b707')) {function content_566c4dd25b707($_smarty_tpl) {?><?php echo $_smarty_tpl->getSubTemplate ('admin/library/page_header.htm', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null, array(), 0);?>
 

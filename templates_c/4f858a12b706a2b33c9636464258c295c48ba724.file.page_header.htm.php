@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.7, created on 2015-12-21 16:12:33
+<?php /* Smarty version Smarty-3.1.7, created on 2016-01-07 23:32:36
          compiled from ".\templates\admin\library\page_header.htm" */ ?>
 <?php /*%%SmartyHeaderCode:6671566bdf8cf41e37-29572595%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '4f858a12b706a2b33c9636464258c295c48ba724' => 
     array (
       0 => '.\\templates\\admin\\library\\page_header.htm',
-      1 => 1450685551,
+      1 => 1452180754,
       2 => 'file',
     ),
   ),
@@ -54,7 +54,6 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 
 <div class="head_box">
     <div class="head">
-        <img src="/templates/images/logo_40.png" class="logo float_l">
 
         <div class="member_info float_r">
             <div class="ml float_l">
@@ -77,27 +76,14 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 <div class="body">
     <div class="container_box">
         <div class="col_side">
-            <dl class="dl" style="border-top:0">
-                <dt class="dt">
-                    <i class="icon_menu" style="background:url(/templates/images/index.png) -175px 0 no-repeat"></i>
-                    <i class="icon_switch"></i>
-                    微信端
-                </dt>
-                <dd class="dd"><a href="/admin/info.php" <?php if ($_smarty_tpl->tpl_vars['nav']->value=='info'){?>class="selected"<?php }?>>文章管理</a></dd>
-                <dd class="dd"><a href="/admin/lifenav.php" <?php if ($_smarty_tpl->tpl_vars['nav']->value=='lifenav'){?>class="selected"<?php }?>>生活导航</a></dd>
-                <dd class="dd"><a href="/admin/masssend.php" <?php if ($_smarty_tpl->tpl_vars['nav']->value=='masssend'){?>class="selected"<?php }?>>群发管理</a></dd>
-                <dd class="dd"><a href="/admin/message.php" <?php if ($_smarty_tpl->tpl_vars['nav']->value=='message'){?>class="selected"<?php }?>>短信群发</a></dd>
-            </dl>
             <dl class="dl">
                 <dt class="dt">
                     <i class="icon_menu"></i>
                     <i class="icon_switch"></i>
                     后台
                 </dt>
-                <dd class="dd"><a href="/admin/community.php" <?php if ($_smarty_tpl->tpl_vars['nav']->value=='community'){?>class="selected"<?php }?>>小区管理</a></dd>
-                <dd class="dd"><a href="/admin/region.php" <?php if ($_smarty_tpl->tpl_vars['nav']->value=='region'){?>class="selected"<?php }?>>地区管理</a></dd>
-                <dd class="dd"><a href="/admin/account.php" <?php if ($_smarty_tpl->tpl_vars['nav']->value=='account'){?>class="selected"<?php }?>>账户管理</a></dd>
                 <dd class="dd"><a href="/admin/activity.php" <?php if ($_smarty_tpl->tpl_vars['nav']->value=='activity'){?>class="selected"<?php }?>>活动管理</a></dd>
                 <dd class="dd"><a href="/admin/valifycode.php" <?php if ($_smarty_tpl->tpl_vars['nav']->value=='valifycode'){?>class="selected"<?php }?>>验证码管理</a></dd>
+                <dd class="dd"><a href="/admin/rechargerecord.php" <?php if ($_smarty_tpl->tpl_vars['nav']->value=='rechargerecord'){?>class="selected"<?php }?>>充值记录</a></dd>
             </dl>
         </div><?php }} ?>

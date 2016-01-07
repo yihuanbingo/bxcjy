@@ -13,10 +13,10 @@
 
         {if $act==default}
         <script type="text/javascript">
-            function deleteAccount(id) {
-                if (confirm("确定要删除这个账号吗？")) {
-                    $.post("/admin/account.php", {
-                                act: 'delete_account', account_id: id
+            function deleteActivity(id) {
+                if (confirm("确定要删除这个活动吗？")) {
+                    $.post("/admin/activity.php", {
+                                act: 'delete_activity', activity_id: id
                             },
                             function (data) {
 
@@ -38,15 +38,19 @@
         </form>
         <table class="info_list" cellspacing="1" width="100%">
             <tr>
-                <th width="240px">活动名称</th>
-                <th width="100px">送礼方式</th>
-                <th width="240px">送出金额类型</th>
-                <th width="240px">金额规则</th>
-                <th width="240px">活动url</th>
-                <th width="120px">操作</th>
+                <th width="15%">活动ID</th>
+                <th width="15%">活动名称</th>
+                <th width="15%">描述</th>
+                <th width="5%">送礼方式</th>
+                <th width="5%">送出金额类型</th>
+                <th width="15%">金额规则</th>
+                <th width="20%">活动url</th>
+                <th width="10">操作</th>
             </tr>
             {foreach from=$list.res item=l}
+            <td>{$l.key_id}</td>
             <td>{$l.name}</td>
+            <td>{$l.descrpition}</td>
             <td>{if $l.gift_type==0}话费{else}其他{/if}</td>
             <td>{if $l.money_type==0}固定金额{else}随机金额{/if}</td>
             <td>{$l.money_rule}</td>
@@ -57,11 +61,11 @@
             <!--</a>-->
             <!--</td>-->
             <td align="center">
-                <div id="edit_view_{$r.info_id}">
+                <div>
                     <a href="/admin/activity.php?act=edit_activity&activity_id={$l.key_id}">
                         <img src="/templates/images/icon/icon_edit.gif" title="编辑">
                     </a>&ensp;
-                    <a href="javascript:void(0)" onclick="javascript:deleteInfo({$r.info_id});">
+                    <a href="javascript:void(0)" onclick="javascript:deleteActivity('{$l.key_id}');">
                         <img src="/templates/images/icon/icon_trash.gif" title="删除">
                     </a>
                 </div>
@@ -119,9 +123,17 @@
 
                 <input name="act" value="add_activity" style="display:none">
                 <input name="key" value="do_add" style="display:none">
-
-            <p class="f_title">
-                <input type="button" class="btn_primary" value="确认" onclick="addActivity();">
         </form>
+        <p class="f_title">上传活动图片：
+        <p class="f_content">
+        <form id="uploadimg" action="/uploadimg.php?act=redpacket" method="post">
+            <input name="imgFile" tabindex="-1" type="file"><input type="button" name="upload" id="upload" value="上传"
+                                                                   onclick="uploadImage()">
+        </form>
+        <br>
+        <p class="f_content"><img class="thumb" id="img" src="{$activity.image_address}">
+            <br><br>
+        <p class="f_title">
+            <input type="button" class="btn_primary" value="确认" onclick="addActivity();">
         {/if}
 

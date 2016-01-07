@@ -383,6 +383,14 @@ class Admin extends Common
         return $res;
     }
 
+    // 更新验证码启用禁用状态
+    public function updateValifyCodeIsValid($key_id,$isvalid)
+    {
+        $sql = "update " . $GLOBALS['Base']->table('valifycode') . " set isvalid=$isvalid";
+        $sql .= " where key_id=$key_id";
+        $res = $GLOBALS['Mysql']->query($sql);
+        return $res;
+    }
     /* 获取充值记录 */
     public function getRechargeRecord($pageNow, $pageNum, $activity = '', $valifycode = '', $tradeaccount = '', $status = -1)
     {

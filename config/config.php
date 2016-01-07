@@ -28,8 +28,8 @@ error_reporting(E_ERROR);
 
 /* 数据库设置 */
 define('HOST','localhost');
-define('DB_USER','changsu');
-define('DB_PASS','123456');
+define('DB_USER','root');
+define('DB_PASS','19940112');
 define('CHARSET','utf8');//编码
 define('DB_NAME','bxcjy');
 define('PREFIX','bxc_');//表前缀

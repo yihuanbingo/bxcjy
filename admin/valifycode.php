@@ -37,6 +37,20 @@ if ($act == 'default') {
     $smarty->assign('use_account', $use_account);
 }
 
+if($act=='valid'){
+    $msg = array('error' => 1, 'data' => '系统错误');
+    $key_id = isset($_REQUEST['key_id']) ? intval($_REQUEST['key_id']) : 0;
+    $isvalid = isset($_REQUEST['isvalid']) ? intval($_REQUEST['isvalid']) : 0;
+    $validstatus = $isvalid==0?1:0;
+    if($admin->updateValifyCodeIsValid($key_id,$validstatus))
+    {
+        $msg = array("error"=>0,"data"=>"禁用启用成功");
+    }
+    $msg = $Json->encode($msg);
+    echo $msg;
+    exit;
+}
+
 if ($act == 'product') {
     $key = isset($_REQUEST['key']) ? $Common->charFormat($_REQUEST['key']) : '';
     $msg = array('error' => 1, 'data' => '系统错误');

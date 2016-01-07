@@ -255,6 +255,10 @@ i, cite, em, var, address, dfn {
     padding: 3px 5px;
 }
 
+.thumb {
+    width: 350px;
+}
+
 .searchinput {
     border: 1px solid #ebebeb;
     border-left: 1px solid #c4c4c4;

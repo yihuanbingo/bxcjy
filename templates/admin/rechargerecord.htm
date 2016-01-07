@@ -23,9 +23,9 @@
                         <option value="0">全部</option>
                         {foreach from=$activitylist item=l}
                         {if $l.key_id==$activity}
-                        <option value="{$l.key_id}" selected>{$l.name}</option>
+                        <option value="{$l.key_id}" selected>{$l.key_id}{$l.name}</option>
                         {else}
-                        <option value="{$l.key_id}">{$l.name}</option>
+                        <option value="{$l.key_id}">{$l.key_id}{$l.name}</option>
                         {/if}
                         {/foreach}
                     </select>

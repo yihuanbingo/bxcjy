@@ -12,6 +12,24 @@
     <div class="main_content">
 
         {if $act==default}
+        <script type="text/javascript">
+            function changeValid(key_id,isvalid) {
+                $.post("/admin/valifycode.php", {
+                            act: 'valid', key_id: key_id,isvalid:isvalid
+                        },
+                        function (data) {
+
+                            var data = json_decode(data);
+                            if (data.error == 0) {
+                                window.location.reload();
+                            }
+                            if (data.error == 1) {
+                                /* 弹出错误提示 */
+                                alertMsg(data.data);
+                            }
+                        });
+            }
+        </script>
         <form action="/admin/valifycode.php" method="get" enctype="multipart/form-data" name="search">
 
             <input type="hidden" name="page" value="1">
@@ -24,9 +42,9 @@
                         <option value="0">全部</option>
                         {foreach from=$activitylist item=l}
                         {if $l.key_id==$activity}
-                        <option value="{$l.key_id}" selected>{$l.name}</option>
+                        <option value="{$l.key_id}" selected>{$l.key_id}{$l.name}</option>
                         {else}
-                        <option value="{$l.key_id}">{$l.name}</option>
+                        <option value="{$l.key_id}">{$l.key_id}{$l.name}</option>
                         {/if}
                         {/foreach}
                     </select>
@@ -65,8 +83,8 @@
             <!--</td>-->
             <td align="center">
                 <div id="edit_view_{$r.info_id}">
-                    <a href="javascript:void(0)" onclick="javascript:deleteInfo({$r.info_id});">
-                        禁用
+                    <a href="javascript:void(0)" onclick="javascript:changeValid('{$l.key_id}','{$l.isvalid}');">
+                        {if $l.isvalid==0}禁用{else}启用{/if}
                     </a>
                 </div>
             </td>
@@ -87,9 +105,9 @@
                 <select name="activity">
                     {foreach from=$activitylist item=l}
                     {if $l.key_id==$activity}
-                    <option value="{$l.key_id}" selected>{$l.name}</option>
+                    <option value="{$l.key_id}" selected>{$l.key_id}{$l.name}</option>
                     {else}
-                    <option value="{$l.key_id}">{$l.name}</option>
+                    <option value="{$l.key_id}">{$l.key_id}{$l.name}</option>
                     {/if}
                     {/foreach}
                 </select>

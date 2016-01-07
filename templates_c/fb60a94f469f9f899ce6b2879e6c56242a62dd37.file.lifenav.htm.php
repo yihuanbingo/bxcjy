@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.7, created on 2015-12-18 11:28:00
+<?php /* Smarty version Smarty-3.1.7, created on 2016-01-07 20:56:16
          compiled from ".\templates\admin\lifenav.htm" */ ?>
 <?php /*%%SmartyHeaderCode:2614256737d409501f3-49988884%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'fb60a94f469f9f899ce6b2879e6c56242a62dd37' => 
     array (
       0 => '.\\templates\\admin\\lifenav.htm',
-      1 => 1405690704,
+      1 => 1450618919,
       2 => 'file',
     ),
   ),
@@ -15,6 +15,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
+  'version' => 'Smarty-3.1.7',
+  'unifunc' => 'content_56737d41d8e0f',
   'variables' => 
   array (
     'cat_id' => 0,
@@ -49,8 +51,6 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'h' => 0,
   ),
   'has_nocache_code' => false,
-  'version' => 'Smarty-3.1.7',
-  'unifunc' => 'content_56737d41d8e0f',
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_56737d41d8e0f')) {function content_56737d41d8e0f($_smarty_tpl) {?><?php echo $_smarty_tpl->getSubTemplate ('admin/library/page_header.htm', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null, array(), 0);?>
 

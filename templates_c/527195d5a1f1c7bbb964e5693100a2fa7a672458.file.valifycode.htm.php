@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.7, created on 2015-12-21 16:15:22
+<?php /* Smarty version Smarty-3.1.7, created on 2016-01-08 00:15:18
          compiled from ".\templates\admin\valifycode.htm" */ ?>
 <?php /*%%SmartyHeaderCode:225045673e28d771603-33744754%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '527195d5a1f1c7bbb964e5693100a2fa7a672458' => 
     array (
       0 => '.\\templates\\admin\\valifycode.htm',
-      1 => 1450685720,
+      1 => 1452183311,
       2 => 'file',
     ),
   ),
@@ -45,6 +45,24 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     <div class="main_content">
 
         <?php if ($_smarty_tpl->tpl_vars['act']->value=='default'){?>
+        <script type="text/javascript">
+            function changeValid(key_id,isvalid) {
+                $.post("/admin/valifycode.php", {
+                            act: 'valid', key_id: key_id,isvalid:isvalid
+                        },
+                        function (data) {
+
+                            var data = json_decode(data);
+                            if (data.error == 0) {
+                                window.location.reload();
+                            }
+                            if (data.error == 1) {
+                                /* 弹出错误提示 */
+                                alertMsg(data.data);
+                            }
+                        });
+            }
+        </script>
         <form action="/admin/valifycode.php" method="get" enctype="multipart/form-data" name="search">
 
             <input type="hidden" name="page" value="1">
@@ -53,7 +71,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
             <table>
                 <td align="right">活动：</td>
                 <td style="padding-right: 20px">
-                    <select name="activity">
+                    <select name="activity" id="activity">
                         <option value="0">全部</option>
                         <?php  $_smarty_tpl->tpl_vars['l'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['l']->_loop = false;
  $_from = $_smarty_tpl->tpl_vars['activitylist']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
@@ -62,25 +80,28 @@ $_smarty_tpl->tpl_vars['l']->_loop = true;
 ?>
                         <?php if ($_smarty_tpl->tpl_vars['l']->value['key_id']==$_smarty_tpl->tpl_vars['activity']->value){?>
                         <option value="<?php echo $_smarty_tpl->tpl_vars['l']->value['key_id'];?>
-" selected><?php echo $_smarty_tpl->tpl_vars['l']->value['name'];?>
+" selected><?php echo $_smarty_tpl->tpl_vars['l']->value['key_id'];?>
+<?php echo $_smarty_tpl->tpl_vars['l']->value['name'];?>
 </option>
                         <?php }else{ ?>
                         <option value="<?php echo $_smarty_tpl->tpl_vars['l']->value['key_id'];?>
-"><?php echo $_smarty_tpl->tpl_vars['l']->value['name'];?>
+"><?php echo $_smarty_tpl->tpl_vars['l']->value['key_id'];?>
+<?php echo $_smarty_tpl->tpl_vars['l']->value['name'];?>
 </option>
                         <?php }?>
                         <?php } ?>
                     </select>
                 </td>
                 <td align="right">验证码：</td>
-                <td style="padding-right: 20px"><input type="text" class="searchinput" name="valifycode"
+                <td style="padding-right: 20px"><input type="text" class="searchinput" name="valifycode" id="valifycode"
                                                        value="<?php echo $_smarty_tpl->tpl_vars['valifycode']->value;?>
 "></td>
                 <td align="right">使用账号：</td>
-                <td style="padding-right: 20px"><input type="text" class="searchinput" name="use_account"
+                <td style="padding-right: 20px"><input type="text" class="searchinput" name="use_account" id="use_account"
                                                        value="<?php echo $_smarty_tpl->tpl_vars['use_account']->value;?>
 "></td>
                 <td><input type="submit" class="btn_primary" value="查询"></td>
+                <td><input type="button" class="btn_primary" id="export" name="export" value="导出excel" onclick="exportValifyCode()"></td>
             </table>
             </p>
         </form>
@@ -117,9 +138,10 @@ $_smarty_tpl->tpl_vars['l']->_loop = true;
             <td align="center">
                 <div id="edit_view_<?php echo $_smarty_tpl->tpl_vars['r']->value['info_id'];?>
 ">
-                    <a href="javascript:void(0)" onclick="javascript:deleteInfo(<?php echo $_smarty_tpl->tpl_vars['r']->value['info_id'];?>
-);">
-                        禁用
+                    <a href="javascript:void(0)" onclick="javascript:changeValid('<?php echo $_smarty_tpl->tpl_vars['l']->value['key_id'];?>
+','<?php echo $_smarty_tpl->tpl_vars['l']->value['isvalid'];?>
+');">
+                        <?php if ($_smarty_tpl->tpl_vars['l']->value['isvalid']==0){?>禁用<?php }else{ ?>启用<?php }?>
                     </a>
                 </div>
             </td>
@@ -133,7 +155,8 @@ $_smarty_tpl->tpl_vars['l']->_loop = true;
         </div>
         <?php }?>
         <?php if ($_smarty_tpl->tpl_vars['act']->value=='product'){?>
-        <form action="/admin/valifycode.php" method="post" enctype="multipart/form-data" id="product_valifycode" class="form">
+        <form action="/admin/valifycode.php" method="post" enctype="multipart/form-data" id="product_valifycode"
+              class="form">
             <p class="f_title">活动：
 
             <p class="f_content">
@@ -145,11 +168,13 @@ $_smarty_tpl->tpl_vars['l']->_loop = true;
 ?>
                     <?php if ($_smarty_tpl->tpl_vars['l']->value['key_id']==$_smarty_tpl->tpl_vars['activity']->value){?>
                     <option value="<?php echo $_smarty_tpl->tpl_vars['l']->value['key_id'];?>
-" selected><?php echo $_smarty_tpl->tpl_vars['l']->value['name'];?>
+" selected><?php echo $_smarty_tpl->tpl_vars['l']->value['key_id'];?>
+<?php echo $_smarty_tpl->tpl_vars['l']->value['name'];?>
 </option>
                     <?php }else{ ?>
                     <option value="<?php echo $_smarty_tpl->tpl_vars['l']->value['key_id'];?>
-"><?php echo $_smarty_tpl->tpl_vars['l']->value['name'];?>
+"><?php echo $_smarty_tpl->tpl_vars['l']->value['key_id'];?>
+<?php echo $_smarty_tpl->tpl_vars['l']->value['name'];?>
 </option>
                     <?php }?>
                     <?php } ?>
@@ -166,7 +191,8 @@ $_smarty_tpl->tpl_vars['l']->_loop = true;
                 <input name="key" value="do_add" style="display:none">
 
             <p class="f_title">
-                <input type="button" class="btn_primary" id="product" value="生成" onclick="javascript:productValifyCode('product_valifycode');">
+                <input type="button" class="btn_primary" id="product" value="生成"
+                       onclick="javascript:productValifyCode('product_valifycode');">
         </form>
         <div id="loading" class="loading" style="display:none">验证码生成中,请等待...</div>
         <?php }?><?php }} ?>

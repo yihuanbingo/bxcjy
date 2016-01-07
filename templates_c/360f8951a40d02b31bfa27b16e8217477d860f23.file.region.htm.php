@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.7, created on 2015-12-12 16:52:33
+<?php /* Smarty version Smarty-3.1.7, created on 2016-01-07 01:25:19
          compiled from ".\templates\admin\region.htm" */ ?>
 <?php /*%%SmartyHeaderCode:1160566be0514bb772-21057369%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '360f8951a40d02b31bfa27b16e8217477d860f23' => 
     array (
       0 => '.\\templates\\admin\\region.htm',
-      1 => 1405070030,
+      1 => 1450618919,
       2 => 'file',
     ),
   ),
@@ -15,6 +15,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
+  'version' => 'Smarty-3.1.7',
+  'unifunc' => 'content_566be052119f3',
   'variables' => 
   array (
     'province' => 0,
@@ -35,8 +37,6 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'r' => 0,
   ),
   'has_nocache_code' => false,
-  'version' => 'Smarty-3.1.7',
-  'unifunc' => 'content_566be052119f3',
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_566be052119f3')) {function content_566be052119f3($_smarty_tpl) {?><?php echo $_smarty_tpl->getSubTemplate ('admin/library/page_header.htm', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null, array(), 0);?>
 

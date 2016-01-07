@@ -67,10 +67,6 @@ if($act=='add_activity')
         {
             $msg = array('error'=>1,'data'=>'请输入活动名称');
         }
-        elseif($Mysql->getOne("select key_id from ".$Base->table('activity')." where name = '".$name."'"))
-        {
-            $msg = array("error"=>1,"data"=>"活动名已存在");
-        }
         else
         {
             $key_id = $Common->get_orderid("hd");
@@ -97,8 +93,17 @@ if($act=='edit_activity')
     $activity = $admin->getActivity($activity_id);
     if(empty($key))
     {
-        $community = $Mysql->getAll("select community_id,community_name from ".$Base->table('community'));
-        $smarty->assign('community',$community);
+        //随机
+        if($activity['money_type']==1)
+        {
+            $ruleres = array();
+            $rulearr = explode('|', $activity['money_rule']);
+            foreach ($rulearr as $v) {
+                $arr = explode(':', $v);
+                $ruleres[$arr[0]] = $arr[1];
+            }
+            $smarty->assign("ruleres",$ruleres);
+        }
     }
     elseif($key=='do_edit')
     {
@@ -133,10 +138,6 @@ if($act=='edit_activity')
         {
             $msg = array('error'=>1,'data'=>'请输入活动名称');
         }
-        elseif($name!=$activity['name']&&$Mysql->getOne("select key_id from ".$Base->table('activity')." where name = '".$name."'"))
-        {
-            $msg = array("error"=>1,"data"=>"活动名已存在");
-        }
         else
         {
             $data = array('name'=>$name,'descrpition'=>$descrpition,'gift_type'=>$gift_type,'money_type'=>$money_type,
@@ -145,7 +146,7 @@ if($act=='edit_activity')
             $where = array('key_id'=>$activity_id);
             if($Mysql->update($data,$table,$where))
             {
-                $msg = array("error"=>0,"data"=>"新建成功","href"=>"/admin/activity.php");
+                $msg = array("error"=>0,"data"=>"修改成功","href"=>"/admin/activity.php");
             }
         }
         $msg = $Json->encode($msg);
@@ -160,6 +161,20 @@ if($act=='edit_activity')
     exit;
 }
 
+/* 删除活动 */
+elseif($act=='delete_activity')
+{
+    $activity_id = isset($_POST['activity_id']) ? $_POST['activity_id'] : '';
+    $msg = array("error"=>1,"data"=>"系统错误，请重试");
+    $sql = "delete from ".$Base->table('activity')." where key_id = '$activity_id'";
+    if($Mysql->query($sql))
+    {
+        $msg = array("error"=>0,"data"=>"删除成功");
+    }
+    $msg = $Json->encode($msg);
+    echo $msg;
+    exit;
+}
 
 $smarty->assign('act',$act);
 $smarty->assign('nav','activity');

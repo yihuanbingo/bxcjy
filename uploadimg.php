@@ -26,11 +26,11 @@ list($picWidth, $picHeight) = getimagesize($_FILES['imgFile']['tmp_name']);   //
  
 
 /* 通知详情的图片 */
-if($act=='notice' || $act=='intro' || $act=='info' || $act=='lifenav')
+if($act=='notice' || $act=='intro' || $act=='info' || $act=='lifenav' || $act=='redpacket')
 {
    $maxSize =  1*1024*1024 ;
    $dir_name .= $act ;
-   if($picSize>$maxSize)    // 检查图片大小 
+   if($picSize>$maxSize)    // 检查图片大小
    {
       $msg['error'] = 1;
       $msg['message'] = '上传图片不能大于1M' ;

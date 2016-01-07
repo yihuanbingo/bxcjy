@@ -29,6 +29,10 @@ function addActivity() {
             alertMsg("金额不能为空");
             return false;
         }
+        if (!isNum(moneynum) && !isDecimal(moneynum)) {
+            alertMsg("金额必须为数字");
+            return false;
+        }
     }
 
     $("#add_activity").ajaxSubmit({
@@ -92,6 +96,10 @@ function editActivity() {
         var moneynum = $("#money_num").val();
         if (moneynum == "") {
             alertMsg("金额不能为空");
+            return false;
+        }
+        if (!isNum(moneynum) && !isDecimal(moneynum)) {
+            alertMsg("金额必须为数字");
             return false;
         }
     }
@@ -201,4 +209,22 @@ function selectMoneyType() {
         $("#gudingdiv").css("display", "none");
         $("#suijidiv" + gifttype).css("display", "block");
     }
+}
+
+function uploadImage() {
+    $("#uploadimg").ajaxSubmit({
+        success: function (data) {
+            var data = json_decode(data);
+            if (data.error == 1) {
+                //$("#ajaxMsg").html(data.data);
+                //$("#ajaxMsg").show();
+                alertMsg(data.data);
+            }
+            if (data.error == 0) {
+                alertMsg("上传成功");
+                $("#img").attr("src", data.url);
+                $("#image_address").val(data.url);
+            }
+        }
+    });
 }
