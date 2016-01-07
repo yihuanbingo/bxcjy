@@ -1,0 +1,61 @@
+{include file='admin/library/page_header.htm'}
+
+<div class="col_main">
+    <div class="main_hd">
+        <div class="title_tab">
+            <ul class="tab_navs">
+                <li {if $act==default||new_account}class="selected"{/if}><a href="/admin/activity.php">活动列表</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main_content">
+        {if $act==edit_activity}
+        <form action="/admin/activity.php" method="post" enctype="multipart/form-data" id="edit_activity" class="form">
+            <p class="f_title">活动名称：<span class="color999 fontSize12">（活动名不多于30个字符）</span>
+
+            <p class="f_content"><input type="text" id="name" name="name" class="input" value="{$activity.name}">
+
+            <p class="f_title">活动描述：
+
+            <p class="f_content">
+                <textarea type="text" id="descrpition" name="descrpition" class="input">{$activity.descrpition}</textarea>
+
+            <p class="f_title">送礼方式：
+
+            <p class="f_content">
+                <select name="gift_type" id="gift_type" onchange="selectGiftType()">
+                    <option value="0" {if $activity.gift_type==0}selected{/if}>话费</option>
+                </select>
+            <p class="f_title">送出金额类型：
+
+            <p class="f_content">
+                <select name="money_type" id="money_type" onchange="selectMoneyType()">
+                    <option value="0" {if $activity.money_type==0}selected{/if}>固定金额</option>
+                    <option value="1" {if $activity.money_type==1}selected{/if}>随机金额</option>
+                </select>
+            <div id="gudingdiv" style="display: block">
+                <p class="f_title">送出金额数：
+                <p class="f_content"><input type="text" name="money_num" id="money_num" class="input" value="{$activity.money_rule}">
+            </div>
+            <div id="suijidiv0" style="display: none">
+                <p class="f_title">随机规则：
+                <p class="f_content">
+                    &nbsp;&nbsp;0：<input type="text" class="smallinput" id="huafei0" name="huafei0">%
+                    &nbsp;&nbsp;1：<input type="text" class="smallinput" id="huafei1" name="huafei1">%
+                    &nbsp;&nbsp;2：<input type="text" class="smallinput" id="huafei2" name="huafei2">%
+                    &nbsp;&nbsp;5：<input type="text" class="smallinput" id="huafei5" name="huafei5">%
+                    10：<input type="text" class="smallinput" id="huafei10" name="huafei10">%
+                    <br>
+                    20：<input type="text" class="smallinput" id="huafei20" name="huafei20">%
+            </div>
+            <p class="f_title">图片地址：
+            <p class="f_content"><input type="text" id="image_address" name="image_address" class="input" value="{$activity.image_address}">
+
+                <input name="act" value="edit_activity" style="display:none">
+                <input name="key" value="do_edit" style="display:none">
+
+            <p class="f_title">
+                <input type="button" class="btn_primary" value="确认" onclick="addActivity();">
+        </form>
+        {/if}

@@ -50,7 +50,7 @@
             <td>{if $l.gift_type==0}话费{else}其他{/if}</td>
             <td>{if $l.money_type==0}固定金额{else}随机金额{/if}</td>
             <td>{$l.money_rule}</td>
-            <td>{$l.activity_url}</td>
+            <td>{$l.activi_url}</td>
             <!--<td>-->
             <!--<a href="javascript:void(0)" onclick="javascript:deleteAccount({$l.account_id});">-->
             <!--<img src="/templates/images/icon/icon_trash.gif" title="删除">-->
@@ -58,7 +58,7 @@
             <!--</td>-->
             <td align="center">
                 <div id="edit_view_{$r.info_id}">
-                    <a href="/admin/info.php?key=operate&info_id={$r.info_id}">
+                    <a href="/admin/activity.php?act=edit_activity&activity_id={$l.key_id}">
                         <img src="/templates/images/icon/icon_edit.gif" title="编辑">
                     </a>&ensp;
                     <a href="javascript:void(0)" onclick="javascript:deleteInfo({$r.info_id});">
@@ -124,3 +124,4 @@
                 <input type="button" class="btn_primary" value="确认" onclick="addActivity();">
         </form>
         {/if}
+

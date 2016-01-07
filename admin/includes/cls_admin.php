@@ -226,19 +226,19 @@ class Admin extends Common
     /* 根据ID获取活动 */
     public function getActivity($activity_id)
     {
-        $sql = "select * from " . $GLOBALS['Base']->table('activity') . " where key_id=$activity_id";
+        $sql = "select * from " . $GLOBALS['Base']->table('activity') . " where key_id='$activity_id'";
         $res = $GLOBALS['Mysql']->getRow($sql);
         return $res;
     }
 
     /* 获取验证码 */
-    public function getValify($pageNow, $pageNum, $activity = 0, $valifycode = '', $use_account = '')
+    public function getValify($pageNow, $pageNum, $activity = '', $valifycode = '', $use_account = '')
     {
         $start = ($pageNow - 1) * $pageNum;
         $sql = "select * from " . $GLOBALS['Base']->table('valifycode');
         $where = "where isdelete=0 ";
         if ($activity != 0) {
-            $where .= "and activity_id=$activity ";
+            $where .= "and activity_id='$activity' ";
         }
 
         if (!empty($valifycode)) {
@@ -259,12 +259,12 @@ class Admin extends Common
     }
 
     /* 根据条件获取验证码 */
-    public function getValifyByCondition($activity = 0, $valifycode = '', $use_account = '')
+    public function getValifyByCondition($activity = '', $valifycode = '', $use_account = '')
     {
         $sql = "select * from " . $GLOBALS['Base']->table('valifycode');
         $where = "where isdelete=0 ";
         if ($activity != 0) {
-            $where .= "and activity_id=$activity ";
+            $where .= "and activity_id='$activity' ";
         }
 
         if (!empty($valifycode)) {
@@ -281,13 +281,13 @@ class Admin extends Common
     }
 
     // 生成验证码
-    public function productValifyCode($activity, $codecount, $codedigit = 6)
+    public function productValifyCode($activity='', $codecount, $codedigit = 6)
     {
         //已经存在的验证码
-        $sql = "select valifycode from " . $GLOBALS['Base']->table('valifycode') . " where activity_id=$activity and isdelete=0 ";
+        $sql = "select valifycode from " . $GLOBALS['Base']->table('valifycode') . " where activity_id='$activity' and isdelete=0 ";
         $exitcode = $GLOBALS['Mysql']->getAll($sql);
 
-        $sql = "select name from " . $GLOBALS['Base']->table('activity') . " where key_id=$activity and isdelete=0 ";
+        $sql = "select name from " . $GLOBALS['Base']->table('activity') . " where key_id='$activity' and isdelete=0 ";
         $activity_name = $GLOBALS['Mysql']->getOne($sql);
 
         $dataArr = array();
@@ -369,7 +369,7 @@ class Admin extends Common
     public function getValifyCode($code, $activity_id)
     {
         $sql = "select * from " . $GLOBALS['Base']->table('valifycode') . " where valifycode='$code' and ";
-        $sql .= "activity_id=$activity_id and isdelete=0";
+        $sql .= "activity_id='$activity_id' and isdelete=0";
         $res = $GLOBALS['Mysql']->getRow($sql);
         return $res;
     }
@@ -378,20 +378,20 @@ class Admin extends Common
     public function updateValifyCodeMoney($code, $activity_id, $moneynum)
     {
         $sql = "update " . $GLOBALS['Base']->table('valifycode') . " set money_num=$moneynum,is_valified=1 ";
-        $sql .= " where valifycode='$code' and activity_id=$activity_id";
+        $sql .= " where valifycode='$code' and activity_id='$activity_id'";
         $res = $GLOBALS['Mysql']->query($sql);
         return $res;
     }
 
     /* 获取充值记录 */
-    public function getRechargeRecord($pageNow, $pageNum, $activity = 0, $valifycode = '', $tradeaccount = '', $status = -1)
+    public function getRechargeRecord($pageNow, $pageNum, $activity = '', $valifycode = '', $tradeaccount = '', $status = -1)
     {
         $start = ($pageNow - 1) * $pageNum;
         $sql = "select * from " . $GLOBALS['Base']->table('rechargerecord');
         $where = "where isdelete=0 ";
 
         if ($activity != 0) {
-            $where .= "and activity_id=$activity ";
+            $where .= "and activity_id='$activity' ";
         }
 
         if (!empty($valifycode)) {
@@ -416,13 +416,13 @@ class Admin extends Common
     }
 
     /* 获取充值记录 */
-    public function getRechargeRecordByCondition($activity = 0, $valifycode = '', $tradeaccount = '', $status = -1)
+    public function getRechargeRecordByCondition($activity = '', $valifycode = '', $tradeaccount = '', $status = -1)
     {
         $sql = "select * from " . $GLOBALS['Base']->table('rechargerecord');
         $where = "where isdelete=0 ";
 
         if ($activity != 0) {
-            $where .= "and activity_id=$activity ";
+            $where .= "and activity_id='$activity' ";
         }
 
         if (!empty($valifycode)) {
@@ -446,8 +446,8 @@ class Admin extends Common
     /* 更新充值记录 */
     public function updateRechargeRecord($orderid, $status, $message)
     {
-        $sql = "update " . $GLOBALS['Base']->table('rechargerecord') . " set tradestatus=$status,message=$message";
-        $sql .= " where orderid=$orderid";
+        $sql = "update " . $GLOBALS['Base']->table('rechargerecord') . " set tradestatus=$status,message='$message'";
+        $sql .= " where orderid='$orderid'";
         $res = $GLOBALS['Mysql']->query($sql);
         return $res;
     }

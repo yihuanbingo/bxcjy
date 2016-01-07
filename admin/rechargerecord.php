@@ -16,14 +16,14 @@ require("../includes/phpexcel/PHPExcel/Writer/Excel5.php");
 $act = isset($_REQUEST['act']) ? $Common->charFormat($_REQUEST['act']) : 'default';
 $aid = $_SESSION['admin']['aid'];
 $admin = new Admin();
-$activity_id = isset($_REQUEST['activity_id']) ? intval($_REQUEST['activity_id']) : 0;
+$activity_id = isset($_REQUEST['activity_id']) ? $Common->charFormat($_REQUEST['activity_id']) : 0;
 /* 充值记录列表 */
 if ($act == 'default') {
     //todo
     $pageNow = isset($_REQUEST['page']) ? intval($_REQUEST['page']) : 1;
     $pageNum = 15;
 
-    $activity = isset($_REQUEST['activity']) ? intval($_REQUEST['activity']) : 0;
+    $activity = isset($_REQUEST['activity']) ? $Common->charFormat($_REQUEST['activity']) : 0;
     $valifycode = isset($_REQUEST['valifycode']) ? $Common->charFormat($_REQUEST['valifycode']) : '';
     $tradeaccount = isset($_REQUEST['tradeaccount']) ? $Common->charFormat($_REQUEST['tradeaccount']) : '';
     $status = isset($_REQUEST['status']) ? intval($_REQUEST['status']) : -1;
@@ -41,7 +41,7 @@ if ($act == 'default') {
 
 //导出
 if ($act == 'export') {
-    $activity = isset($_REQUEST['activity']) ? intval($_REQUEST['activity']) : 0;
+    $activity = isset($_REQUEST['activity']) ? $Common->charFormat($_REQUEST['activity']) : 0;
     $valifycode = isset($_REQUEST['valifycode']) ? $Common->charFormat($_REQUEST['valifycode']) : '';
     $tradeaccount = isset($_REQUEST['tradeaccount']) ? $Common->charFormat($_REQUEST['tradeaccount']) : '';
     $status = isset($_REQUEST['status']) ? intval($_REQUEST['status']) : -1;
