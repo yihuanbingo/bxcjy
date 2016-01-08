@@ -9,10 +9,10 @@ define("IN_BS", true);
 
 require("../includes/init.php");
 require('includes/cls_admin.php');
-require("../includes/phpexcel/PHPExcel.php");
-require("../includes/phpexcel/PHPExcel/Writer/Excel2007.php");
-require("../includes/phpexcel/PHPExcel/Writer/Excel5.php");
-//Admin::checkAdminLogin();
+require("../includes/PHPExcel/PHPExcel.php");
+require("../includes/PHPExcel/PHPExcel/Writer/Excel2007.php");
+require("../includes/PHPExcel/PHPExcel/Writer/Excel5.php");
+Admin::checkAdminLogin();
 $act = isset($_REQUEST['act']) ? $Common->charFormat($_REQUEST['act']) : 'default';
 $aid = $_SESSION['admin']['aid'];
 $admin = new Admin();

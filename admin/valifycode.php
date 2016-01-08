@@ -9,10 +9,10 @@ define("IN_BS", true);
 
 require("../includes/init.php");
 require('includes/cls_admin.php');
-require("../includes/phpexcel/PHPExcel.php");
-require("../includes/phpexcel/PHPExcel/Writer/Excel2007.php");
-require("../includes/phpexcel/PHPExcel/Writer/Excel5.php");
-//Admin::checkAdminLogin();
+require("../includes/PHPExcel/PHPExcel.php");
+require("../includes/PHPExcel/PHPExcel/Writer/Excel2007.php");
+require("../includes/PHPExcel/PHPExcel/Writer/Excel5.php");
+Admin::checkAdminLogin();
 
 $act = isset($_REQUEST['act']) ? $Common->charFormat($_REQUEST['act']) : 'default';
 $aid = $_SESSION['admin']['aid'];
@@ -97,7 +97,8 @@ if ($act == 'export') {
         $objPHPExcel->getActiveSheet()->setCellValue('D' . $i, $list[$i - 2]['money_num']);
         $objPHPExcel->getActiveSheet()->setCellValue('E' . $i, $list[$i - 2]['is_used']==0?'未使用':'已使用');
         $objPHPExcel->getActiveSheet()->setCellValue('F' . $i, $list[$i - 2]['is_valified']==0?'未验证':'已验证');
-        $objPHPExcel->getActiveSheet()->setCellValue('G' . $i, $list[$i - 2]['use_account']);
+        $objPHPExcel->getActiveSheet()->getStyle('G' . $i)->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_TEXT);
+        $objPHPExcel->getActiveSheet()->setCellValueExplicit('G' . $i, $list[$i - 2]['use_account'], PHPExcel_Cell_DataType::TYPE_STRING);
         $objPHPExcel->getActiveSheet()->setCellValue('H' . $i, $list[$i - 2]['isvalid']==0?'启用':'禁用');
     }
 

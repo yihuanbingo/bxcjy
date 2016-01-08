@@ -9,7 +9,7 @@ define("IN_BS",true);
 
 require("../includes/init.php");
 require('includes/cls_admin.php');
-//Admin::checkAdminLogin();
+Admin::checkAdminLogin();
 
 $act = isset($_REQUEST['act']) ? $Common->charFormat($_REQUEST['act']): 'default' ;
 $aid = $_SESSION['admin']['aid'];
@@ -72,7 +72,7 @@ if($act=='add_activity')
             $key_id = $Common->get_orderid("hd");
             $activi_url = "http://hd.bxcjy.com/?activity_id=".$key_id;
             $data = array('key_id'=>$key_id, 'name'=>$name,'descrpition'=>$descrpition,'gift_type'=>$gift_type,'money_type'=>$money_type,
-                'image_address'=>$image_address,'money_rule'=>$money_rule,'activi_url'=>$activi_url);
+                'image_address'=>$image_address,'money_rule'=>$money_rule,'activi_url'=>$activi_url,'add_time'=>date('Y-m-d H:i:s'));
             $table = $Base->table('activity');
             if($Mysql->insert($data,$table))
             {

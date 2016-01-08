@@ -5,9 +5,10 @@
 */
 define("IN_BS",true);
 require('../includes/init.php');
-
+require('includes/cls_admin.php');
+session_start();
 $act = isset($_REQUEST['act']) ? $Common->charFormat($_REQUEST['act']): 'default' ;
-
+$admin = new Admin();
 /* 登陆界面 */
 if($act=='default')
 {
@@ -16,10 +17,9 @@ if($act=='default')
 /* 登陆操作 */
 elseif($act=='act_default')
 {
-   $account_legal = 'admin';
-   $passwd_legal = '63cd577b4b66a403d31d94fc06b5a831';
    $account = isset($_POST['account']) ? $Common->charFormat($_POST['account']): '';
    $passwd = isset($_POST['passwd']) ? $_POST['passwd']: '' ;
+   $res = $admin->getAccount($account);
    if(empty($account))
    {
       $msg = array('error'=>1,'data'=>'请输入登录账号');
@@ -28,7 +28,7 @@ elseif($act=='act_default')
    {
       $msg = array('error'=>1,'data'=>'请输入登录密码');
    }
-   elseif($account!=$account_legal || md5($passwd)!=$passwd_legal)
+   elseif(!$res || md5($passwd)!=$res['passwd'])
    {
       $msg = array('error'=>1,'data'=>'账号或密码不正确');
    }

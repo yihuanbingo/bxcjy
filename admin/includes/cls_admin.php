@@ -303,7 +303,7 @@ class Admin extends Common
                 }
             }
 
-            $data = array('activity_id' => $activity, 'activity_name' => $activity_name, 'valifycode' => $code);
+            $data = array('activity_id' => $activity, 'activity_name' => $activity_name, 'valifycode' => $code,'add_time'=>date('Y-m-d H:i:s'));
 
             array_push($dataArr, $data);
             array_push($nowcode, $codearr);
@@ -451,6 +451,14 @@ class Admin extends Common
         return $res;
     }
 
+    /* 获取充值记录 */
+    public function getRechargeRecordByOrderid($orderid)
+    {
+        $sql = "select * from ". $GLOBALS['Base']->table('rechargerecord') ." where orderid='$orderid'";
+        $res = $GLOBALS['Mysql']->getRow($sql);
+        return $res;
+    }
+
     /* 更新充值记录 */
     public function updateRechargeRecord($orderid, $status, $message)
     {
@@ -466,6 +474,14 @@ class Admin extends Common
         $sql = "update " . $GLOBALS['Base']->table('valifycode') . " set is_used=$is_used,use_account=$account";
         $sql .= " where key_id=$key_id";
         $res = $GLOBALS['Mysql']->query($sql);
+        return $res;
+    }
+
+    /* 获取账号信息 */
+    public function getAccount($account)
+    {
+        $sql = "select * from ".$GLOBALS['Base']->table('account')." where account='$account'";
+        $res = $GLOBALS['Mysql']->getRow($sql);
         return $res;
     }
 

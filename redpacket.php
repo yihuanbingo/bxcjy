@@ -13,7 +13,6 @@ require("includes/cls_phonegift.php");
 $act = isset($_REQUEST['act']) ? $Common->charFormat($_REQUEST['act']) : 'default';
 $vcode = isset($_REQUEST['vcode']) ? $Common->charFormat($_REQUEST['vcode']) : '';
 $prize = array("name" => 12);
-$msg = array("result" => 0, "error" => 1, "data" => "系统错误");
 $admin = new Admin();
 $activity_id = isset($_REQUEST['activity_id']) ? intval($_REQUEST['activity_id']) : 0;
 $code = isset($_REQUEST['code']) ? $Common->charFormat($_REQUEST['code']) : '';
@@ -76,6 +75,7 @@ if ($act == "draw") {
     }
 }
 
-echo json_encode($msg, JSON_UNESCAPED_UNICODE);
+echo $Json->encode($msg);
+//echo json_encode($msg, JSON_UNESCAPED_UNICODE);
 exit;
 ?>

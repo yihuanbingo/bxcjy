@@ -104,7 +104,7 @@
 
     var scroll_prize;
     $(function () {
-        scroll_prize = setInterval('auto_scroll(".jc_scroll")', 2000);
+//        scroll_prize = setInterval('auto_scroll(".jc_scroll")', 2000);
         //重拆红包
         $('#reset').click(function () {
             $('.jc_captcha_error').hide();
@@ -131,7 +131,7 @@
             }
             var d = new Date();
             var activity_id = $('#activity_id').val();
-            $.post("/redpacket.php",
+            $.post("http://hd.bxcjy.com/redpacket.php",
                     {
                         act: "draw", code: captcha, activity_id: activity_id
                     },

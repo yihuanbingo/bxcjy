@@ -54,14 +54,15 @@ class Recharge
      * @param  [string] $mobile   [手机号码]
      * @param  [int] $pervalue [充值面额]
      * @param  [string] $orderid  [自定义单号]
+     * @param  [string] $callback_url  [回调地址]
      * @return  [array]
      */
-    public function phone_recharge($phone, $price, $orderid)
+    public function phone_recharge($phone, $price, $orderid, $callback_url)
     {
         $price = intval($price);
         $sign = md5($phone . $price . $orderid);//校验值计算
         $url = $this->phone_recharge_url;
-        $url .= "?phone=" . $phone . "&price=" . $price . "&orderid=$orderid" . "&sign=$sign";
+        $url .= "?phone=" . $phone . "&price=" . $price . "&orderid=$orderid" . "&sign=$sign"."&callback_url=$callback_url";
         $response = $this->commoncurl($url);
         return $this->_returnArray($response);
     }

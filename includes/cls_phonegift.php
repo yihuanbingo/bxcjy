@@ -8,6 +8,7 @@
  */
 require_once("cls_rechage.php");
 require_once("cls_common.php");
+require_once("cls_json.php");
 
 class Phonegift
 {
@@ -64,16 +65,19 @@ class Phonegift
         $msg = array("result" => 0, "error" => 1, "data" => "系统错误，请重试");
         $common = new Common();
         $admin = new Admin();
+        $json = new Services_JSON();
         $orderid = $common->get_orderid(0);
         $recharge = new Recharge(APIX_PHONE_APPKEY);
         $check = $recharge->recharge_check($phone, $this->valifycode['money_num']);
         if ($check['Code'] == '0') {
 
-            $res = $recharge->phone_recharge($phone, $this->valifycode['money_num'], $orderid);
+            $res = $recharge->phone_recharge($phone, $this->valifycode['money_num'], $orderid,"http://hd.bxcjy.com/rechargecallback.php");
             $data = array('orderid' => $orderid, 'activity_id' => $this->valifycode['activity_id'],
                 'activity_name' => $this->valifycode['activity_name'], 'valifycode' => $this->valifycode['valifycode'],
                 'money_num' => $this->valifycode['money_num'], 'tradeplat' => 'APIX', 'tradeaccount' => $phone,
-                'tradestatus' => $res['Code'] == '0' ? 0 : intval($res['Code']), 'message' => json_encode($res, JSON_UNESCAPED_UNICODE));
+                'tradestatus' => $res['Code'] == '0' ? 0 : intval($res['Code']),
+                'message' =>preg_replace("#\\\u([0-9a-f]+)#ie","iconv('UCS-2','UTF-8', pack('H4', '\\1'))",$json->encode($res)) ,
+                'add_time'=>date('Y-m-d H:i:s'));
             $table = $GLOBALS['Base']->table('rechargerecord');
             $GLOBALS['Mysql']->insert($data, $table);
             if ($res && $res['Code'] == '0') {

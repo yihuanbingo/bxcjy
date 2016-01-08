@@ -32,7 +32,7 @@ CREATE TABLE `bxc_activity` (
   `activicode_url` varchar(200) NOT NULL DEFAULT '' COMMENT '活动二维码地址',
   `isdelete` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否删除（0:未删除，1:已删除）',
   `isvalid` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否有效（0:有效，1:无效）',
-  `add_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+  `add_time` datetime NOT NULL DEFAULT '1900-01-01' COMMENT '添加时间',
   `modify_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`key_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -59,7 +59,7 @@ CREATE TABLE `bxc_rechargerecord` (
   `tradestatus` int(11) NOT NULL DEFAULT '0' COMMENT '交易状态（0:充值，1:成功，其他:失败）',
   `message` text NOT NULL COMMENT '返回消息',
   `isdelete` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否删除（0:未删除，1:已删除）',
-  `add_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+  `add_time` datetime NOT NULL DEFAULT '1900-01-01' COMMENT '添加时间',
   `modify_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`key_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
@@ -87,7 +87,7 @@ CREATE TABLE `bxc_traderecord` (
   `tradestatus` int(11) NOT NULL DEFAULT '0' COMMENT '交易状态（0:失败，1:成功）',
   `failreason` varchar(200) NOT NULL DEFAULT '' COMMENT '失败原因',
   `isdelete` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否删除（0:未删除，1:已删除）',
-  `add_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+  `add_time` datetime NOT NULL DEFAULT '1900-01-01' COMMENT '添加时间',
   `modify_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`key_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -111,7 +111,7 @@ CREATE TABLE `bxc_valifycode` (
   `use_account` varchar(50) NOT NULL DEFAULT '' COMMENT '使用账号',
   `isdelete` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否删除（0:未删除，1:已删除）',
   `isvalid` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否有效（0:有效，1:无效）',
-  `add_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+  `add_time` datetime NOT NULL DEFAULT '1900-01-01' COMMENT '添加时间',
   `modify_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`key_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8;

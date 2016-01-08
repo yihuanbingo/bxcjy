@@ -7,11 +7,11 @@ define("IN_BS",true);
 
 require("../includes/init.php");
 require('includes/cls_admin.php');
-//Admin::checkAdminLogin();
+Admin::checkAdminLogin();
 
 $act = isset($_REQUEST['act']) ? $Common->charFormat($_REQUEST['act']): 'default' ;
 $aid = $_SESSION['admin']['aid'];
-
+$admin = new Admin();
 /* 账户列表 */
 if($act=='default')
 {
