@@ -20,6 +20,12 @@ $activityres = $admin->getActivity($activity_id);
 $coderes = $admin->getValifyCode($code, $activity_id);
 /* 抽取红包 */
 if ($act == "draw") {
+    if(!empty($_SESSION['draw_time'])&&(time() - $_SESSION['draw_time'])<2)
+    {
+        $msg = array("result" => $_SESSION['request_time'], "error" => 1, "data" => "请求过快");
+        exit($Json->encode($msg));
+    }
+
     if ($activityres) {
         if ($coderes) {
             if ($coderes['isvalid'] == 1) {
@@ -59,7 +65,7 @@ if ($act == "draw") {
         $msg = array("result" => 0, "error" => 1, "data" => "活动不存在");
     }
 } else if ($act == "receive") {
-    if(!empty($_SESSION['request_time'])&&(time() - $_SESSION['request_time'])<3)
+    if(!empty($_SESSION['receive_time'])&&(time() - $_SESSION['receive_time'])<3)
     {
         $msg = array("result" => $_SESSION['request_time'], "error" => 1, "data" => "请求过快");
         exit($Json->encode($msg));
