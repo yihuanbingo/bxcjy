@@ -255,6 +255,10 @@ i, cite, em, var, address, dfn {
     padding: 3px 5px;
 }
 
+textarea.input {
+    height: 100px;
+}
+
 .thumb {
     width: 350px;
 }

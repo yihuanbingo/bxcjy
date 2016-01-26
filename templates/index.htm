@@ -51,7 +51,7 @@
             <ul>
                 <li>
                     <div class="chance p_chance">
-                        <label for="checkbox" class="law_x "><input id="j_law" type="checkbox" class="imitate-checkbox"
+                        <label class="law_x "><input id="j_law" type="checkbox" class="imitate-checkbox"
                                                                     checked="checked" value="1"><span
                                 class="white lawp_chance">我已阅读并同意<a href="/law.html"
                                                                     style="color: #FFF">《法律责任声明》</a></span></label>
@@ -67,7 +67,7 @@
         </div>
     </div>
     <!-- 客服热线 -->
-    <div class="lottery-tip">客服热线：400-020-1906<br>更多活动与奖品请关注巴乡村酒业微信公众号</div>
+    <div class="lottery-tip">客服热线：400-856-7699<br>更多活动与奖品请关注重庆诗仙太白巴乡春酒业有限公司</div>
     <!-- <div style="height:50px;"></div> -->
 </section>
 
@@ -89,7 +89,7 @@
         <div class="input-area" id="input-area">
             <input class="input-text" type="text" placeholder="请输入手机号码" id="phone"/>
             <br>
-            <input class="btn-receive" type="button" value="领取话费" onclick="receive();"/>
+            <input class="btn-receive" id="receive" type="button" value="领取话费" onclick="receive();"/>
         </div>
     </div>
 </section>
@@ -154,11 +154,13 @@
         var valifycode = $('#valifycode').val();
         var activity_id = $('#activity_id').val();
         var account = $('#phone').val();
+        $('#receive').attr('disabled', true);
         $.post("/redpacket.php",
                 {
                     act: "receive", code: valifycode, activity_id: activity_id, account: account
                 },
                 function (data) {
+                    $('#receive').removeAttr("disabled");
                     var data = json_decode(data);
                     if (data.error == 0) {
                         $('#input-area').css("display", "none");

@@ -14,7 +14,7 @@ $act = isset($_REQUEST['act']) ? $Common->charFormat($_REQUEST['act']) : 'defaul
 $vcode = isset($_REQUEST['vcode']) ? $Common->charFormat($_REQUEST['vcode']) : '';
 $prize = array("name" => 12);
 $admin = new Admin();
-$activity_id = isset($_REQUEST['activity_id']) ? intval($_REQUEST['activity_id']) : 0;
+$activity_id = isset($_REQUEST['activity_id']) ? $Common->charFormat($_REQUEST['activity_id']) : '';
 $code = isset($_REQUEST['code']) ? $Common->charFormat($_REQUEST['code']) : '';
 $activityres = $admin->getActivity($activity_id);
 $coderes = $admin->getValifyCode($code, $activity_id);
@@ -59,6 +59,13 @@ if ($act == "draw") {
         $msg = array("result" => 0, "error" => 1, "data" => "活动不存在");
     }
 } else if ($act == "receive") {
+    if(!empty($_SESSION['request_time'])&&(time() - $_SESSION['request_time'])<3)
+    {
+        $msg = array("result" => $_SESSION['request_time'], "error" => 1, "data" => "请求过快");
+        exit($Json->encode($msg));
+    }
+
+    $_SESSION['request_time'] = time();
     $account = isset($_REQUEST['account']) ? $Common->charFormat($_REQUEST['account']) : '';
     switch ($activityres['gift_type']) {
         // 话费

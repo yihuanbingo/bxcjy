@@ -28,8 +28,8 @@ error_reporting(E_ERROR);
 
 /* 数据库设置 */
 define('HOST','localhost');
-define('DB_USER','root');
-define('DB_PASS','19940112');
+define('DB_USER','changsu');
+define('DB_PASS','123456');
 define('CHARSET','utf8');//编码
 define('DB_NAME','bxcjy');
 define('PREFIX','bxc_');//表前缀
@@ -40,7 +40,7 @@ define('APPSECRET','70fd10a8dfbfdb8f218e3cd4307e90ad');
 define('TOKEN','a23dfa3sdf34llk423oiu242342fasdf');
 
 /* APIX话费充值APPKEY */
-define('APIX_PHONE_APPKEY','3e8263866c22425644c869a052f53a1c');
+define('APIX_PHONE_APPKEY','307ae915fda04cdf4a1b4d9bea053f09');
 
 define('ROOT_PATH',                     './');   // 图片上传根目录
 
