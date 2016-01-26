@@ -314,6 +314,76 @@ class Admin extends Common
         return $res;
     }
 
+    // 生成验证码带金额的
+    public function productValifyCodeWithNum($activity='', $codecount, $codedigit = 6)
+    {
+        //已经存在的验证码
+        $sql = "select valifycode from " . $GLOBALS['Base']->table('valifycode') . " where activity_id='$activity' and isdelete=0 ";
+        $exitcode = $GLOBALS['Mysql']->getAll($sql);
+
+        $sql = "select * from " . $GLOBALS['Base']->table('activity') . " where key_id='$activity' and isdelete=0 ";
+        $activityres = $GLOBALS['Mysql']->getRow($sql);
+
+        $dataArr = array();
+        $nowcode = array();
+        for ($i = 0; $i < $codecount; $i++) {
+            $code = '';
+            $codearr = array('valifycode' => $code);
+            while (true) {
+                $code = $this->randValifyCode($codedigit);
+                $codearr = array('valifycode' => $code);
+                if (!empty($code) && !in_array($codearr, $exitcode) && !in_array($codearr, $nowcode)) {
+                    break;
+                }
+            }
+
+            $moneynum = $this->getMoneyNum($activityres['money_rule'],$activityres['money_type']);
+            $data = array('activity_id' => $activity, 'activity_name' => $activityres['name'], 'valifycode' => $code,
+                'money_num'=>$moneynum, 'add_time'=>date('Y-m-d H:i:s'));
+
+            array_push($dataArr, $data);
+            array_push($nowcode, $codearr);
+        }
+
+        $table = $GLOBALS['Base']->table('valifycode');
+        $res = $GLOBALS['Mysql']->insertBatch($dataArr, $table);
+        return $res;
+    }
+
+    /* 获取随机金额 */
+    public function getMoneyNum($money_rule,$money_type)
+    {
+        if (empty($money_rule)) {
+            return 0;
+        } else {
+            //固定金额
+            if ($money_type == '0') {
+                return floatval($money_rule);
+            } else {
+                //随机金额
+                $ruleres = array();
+                $rulearr = explode('|', $money_rule);
+                foreach ($rulearr as $v) {
+                    $arr = explode(':', $v);
+                    $ruleres[$arr[0]] = $arr[1];
+                }
+
+                $standard = 0;
+                //随机数1-100
+                $randnum = mt_rand(1, 100);
+                foreach ($ruleres as $k => $v) {
+                    if ($randnum > $standard && $randnum <= ($standard + intval($v))) {
+                        return floatval($k);
+                    }
+
+                    $standard = $standard + intval($v);
+                }
+
+                return 0;
+            }
+        }
+    }
+
     // 生成随机验证码
     public function randValifyCode($codedigit = 6)
     {

@@ -12,7 +12,7 @@ require('includes/cls_admin.php');
 require("../includes/PHPExcel/PHPExcel.php");
 require("../includes/PHPExcel/PHPExcel/Writer/Excel2007.php");
 require("../includes/PHPExcel/PHPExcel/Writer/Excel5.php");
-Admin::checkAdminLogin();
+//Admin::checkAdminLogin();
 
 $act = isset($_REQUEST['act']) ? $Common->charFormat($_REQUEST['act']) : 'default';
 $aid = $_SESSION['admin']['aid'];
@@ -61,7 +61,7 @@ if ($act == 'product') {
         $activity = isset($_REQUEST['activity']) ? $Common->charFormat($_REQUEST['activity']) : 0;
         $codedigit = isset($_REQUEST['codedigit']) ? intval($_REQUEST['codedigit']) : 6;
         $codecount = isset($_REQUEST['codecount']) ? intval($_REQUEST['codecount']) : 0;
-        $res = $admin->productValifyCode($activity, $codecount, $codedigit);
+        $res = $admin->productValifyCodeWithNum($activity, $codecount, $codedigit);
         if ($res) {
             $msg = array('error' => 0, 'data' => '生成成功', 'href' => '/admin/valifycode.php');
         } else {
