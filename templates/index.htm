@@ -7,7 +7,7 @@
     <meta http-equiv="Expires" content="-1">
     <meta http-equiv="Cache-Control" content="no-cache">
     <meta http-equiv="Pragma" content="no-cache">
-    <title>巴乡春酒业-{$activity.name}</title>
+    <title>诗仙太白，百年诗酒</title>
     <script type="text/javascript" src="/templates/js/redpacket/zepto.js"></script>
     <script type="text/javascript" src="/templates/js/redpacket/common.js"></script>
     <script type="text/javascript" src="/templates/js/redpacket/utils.js"></script>
@@ -18,7 +18,7 @@
 <body id="body">
 <header>
     <h1 id="j_time">{$activity.name}</h1>
-    <a class="h-r" href="/law.html">活动规则</a>
+    <a class="h-r" href="/law.php?activity_id={$activity.key_id}">活动规则</a>
 </header>
 <section id="ad_wrap">
     <div class="ad_pic">
@@ -53,7 +53,7 @@
                     <div class="chance p_chance">
                         <label class="law_x "><input id="j_law" type="checkbox" class="imitate-checkbox"
                                                                     checked="checked" value="1"><span
-                                class="white lawp_chance">我已阅读并同意<a href="/law.html"
+                                class="white lawp_chance">我已阅读并同意<a href="/law.php?activity_id={$activity.key_id}"
                                                                     style="color: #FFF">《法律责任声明》</a></span></label>
                     </div>
                 </li>

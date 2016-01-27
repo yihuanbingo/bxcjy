@@ -39,6 +39,7 @@ if($act=='add_activity')
         $msg = array("error"=>1,"data"=>"系统错误");
         $name = isset($_POST['name']) ? $Common->charFormat($_REQUEST['name']) : '';
         $descrpition = isset($_REQUEST['descrpition']) ? $Common->charFormat($_REQUEST['descrpition']) : '';
+        $activity_rule = isset($_REQUEST['activity_rule']) ? $_REQUEST['activity_rule'] : '';
         $gift_type = isset($_REQUEST['gift_type']) ? intval($_REQUEST['gift_type']) : 0;
         $money_type = isset($_REQUEST['money_type']) ? intval($_REQUEST['money_type']) : 0;
         $money_num = isset($_REQUEST['money_num']) ? doubleval($_REQUEST['money_num']) : 0;
@@ -71,8 +72,9 @@ if($act=='add_activity')
         {
             $key_id = $Common->get_orderid("hd");
             $activi_url = "http://hd.bxcjy.com/?activity_id=".$key_id;
-            $data = array('key_id'=>$key_id, 'name'=>$name,'descrpition'=>$descrpition,'gift_type'=>$gift_type,'money_type'=>$money_type,
-                'image_address'=>$image_address,'money_rule'=>$money_rule,'activi_url'=>$activi_url,'add_time'=>date('Y-m-d H:i:s'));
+            $data = array('key_id'=>$key_id, 'name'=>$name,'descrpition'=>$descrpition, 'activity_rule'=>$activity_rule,
+                'gift_type'=>$gift_type,'money_type'=>$money_type, 'image_address'=>$image_address,'money_rule'=>$money_rule,
+                'activi_url'=>$activi_url,'add_time'=>date('Y-m-d H:i:s'));
             $table = $Base->table('activity');
             if($Mysql->insert($data,$table))
             {
@@ -110,6 +112,7 @@ if($act=='edit_activity')
         $msg = array("error"=>1,"data"=>"系统错误");
         $name = isset($_POST['name']) ? $Common->charFormat($_REQUEST['name']) : '';
         $descrpition = isset($_REQUEST['descrpition']) ? $Common->charFormat($_REQUEST['descrpition']) : '';
+        $activity_rule = isset($_REQUEST['activity_rule']) ? $_REQUEST['activity_rule'] : '';
         $gift_type = isset($_REQUEST['gift_type']) ? intval($_REQUEST['gift_type']) : 0;
         $money_type = isset($_REQUEST['money_type']) ? intval($_REQUEST['money_type']) : 0;
         $money_num = isset($_REQUEST['money_num']) ? doubleval($_REQUEST['money_num']) : 0;
@@ -140,8 +143,8 @@ if($act=='edit_activity')
         }
         else
         {
-            $data = array('name'=>$name,'descrpition'=>$descrpition,'gift_type'=>$gift_type,'money_type'=>$money_type,
-                'image_address'=>$image_address,'money_rule'=>$money_rule);
+            $data = array('name'=>$name,'descrpition'=>$descrpition,'activity_rule'=>$activity_rule, 'gift_type'=>$gift_type,
+                'money_type'=>$money_type, 'image_address'=>$image_address,'money_rule'=>$money_rule);
             $table = $Base->table('activity');
             $where = array('key_id'=>$activity_id);
             if($Mysql->update($data,$table,$where))

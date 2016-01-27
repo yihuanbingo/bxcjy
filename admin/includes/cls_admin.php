@@ -326,6 +326,7 @@ class Admin extends Common
 
         $dataArr = array();
         $nowcode = array();
+        $moneyarr = $this->getDisMoney($activityres['money_rule'],$activityres['money_type'],$codecount);
         for ($i = 0; $i < $codecount; $i++) {
             $code = '';
             $codearr = array('valifycode' => $code);
@@ -337,9 +338,8 @@ class Admin extends Common
                 }
             }
 
-            $moneynum = $this->getMoneyNum($activityres['money_rule'],$activityres['money_type']);
             $data = array('activity_id' => $activity, 'activity_name' => $activityres['name'], 'valifycode' => $code,
-                'money_num'=>$moneynum, 'add_time'=>date('Y-m-d H:i:s'));
+                'money_num'=>$moneyarr[$i], 'add_time'=>date('Y-m-d H:i:s'));
 
             array_push($dataArr, $data);
             array_push($nowcode, $codearr);
@@ -350,8 +350,67 @@ class Admin extends Common
         return $res;
     }
 
+    /* 获取分配金额 */
+    public function getDisMoney($money_rule,$money_type,$count)
+    {
+        $arr = array();
+        if (empty($money_rule)) {
+            for($i=0;$i<$count;$i++)
+            {
+                $arr[] = 0;
+            }
+        } else {
+            //固定金额
+            if ($money_type == '0') {
+                for($i=0;$i<$count;$i++)
+                {
+                    $arr[] = floatval($money_rule);
+                }
+            } else {
+                //随机金额
+                $ruleres = array();
+                $rulearr = explode('|', $money_rule);
+                foreach ($rulearr as $v) {
+                    $itemarr = explode(':', $v);
+                    $ruleres[$itemarr[0]] = $itemarr[1];
+                }
+
+                ksort($ruleres);
+
+                foreach ($ruleres as $k => $v)
+                {
+                    $num = floor(floatval($v)/100*$count);
+                    for($i=0;$i<$num;$i++)
+                    {
+                        array_push($arr,floatval($k));
+                    }
+                }
+
+                if(count($arr)<$count)
+                {
+                    $min = 0;
+                    foreach($ruleres as $k => $v)
+                    {
+                        if(floatval($v)!=0)
+                        {
+                            $min = floatval($k);
+                            break;
+                        }
+                    }
+
+                    $difnum = $count-count($arr);
+                    for($j=0;$j<$difnum;$j++) {
+                        array_push($arr, $min);
+                    }
+                }
+            }
+        }
+
+        return $arr;
+    }
+
     /* 获取随机金额 */
-    public function getMoneyNum($money_rule,$money_type)
+    public function getRandMoney($money_rule,$money_type)
     {
         if (empty($money_rule)) {
             return 0;

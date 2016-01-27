@@ -64,10 +64,11 @@
         <table class="info_list" cellspacing="1" width="100%">
             <tr>
                 <th width="15%">活动ID</th>
-                <th width="15%">验证码</th>
-                <th width="15%">金额</th>
-                <th width="15%">是否使用</th>
+                <th width="10%">验证码</th>
+                <th width="10%">金额</th>
+                <th width="10%">是否使用</th>
                 <th width="20%">使用账号</th>
+                <th width="15%">生成时间</th>
                 <th width="20%">操作</th>
             </tr>
             {foreach from=$list.res item=l}
@@ -76,6 +77,7 @@
             <td>{$l.money_num}</td>
             <td>{if $l.is_used==0}未使用{else}已使用{/if}</td>
             <td>{$l.use_account}</td>
+            <td>{$l.add_time}</td>
             <!--<td>-->
             <!--<a href="javascript:void(0)" onclick="javascript:deleteAccount({$l.account_id});">-->
             <!--<img src="/templates/images/icon/icon_trash.gif" title="删除">-->
