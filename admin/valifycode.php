@@ -12,7 +12,7 @@ require('includes/cls_admin.php');
 require("../includes/PHPExcel/PHPExcel.php");
 require("../includes/PHPExcel/PHPExcel/Writer/Excel2007.php");
 require("../includes/PHPExcel/PHPExcel/Writer/Excel5.php");
-//Admin::checkAdminLogin();
+Admin::checkAdminLogin();
 
 $act = isset($_REQUEST['act']) ? $Common->charFormat($_REQUEST['act']) : 'default';
 $aid = $_SESSION['admin']['aid'];
@@ -90,6 +90,7 @@ if ($act == 'export') {
     $objPHPExcel->getActiveSheet()->setCellValue('F1', '是否验证');
     $objPHPExcel->getActiveSheet()->setCellValue('G1', '使用账号');
     $objPHPExcel->getActiveSheet()->setCellValue('H1', '是否禁用');
+    $objPHPExcel->getActiveSheet()->setCellValue('I1', '生成时间');
     for ($i = 2; $i <= count($list) + 1; $i++) {
         $objPHPExcel->getActiveSheet()->setCellValue('A' . $i, $list[$i - 2]['activity_id']);
         $objPHPExcel->getActiveSheet()->setCellValue('B' . $i, $list[$i - 2]['activity_name']);
@@ -100,6 +101,7 @@ if ($act == 'export') {
         $objPHPExcel->getActiveSheet()->getStyle('G' . $i)->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_TEXT);
         $objPHPExcel->getActiveSheet()->setCellValueExplicit('G' . $i, $list[$i - 2]['use_account'], PHPExcel_Cell_DataType::TYPE_STRING);
         $objPHPExcel->getActiveSheet()->setCellValue('H' . $i, $list[$i - 2]['isvalid']==0?'启用':'禁用');
+        $objPHPExcel->getActiveSheet()->setCellValue('I' . $i, $list[$i - 2]['add_time']);
     }
 
     $date = date("ymdHis", time());
